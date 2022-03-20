@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import AppHeader from "./components/app-header";
 import BurgerIngredients from './components/burger-ingredients';
 
 import data from "./utils/data";
+import BurgerConstructor from "./components/burger-constructor";
 
 function App() {
 
+    const [ingredients, setIngredients] = useState([
+        data[0], data[5], data[4], data[7], data[8],
+        // data[0], data[5], data[4], data[7], data[8],
+    ]);
+
     return (
         <div className="App">
-            <AppHeader />
+            <AppHeader/>
 
             <div className="container">
                 <h1>Соберите бургер</h1>
@@ -18,9 +24,7 @@ function App() {
                         <BurgerIngredients list={data}/>
                     </div>
                     <div>
-                        <div style={{background: "red"}}>
-                            pff
-                        </div>
+                        <BurgerConstructor ingredients={ingredients}/>
                     </div>
                 </div>
             </div>

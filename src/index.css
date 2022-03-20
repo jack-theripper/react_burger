@@ -11,6 +11,25 @@ body {
 
 }
 
+/*
+ * Flex
+ */
+
+.flex {
+    display: flex;
+}
+
+.flex-right {
+    justify-content: flex-end;
+}
+
+.flex-middle {
+    align-items: center;
+}
+
+/*
+ * Контейнер
+ */
 
 .container {
     display: flow-root;
@@ -21,6 +40,14 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.relative {
+    position: relative;
+}
+
+/*
+ * Сетка
+ */
 
 .grid {
     display: flex;
@@ -37,11 +64,14 @@ body {
     box-sizing: border-box;
 }
 
-.relative {
-    position: relative;
-}
+/*
+ * Отступы
+ */
 
 .margin {
     margin-bottom: 20px;
 }
 
+.margin-small {
+    margin-bottom: 10px;
+}
