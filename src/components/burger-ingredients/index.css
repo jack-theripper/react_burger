@@ -1,0 +1,13 @@
+.tabs {
+    display: flex;
+}
+
+.tabs > * { /* @ya/Tabs не влазиет по ширине. */
+    min-width: auto;
+    flex-basis: 120px;
+}
+
+.tabs-scroll {
+    max-height: calc(100vh - 250px);
+    overflow: auto;
+}
