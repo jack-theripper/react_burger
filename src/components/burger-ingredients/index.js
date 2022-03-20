@@ -1,6 +1,7 @@
 import React from "react";
 import {Tab, Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
+import PropTypeBurger from '../../utils/type-burger';
 import './index.css';
 
 /**
@@ -74,17 +75,8 @@ class BurgerIngredients extends React.Component {
 	}
 }
 
-const burgerPropType = PropTypes.shape({
-	_id: PropTypes.string,
-	name: PropTypes.string,
-	price: PropTypes.number,
-	type: PropTypes.string,
-	image: PropTypes.string,
-
-});
-
 BurgerIngredients.propTypes = {
-	list: PropTypes.arrayOf(burgerPropType.isRequired)
+	list: PropTypes.arrayOf(PropTypeBurger.isRequired)
 }
 
 BurgerIngredients.defaultProps = {
