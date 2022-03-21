@@ -35,10 +35,15 @@
     border-radius: 40px;
 }
 
-.modal-close {
-    display: block;
-    float: right;
+.modal-header {
+    display: flex;
     padding: 10px 15px
+}
+
+.modal-close {
+    position: absolute;
+    top: 35px;
+    right: 35px;
 }
 
 .modal-body {
