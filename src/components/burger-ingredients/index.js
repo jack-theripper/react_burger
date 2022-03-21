@@ -46,11 +46,11 @@ class BurgerIngredients extends React.Component {
 		const boxRect = this.tabsScroll.current.getBoundingClientRect();
 		this.setState({...this.state, viewport: 'calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)'});
 	}
-	
+
 	toggleModal = () => {
 		this.setState({...this.state, isModalOpen: !this.state.isModalOpen});
 	}
-	
+
 	openIngrInfo = (value) => {
 		return () => this.setState({isModalOpen: true, activeIngr: value});
 	}
@@ -65,31 +65,34 @@ class BurgerIngredients extends React.Component {
 
 		return (
 			<React.Fragment>
-				
-				<Modal show={this.state.isModalOpen} onClose={this.toggleModal}>
-					<h3>Детали ингредиента</h3>
-					{this.state.activeIngr && (<React.Fragment><img src={this.state.activeIngr.image} alt=""/>
-					<p>{this.state.activeIngr.name}</p>
-					<div className="flex">
-						<div>
-							Калории,ккал
-							{this.state.activeIngr.calories}
+
+				<Modal show={this.state.isModalOpen} onClose={this.toggleModal} title="Детали ингредиента">
+					{this.state.activeIngr && (
+						<div className="text-center mb-10">
+							<img src={this.state.activeIngr.image} alt=""/>
+							<p className="text text_type_main-default">{this.state.activeIngr.name}</p>
+							<div className="flex flex-gap flex-center mt-4">
+								<div>
+									<p className="text text_type_main-default text_color_inactive">Калории,ккал</p>
+									<p className="text text_type_digits-default text_color_inactive">{this.state.activeIngr.calories}</p>
+								</div>
+								<div>
+									<p className="text text_type_main-default text_color_inactive">Белки, г</p>
+									<p className="text text_type_digits-default text_color_inactive">{this.state.activeIngr.proteins}</p>
+								</div>
+								<div>
+									<p className="text text_type_main-default text_color_inactive">Жиры, г</p>
+									<p className="text text_type_digits-default text_color_inactive">{this.state.activeIngr.fat}</p>
+								</div>
+								<div>
+									<p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
+									<p className="text text_type_digits-default text_color_inactive">{this.state.activeIngr.carbohydrates}</p>
+								</div>
+							</div>
 						</div>
-						<div>
-							Белки, г
-							{this.state.activeIngr.proteins}
-						</div>
-						<div>
-							Жиры, г
-							{this.state.activeIngr.fat}
-						</div>
-						<div>
-							Углеводы, г
-							{this.state.activeIngr.carbohydrates}
-						</div>
-					</div></React.Fragment>)}
+					)}
 				</Modal>
-				
+
 				<div className="tabs">
 					{Object.keys(this.state.groups).map(key =>
 						<Tab value={key} key={key} active={this.state.activeTab === key}
