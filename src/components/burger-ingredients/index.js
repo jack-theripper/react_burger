@@ -56,6 +56,13 @@ class BurgerIngredients extends React.Component {
 	}
 
 	render() {
+
+		const titles = {
+			bun: 'Булки',
+			main: 'Начинки',
+			sauce: 'Соусы'
+		};
+
 		return (
 			<React.Fragment>
 				
@@ -86,20 +93,25 @@ class BurgerIngredients extends React.Component {
 				<div className="tabs">
 					{Object.keys(this.state.groups).map(key =>
 						<Tab value={key} key={key} active={this.state.activeTab === key}
-						     onClick={this.changeTab}>{key}</Tab>
+						     onClick={this.changeTab}>{titles[key]}</Tab>
 					)}
 				</div>
 				<div className="tabs-scroll" ref={this.tabsScroll} style={{maxHeight: this.state.viewport}}>
 					{Object.keys(this.state.groups).map(key => (
 						<React.Fragment key={key}>
-							<h2 className="margin" ref={this.createRef(key)}>{key}</h2>
-							<ul className="grid">
+							<h2 className="margin" ref={this.createRef(key)}>{titles[key]}</h2>
+							<ul className="grid p-5">
 								{this.state.groups[key].map(values => (
-									<li key={values._id} className="relative" onClick={this.openIngrInfo(values)}>
-										<img src={values.image} alt={values.name} />
-										<Counter count={1} size="default" />
-										<p className="text text_type_digits-medium">{values.price} <CurrencyIcon type="primary"/></p>
-										{values.name}
+									<li key={values._id} className="flex flex-center" onClick={this.openIngrInfo(values)}>
+										<div className="tab-item relative">
+											<img src={values.image} alt={values.name} />
+											<Counter count={1} size="default" />
+											<p className="text text_type_digits-default">
+												<span className="pr-1">{values.price}</span>
+												<CurrencyIcon type="primary"/>
+											</p>
+											<p className="m-1">{values.name}</p>
+										</div>
 									</li>
 								))}
 							</ul>

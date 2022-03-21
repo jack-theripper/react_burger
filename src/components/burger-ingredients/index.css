@@ -11,3 +11,12 @@
     max-height: calc(100vh - 250px);
     overflow: hidden scroll;
 }
+
+.tab-item {
+    cursor: pointer;
+    text-align: center;
+}
+
+.tab-item .text > * {
+    vertical-align: middle;
+}

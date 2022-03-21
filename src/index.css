@@ -27,6 +27,10 @@ body {
     align-items: center;
 }
 
+.flex-center {
+    justify-content: center;
+}
+
 /*
  * Контейнер
  */
