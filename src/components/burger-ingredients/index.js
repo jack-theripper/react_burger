@@ -1,8 +1,9 @@
 import React from "react";
-import {Tab, Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Tab, Counter, CurrencyIcon, CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import PropTypeBurger from '../../utils/type-burger';
 import './index.css';
+import Modal from "../modal/Modal";
 
 /**
  * BurgerIngredients — список ингредиентов;
@@ -22,7 +23,9 @@ class BurgerIngredients extends React.Component {
 		this.state = {
 			activeTab: Object.keys(groups)[0] ?? null,
 			groups,
-			viewport: 'calc(100vh - 250px)'
+			viewport: 'calc(100vh - 250px)',
+			isModalOpen: false,
+			activeIngr: null,
 		}
 
 		this.tabsScroll = React.createRef();
@@ -43,10 +46,43 @@ class BurgerIngredients extends React.Component {
 		const boxRect = this.tabsScroll.current.getBoundingClientRect();
 		this.setState({...this.state, viewport: 'calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)'});
 	}
+	
+	toggleModal = () => {
+		this.setState({...this.state, isModalOpen: !this.state.isModalOpen});
+	}
+	
+	openIngrInfo = (value) => {
+		return () => this.setState({isModalOpen: true, activeIngr: value});
+	}
 
 	render() {
 		return (
 			<React.Fragment>
+				
+				<Modal show={this.state.isModalOpen} onClose={this.toggleModal}>
+					<h3>Детали ингредиента</h3>
+					{this.state.activeIngr && (<React.Fragment><img src={this.state.activeIngr.image} alt=""/>
+					<p>{this.state.activeIngr.name}</p>
+					<div className="flex">
+						<div>
+							Калории,ккал
+							{this.state.activeIngr.calories}
+						</div>
+						<div>
+							Белки, г
+							{this.state.activeIngr.proteins}
+						</div>
+						<div>
+							Жиры, г
+							{this.state.activeIngr.fat}
+						</div>
+						<div>
+							Углеводы, г
+							{this.state.activeIngr.carbohydrates}
+						</div>
+					</div></React.Fragment>)}
+				</Modal>
+				
 				<div className="tabs">
 					{Object.keys(this.state.groups).map(key =>
 						<Tab value={key} key={key} active={this.state.activeTab === key}
@@ -59,7 +95,7 @@ class BurgerIngredients extends React.Component {
 							<h2 className="margin" ref={this.createRef(key)}>{key}</h2>
 							<ul className="grid">
 								{this.state.groups[key].map(values => (
-									<li key={values._id} className="relative">
+									<li key={values._id} className="relative" onClick={this.openIngrInfo(values)}>
 										<img src={values.image} alt={values.name} />
 										<Counter count={1} size="default" />
 										<p className="text text_type_digits-medium">{values.price} <CurrencyIcon type="primary"/></p>
