@@ -11,13 +11,12 @@ class Modal extends React.Component {
 		return this.props.show && ReactDOM.createPortal((
 			<div className="modal">
 				<div className="modal-dialog">
-					
-					<div style={{display: 'block', textAlign: 'right'}}>
+					<a href="#" className="modal-close">
 						<CloseIcon type="primary" onClick={this.props.onClose}/>
+					</a>
+					<div className="modal-body">
+						{this.props.children}
 					</div>
-					
-					{this.props.children}
-				
 				</div>
 			</div>
 		), document.body);

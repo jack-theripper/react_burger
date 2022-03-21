@@ -79,3 +79,22 @@ body {
 .margin-small {
     margin-bottom: 10px;
 }
+
+/*
+ * Текст
+ */
+
+.text-center {
+    text-align: center;
+}
+
+.text-120 {
+    font-size: 120px;
+}
+
+.icon-size svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    font-size: 1.25em;
+}

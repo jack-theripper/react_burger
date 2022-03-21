@@ -28,11 +28,15 @@ class BurgerConstructor extends React.Component {
 		return (
 			<div className="constr-container">
 				<Modal show={this.state.isModalOpen} onClose={this.toggleModal}>
-					<p className="text text_type_digits-large">034536</p>
-					<p>идентификатор заказа</p>
-					<CheckMarkIcon type="primary"/>
-					<p>Ваш заказ начали готовить</p>
-					<p>Дождитесь готовности на орбитальной станции</p>
+					<div className="text-center mb-10">
+						<p className="text text_type_digits-large">034536</p>
+						<p className="text text_type_main-default">идентификатор заказа</p>
+						<div className="icon-size text-120">
+							<CheckMarkIcon type="primary" />
+						</div>
+						<p className="text text_type_main-default">Ваш заказ начали готовить</p>
+						<p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
+					</div>
 				</Modal>
 				
 				<div className="flex pl-8 pl-2">
