@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import BurgerIngredients from "../burger-ingredients";
-import {Button, ConstructorElement, CurrencyIcon, CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import './index.css';
-import PropTypeBurger from './../../utils/type-burger';
+import {Button, ConstructorElement, CurrencyIcon, CheckMarkIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypeBurger from '../../utils/type-burger';
 import Modal from "../modal/Modal";
+import './index.css';
+
 /**
  * BurgerConstructor — текущий состав бургера.
  */
@@ -24,43 +25,33 @@ class BurgerConstructor extends React.Component {
 	}
 
 	render() {
-		
- 
-		
-		
 		return (
-			
-			
 			<div className="constr-container">
-				
-		
 				<Modal show={this.state.isModalOpen} onClose={this.toggleModal}>
-					<p className="text text_type_digits-large">1234567890</p>
+					<p className="text text_type_digits-large">034536</p>
 					<p>идентификатор заказа</p>
 					<CheckMarkIcon type="primary"/>
 					<p>Ваш заказ начали готовить</p>
 					<p>Дождитесь готовности на орбитальной станции</p>
 				</Modal>
 				
-				<div className="flex">
+				<div className="flex pl-8 pl-2">
 					<ConstructorElement type="top" isLocked={true} text={this.state.bun.name}
 					                    price={this.state.bun.price} thumbnail={this.state.bun.image}/>
 				</div>
 
-				<div className="main">
+				<div className="main pr-1">
 					{this.state.ingredients.map(value => {
 						return (
-							<div className="flex" key={value._id}>
-								<ConstructorElement text={value.name}
-								                    price={value.price}
-								                    thumbnail={value.image}
-								/>
+							<div className="flex flex-middle" key={value._id}>
+								<a href="#" className="p-1"><DragIcon type="primary"/></a>
+								<ConstructorElement text={value.name} price={value.price} thumbnail={value.image}/>
 							</div>
 						)
 					})}
 				</div>
 
-				<div className="flex">
+				<div className="flex pl-8 pl-2">
 					<ConstructorElement type="bottom" isLocked={true} text={this.state.bun.name}
 					                    price={this.state.bun.price} thumbnail={this.state.bun.image}
 					/>
