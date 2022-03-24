@@ -99,7 +99,7 @@ class BurgerIngredients extends React.Component {
 						     onClick={this.changeTab}>{titles[key]}</Tab>
 					)}
 				</div>
-				<div className={cl.scroll} ref={this.tabsScroll} style={{maxHeight: this.state.viewport}}>
+				<div className={cl.scroll + ' custom-scroll'} ref={this.tabsScroll} style={{maxHeight: this.state.viewport}}>
 					{Object.keys(this.state.groups).map(key => (
 						<React.Fragment key={key}>
 							<h2 className="margin" ref={this.createRef(key)}>{titles[key]}</h2>

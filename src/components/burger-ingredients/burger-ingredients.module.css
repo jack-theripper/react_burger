@@ -10,6 +10,7 @@
 .scroll {
     max-height: calc(100vh - 250px);
     overflow: hidden scroll;
+    scrollbar-width: thin;
 }
 
 .item {

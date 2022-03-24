@@ -44,7 +44,7 @@ class BurgerConstructor extends React.Component {
 					                    price={this.state.bun.price} thumbnail={this.state.bun.image}/>
 				</div>
 
-				<div className={cl.list}>
+				<div className={cl.list + ' custom-scroll'}>
 					{this.state.ingredients.map(value => {
 						return (
 							<div className="flex flex-middle" key={value._id}>

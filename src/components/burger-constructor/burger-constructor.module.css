@@ -15,4 +15,6 @@
     gap: 10px;
 
     padding-right: var(--offset-base-size);
+
+    scrollbar-width: thin;
 }
