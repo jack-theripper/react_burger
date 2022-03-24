@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../../App.css';
+import './app.module.css';
 import AppHeader from "../app-header";
 import BurgerIngredients from '../burger-ingredients';
 
