@@ -40,7 +40,7 @@ class BurgerConstructor extends React.Component {
 				</Modal>
 				
 				<div className="flex pl-8 pl-2">
-					<ConstructorElement type="top" isLocked={true} text={this.state.bun.name}
+					<ConstructorElement type="top" isLocked={true} text={this.state.bun.name + ' (верх)'}
 					                    price={this.state.bun.price} thumbnail={this.state.bun.image}/>
 				</div>
 
@@ -56,7 +56,7 @@ class BurgerConstructor extends React.Component {
 				</div>
 
 				<div className="flex pl-8 pl-2">
-					<ConstructorElement type="bottom" isLocked={true} text={this.state.bun.name}
+					<ConstructorElement type="bottom" isLocked={true} text={this.state.bun.name + ' (низ)'}
 					                    price={this.state.bun.price} thumbnail={this.state.bun.image}
 					/>
 				</div>
