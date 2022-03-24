@@ -12,7 +12,7 @@
     padding: 15px 40px;
 }
 
-.modal-dialog {
+.dialog {
     position: relative;
     box-sizing: border-box;
     margin: 0 auto;
@@ -28,24 +28,26 @@
 
     background: #1C1C21;
 
-    /* /interface/modal edge */
-
-    /* card/x-large */
     box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
     border-radius: 40px;
 }
 
-.modal-header {
+.header {
     display: flex;
-    padding: 10px 15px
+    padding: 10px 15px;
+    margin: calc(var(--offset-base-size) * 2);
+    font-family: 'Jet Brains Mono';
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 1.25;
 }
 
-.modal-close {
+.close {
     position: absolute;
     top: 35px;
     right: 35px;
 }
 
-.modal-body {
+.body {
     clear: both;
 }

@@ -1,0 +1,28 @@
+.tabs {
+    display: flex;
+}
+
+.tabs > * { /* bug в @ya/Tabs: не влазиет по ширине. */
+    min-width: auto;
+    flex-basis: 120px;
+}
+
+.scroll {
+    max-height: calc(100vh - 250px);
+    overflow: hidden scroll;
+}
+
+.item {
+    cursor: pointer;
+    text-align: center;
+}
+
+.digits {
+    vertical-align: middle;
+    font-family: 'Iceland';
+    font-weight: normal;
+    font-size: 28px;
+    line-height: .86;
+    margin: 0;
+    padding: 0;
+}

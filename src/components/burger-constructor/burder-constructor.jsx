@@ -4,7 +4,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import {Button, ConstructorElement, CurrencyIcon, CheckMarkIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypeBurger from '../../utils/type-burger';
 import Modal from "../modal/modal";
-import './index.css';
+import cl from './burger-constructor.module.css';
 
 /**
  * BurgerConstructor — текущий состав бургера.
@@ -26,7 +26,7 @@ class BurgerConstructor extends React.Component {
 
 	render() {
 		return (
-			<div className="constr-container">
+			<div className={cl.container}>
 				<Modal show={this.state.isModalOpen} onClose={this.toggleModal}>
 					<div className="text-center mb-10">
 						<p className="text text_type_digits-large">034536</p>
@@ -44,7 +44,7 @@ class BurgerConstructor extends React.Component {
 					                    price={this.state.bun.price} thumbnail={this.state.bun.image}/>
 				</div>
 
-				<div className="main pr-1">
+				<div className={cl.list}>
 					{this.state.ingredients.map(value => {
 						return (
 							<div className="flex flex-middle" key={value._id}>

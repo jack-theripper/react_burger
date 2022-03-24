@@ -1,16 +1,18 @@
-.constr-container {
+.container {
     display: flex;
     height: 100%;
     flex-direction: column;
     gap: 10px;
 }
 
-.constr-container .main {
+.list {
     flex: 1 0 auto;
     height: 0;
     overflow-y: auto;
 
     display: flex;
     flex-direction: column;
-    gap: 10px
+    gap: 10px;
+
+    padding-right: var(--offset-base-size);
 }

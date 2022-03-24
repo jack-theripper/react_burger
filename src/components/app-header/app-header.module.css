@@ -1,30 +1,19 @@
-
-.header-container {
+.container {
     background: #1C1C21;
 }
 
 .navbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     position: relative;
 }
 
-.navbar-left {
-    flex: 1;
+.center {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
 }
-
-.navbar-center {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-}
-
-.navbar-right {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-}
-
 
 .navbar ul {
     display: flex;
@@ -33,19 +22,14 @@
     list-style: none;
 }
 
-.navbar svg {
-    margin: 0 8px 0 0;
-}
-
 .navbar ul li > a {
     display: flex;
-    justify-content: center;
     align-items: center;
-    box-sizing: border-box;
     min-height: 80px;
     padding: 0 15px;
     text-decoration: none;
     color: #8585AD;
+    column-gap: 10px;
 }
 
 .navbar ul li:hover > a, .navbar .active a {

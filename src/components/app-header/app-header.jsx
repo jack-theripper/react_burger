@@ -1,5 +1,5 @@
 import React from "react";
-import './index.css';
+import cl from './app-header.module.css';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 /**
@@ -8,22 +8,23 @@ import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-devel
 class AppHeader extends React.Component {
 	render() {
 		return (
-			<header className="header-container">
-				<div className="container navbar">
-					<ul className="navbar-left">
-						<li className="active">
-							<a href="#"><BurgerIcon type="primary"/> Конструктор</a>
+			<header className={cl.container}>
+				<div className={cl.navbar + ' container'}>
+					<ul>
+						<li className={cl.active}>
+							<a href="#">
+								<BurgerIcon type="primary"/>
+								<span>Конструктор</span>
+							</a>
 						</li>
 						<li>
 							<a href="#"><ListIcon type="secondary"/> Лента заказов</a>
 						</li>
 					</ul>
-					<ul className="navbar-center">
-						<li>
-							<Logo/>
-						</li>
-					</ul>
-					<ul className="navbar-right">
+					<div className={cl.center}>
+						<Logo/>
+					</div>
+					<ul>
 						<li>
 							<a href="#"><ProfileIcon type="secondary"/> Личный кабинет</a>
 						</li>
