@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import './app.module.css';
-import AppHeader from "../app-header";
-import BurgerIngredients from '../burger-ingredients';
+import AppHeader from "../app-header/app-header";
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+// import styles from './app.module.css'; // @todo
 
 import data from "../../utils/data";
-import BurgerConstructor from "../burger-constructor";
+import BurgerConstructor from "../burger-constructor/burder-constructor";
 
 function App() {
 

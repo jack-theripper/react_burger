@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import BurgerIngredients from "../burger-ingredients";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import {Button, ConstructorElement, CurrencyIcon, CheckMarkIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypeBurger from '../../utils/type-burger';
-import Modal from "../modal/Modal";
+import Modal from "../modal/modal";
 import './index.css';
 
 /**

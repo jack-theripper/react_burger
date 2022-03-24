@@ -3,7 +3,7 @@ import {Tab, Counter, CurrencyIcon, CheckMarkIcon} from "@ya.praktikum/react-dev
 import PropTypes from 'prop-types';
 import PropTypeBurger from '../../utils/type-burger';
 import './index.css';
-import Modal from "../modal/Modal";
+import Modal from "../modal/modal";
 
 /**
  * BurgerIngredients — список ингредиентов;
