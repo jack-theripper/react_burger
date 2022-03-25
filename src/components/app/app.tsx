@@ -4,7 +4,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 // import styles from './app.module.css'; // @todo
 
 import data from "../../utils/data";
-import BurgerConstructor from "../burger-constructor/burder-constructor";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 function App() {
 
