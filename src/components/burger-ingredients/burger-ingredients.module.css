@@ -12,18 +12,3 @@
     overflow: hidden scroll;
     scrollbar-width: thin;
 }
-
-.item {
-    cursor: pointer;
-    text-align: center;
-}
-
-.digits {
-    vertical-align: middle;
-    font-family: 'Iceland';
-    font-weight: normal;
-    font-size: 28px;
-    line-height: .86;
-    margin: 0;
-    padding: 0;
-}
