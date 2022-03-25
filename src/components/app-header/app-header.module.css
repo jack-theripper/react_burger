@@ -1,0 +1,37 @@
+.container {
+    background: #1C1C21;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.navbar ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar ul li > a {
+    display: flex;
+    align-items: center;
+    min-height: 80px;
+    padding: 0 15px;
+    text-decoration: none;
+    color: #8585AD;
+    column-gap: 10px;
+}
+
+.navbar ul li:hover > a, .navbar .active a {
+    color: #F2F2F3;
+}
