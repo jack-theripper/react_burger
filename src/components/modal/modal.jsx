@@ -7,23 +7,21 @@ import PropTypes from "prop-types";
 /**
  * Всплывающее окно
  */
-class Modal extends React.Component {
-	render() {
-		return this.props.show && ReactDOM.createPortal((
-			<div className={cl.modal}>
-				<div className={cl.dialog}>
-					<a href="#" className={cl.close}>
-						<CloseIcon type="primary" onClick={this.props.onClose}/>
-					</a>
-					<h3 className={cl.header}>{this.props.title}</h3>
-					<div className={cl.body}>
-						{this.props.children}
-					</div>
+const Modal = ({children, show, title, onClose}) => {
+	return show && ReactDOM.createPortal((
+		<div className={cl.modal}>
+			<div className={cl.dialog}>
+				<a href="#" className={cl.close}>
+					<CloseIcon type="primary" onClick={onClose}/>
+				</a>
+				<h3 className={cl.header}>{title}</h3>
+				<div className={cl.body}>
+					{children}
 				</div>
 			</div>
-		), document.body);
-	}
-}
+		</div>
+	), document.body);
+};
 
 Modal.propTypes = {
 	show: PropTypes.bool,

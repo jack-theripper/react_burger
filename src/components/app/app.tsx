@@ -6,9 +6,8 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import data from "../../utils/data";
 import BurgerConstructor from "../burger-constructor/burder-constructor";
 
-function App() {
-
-    const [ingredients, setIngredients] = useState([
+const App = () => {
+    const [ingredients] = useState([ // @todo: setIngredients
         data[0], data[5], data[4], data[7], data[8],
         // data[0], data[5], data[4], data[7], data[8],
     ]);
@@ -30,6 +29,6 @@ function App() {
             </div>
         </div>
     );
-}
+};
 
 export default App;
