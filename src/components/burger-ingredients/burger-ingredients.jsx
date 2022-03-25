@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PropTypeBurger from '../../utils/type-burger';
 import Modal from "../modal/modal";
 import cl from './burger-ingredients.module.css';
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 /**
  * BurgerIngredients — список ингредиентов;
@@ -20,7 +21,7 @@ const BurgerIngredients = (props) => {
 	const [activeTab, setActiveTab] = useState(Object.keys(groups)[0] ?? null);
 	const [viewport, setViewport] = useState('calc(100vh - 250px)');
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [activeIngr, setActiveIngr] = useState(null);
+	const [selectedIngredient, setSelectedIngredient] = useState(null);
 	
 	const tabsScroll = useRef();
 	
@@ -47,7 +48,7 @@ const BurgerIngredients = (props) => {
 	const openIngrInfo = (value) => {
 		return () => {
 			setIsModalOpen(true);
-			setActiveIngr(value);
+			setSelectedIngredient(value);
 		}
 	}
 	
@@ -60,30 +61,7 @@ const BurgerIngredients = (props) => {
 	return (
 		<React.Fragment>
 			<Modal show={isModalOpen} onClose={toggleModal} title="Детали ингредиента">
-				{activeIngr && (
-					<div className="text-center mb-10">
-						<img src={activeIngr.image} alt=""/>
-						<p className="text text_type_main-default">{activeIngr.name}</p>
-						<div className="flex flex-gap flex-center mt-4">
-							<div>
-								<p className="text text_type_main-default text_color_inactive">Калории,ккал</p>
-								<p className="text text_type_digits-default text_color_inactive">{activeIngr.calories}</p>
-							</div>
-							<div>
-								<p className="text text_type_main-default text_color_inactive">Белки, г</p>
-								<p className="text text_type_digits-default text_color_inactive">{activeIngr.proteins}</p>
-							</div>
-							<div>
-								<p className="text text_type_main-default text_color_inactive">Жиры, г</p>
-								<p className="text text_type_digits-default text_color_inactive">{activeIngr.fat}</p>
-							</div>
-							<div>
-								<p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
-								<p className="text text_type_digits-default text_color_inactive">{activeIngr.carbohydrates}</p>
-							</div>
-						</div>
-					</div>
-				)}
+				<IngredientDetails ingredient={selectedIngredient} />
 			</Modal>
 			
 			<div className={cl.tabs}>
