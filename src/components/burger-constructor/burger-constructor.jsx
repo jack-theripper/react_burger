@@ -5,14 +5,14 @@ import {Button, ConstructorElement, CurrencyIcon, CheckMarkIcon, DragIcon} from 
 import PropTypeBurger from '../../utils/type-burger';
 import Modal from "../modal/modal";
 import cl from './burger-constructor.module.css';
+import OrderDetails from "../order-details/order-details";
 
 /**
  * BurgerConstructor — текущий состав бургера.
  */
-
 const BurgerConstructor = (props) => {
 	
-	// @todo: should be state?
+	// @todo: state?
 	const bun = props.ingredients.find(ingredient => ingredient.type === 'bun');
 	const ingredients = props.ingredients.filter(ingredient => ingredient.type !== 'bun');
 	
@@ -21,19 +21,16 @@ const BurgerConstructor = (props) => {
 	const toggleModal = () => {
 		setIsModalOpen(!isModalOpen);
 	}
-	
+
+	const [orderDetails, setOrderDetails] = useState({
+		id: '034536',
+		status: 'processing'
+	});
+
 	return (
 		<div className={cl.container}>
 			<Modal show={isModalOpen} onClose={toggleModal}>
-				<div className="text-center mb-10">
-					<p className="text text_type_digits-large">034536</p>
-					<p className="text text_type_main-default">идентификатор заказа</p>
-					<div className="icon-size text-120">
-						<CheckMarkIcon type="primary" />
-					</div>
-					<p className="text text_type_main-default">Ваш заказ начали готовить</p>
-					<p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
-				</div>
+				<OrderDetails order={orderDetails} />
 			</Modal>
 			
 			<div className="flex pl-8 pl-2">
