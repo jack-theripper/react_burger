@@ -1,6 +1,6 @@
 import React from 'react';
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {OrderPropType} from "../../utils/type-burger";
+import {OrderPropType} from "../../propTypes";
 
 /**
  * Детали заказа.

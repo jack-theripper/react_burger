@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import PropTypes from 'prop-types';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import {Button, ConstructorElement, CurrencyIcon, CheckMarkIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypeBurger from '../../utils/type-burger';
 import Modal from "../modal/modal";
 import cl from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
+import {IngredientPropType} from "../../propTypes";
 
 /**
  * BurgerConstructor — текущий состав бургера.
@@ -68,7 +68,7 @@ const BurgerConstructor = (props) => {
 };
 
 BurgerIngredients.propTypes = {
-	ingredients: PropTypes.arrayOf(PropTypeBurger.isRequired)
+	ingredients: PropTypes.arrayOf(IngredientPropType.isRequired)
 }
 
 BurgerConstructor.defaultProps = {

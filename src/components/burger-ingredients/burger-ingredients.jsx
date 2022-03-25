@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Tab, Counter, CurrencyIcon, CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import PropTypeBurger from '../../utils/type-burger';
 import Modal from "../modal/modal";
 import cl from './burger-ingredients.module.css';
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import {IngredientPropType} from "../../propTypes";
 
 /**
  * BurgerIngredients — список ингредиентов;
@@ -97,7 +97,7 @@ const BurgerIngredients = (props) => {
 };
 
 BurgerIngredients.propTypes = {
-	list: PropTypes.arrayOf(PropTypeBurger.isRequired)
+	list: PropTypes.arrayOf(IngredientPropType.isRequired)
 }
 
 BurgerIngredients.defaultProps = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import IngredientPropType from '../../utils/type-burger';
+import {IngredientPropType} from '../../propTypes';
 
 /**
  * Модальное окно с описанием конкретного ингредиента.
