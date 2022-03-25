@@ -20,7 +20,7 @@ const BurgerIngredients = (props) => {
 		return prev;
 	}, {}), [props.list]);
 
-	const [activeTab, setActiveTab] = useState(Object.keys(groups)[0] ?? null);
+	const [activeTab, setActiveTab] = useState(null);
 	const [viewport, setViewport] = useState('calc(100vh - 250px)');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedIngredient, setSelectedIngredient] = useState(null);
@@ -40,7 +40,10 @@ const BurgerIngredients = (props) => {
 
 	useEffect(() => {
 		const boxRect = tabsScroll.current.getBoundingClientRect();
-		setViewport('calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)')
+		setViewport('calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)');
+
+		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то. Реакт, а ты точно реактивный?
+
 	}, [props.list])
 
 	const toggleModal = () => {
