@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-// import styles from './app.module.css'; // @todo
-
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import IngredientsService from "../../services/IngredientsService";
+// import styles from './app.module.css'; // @todo
 
 const App = () => {
 
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        IngredientsService.getAll().then(response => setData(response.data));
+    useEffect( () => {
+         IngredientsService.getAll()
+             .then(response => setData(response))
+             .catch(error => alert(error));
     }, []);
 
     const [ingredients, setIngredients] = useState([]);
