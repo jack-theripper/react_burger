@@ -5,11 +5,22 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
 /**
- * Всплывающее окно
+ * ModalOverlay — фоновая подложка под модальным окном.
+ */
+const ModalOverlay = ({children}) => {
+	return (
+		<div className={cl.overlay}>
+			{children}
+		</div>
+	);
+};
+
+/**
+ * Modal — компонент самого модального окна: шапка с заголовком и иконка закрытия.
  */
 const Modal = ({children, show, title, onClose}) => {
 	return show && ReactDOM.createPortal((
-		<div className={cl.modal}>
+		<ModalOverlay >
 			<div className={cl.dialog}>
 				<a href="#" className={cl.close}>
 					<CloseIcon type="primary" onClick={onClose}/>
@@ -19,7 +30,7 @@ const Modal = ({children, show, title, onClose}) => {
 					{children}
 				</div>
 			</div>
-		</div>
+		</ModalOverlay>
 	), document.body);
 };
 
