@@ -17,7 +17,9 @@ const App = () => {
     const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
-        setIngredients([data[0], data[5], data[4], data[7], data[8]]);
+        if (data.length > 0) {
+            setIngredients([data[0], data[5], data[4], data[7], data[8]]);
+        }
     }, [data])
 
     return (
