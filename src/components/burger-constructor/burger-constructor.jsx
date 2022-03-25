@@ -37,8 +37,8 @@ const BurgerConstructor = (props) => {
 			</Modal>
 			
 			<div className="flex pl-8 pl-2">
-				<ConstructorElement type="top" isLocked={true} text={bun.name + ' (верх)'}
-				                    price={bun.price} thumbnail={bun.image}/>
+				{bun && (<ConstructorElement type="top" isLocked={true} text={bun.name + ' (верх)'}
+				                    price={bun.price} thumbnail={bun.image}/>)}
 			</div>
 			
 			<div className={cl.list + ' custom-scroll'}>
@@ -53,9 +53,9 @@ const BurgerConstructor = (props) => {
 			</div>
 			
 			<div className="flex pl-8 pl-2">
-				<ConstructorElement type="bottom" isLocked={true} text={bun.name + ' (низ)'}
+				{bun && (<ConstructorElement type="bottom" isLocked={true} text={bun.name + ' (низ)'}
 				                    price={bun.price} thumbnail={bun.image}
-				/>
+				/>)}
 			</div>
 			<div className="flex flex-right">
 				<div className="flex flex-middle">

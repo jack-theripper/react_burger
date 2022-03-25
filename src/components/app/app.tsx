@@ -1,16 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 // import styles from './app.module.css'; // @todo
 
-import data from "../../utils/data";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import IngredientsService from "../../services/IngredientsService";
 
 const App = () => {
-    const [ingredients] = useState([ // @todo: setIngredients
-        data[0], data[5], data[4], data[7], data[8],
-        // data[0], data[5], data[4], data[7], data[8],
-    ]);
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        IngredientsService.getAll().then(response => setData(response.data));
+    }, []);
+
+    const [ingredients, setIngredients] = useState([]);
+
+    useEffect(() => {
+        setIngredients([data[0], data[5], data[4], data[7], data[8]]);
+    }, [data])
 
     return (
         <div className="App">
