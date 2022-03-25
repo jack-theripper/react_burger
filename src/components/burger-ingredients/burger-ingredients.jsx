@@ -38,7 +38,7 @@ const BurgerIngredients = (props) => {
 	useEffect(() => {
 		const boxRect = tabsScroll.current.getBoundingClientRect();
 		setViewport('calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)')
-	}, [])
+	}, [props.list])
 	
 	const toggleModal = () => {
 		setIsModalOpen(!isModalOpen);
