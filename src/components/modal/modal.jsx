@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import ReactDOM from "react-dom";
 import cl from './modal.module.css';
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,12 +7,28 @@ import PropTypes from "prop-types";
 /**
  * ModalOverlay — фоновая подложка под модальным окном.
  */
-const ModalOverlay = ({children}) => {
+const ModalOverlay = ({children, closeHandler = () => null}) => {
+	
+	// 1. Клик по дочернему элементу не должен вызывать `closeHandler`
+	const onClick = (event) => event.target === event.currentTarget && closeHandler();
+	
+	// 2. Закрытие по ESC
+	const onCloseByEsc = useCallback(event => event.keyCode === 27 && closeHandler(), []);
+	
+	useEffect(() => {
+		document.addEventListener('keydown', onCloseByEsc);
+		return () => document.removeEventListener('keydown', onCloseByEsc);
+	}, [])
+	
 	return (
-		<div className={cl.overlay}>
+		<div className={cl.overlay} onClick={onClick}>
 			{children}
 		</div>
 	);
+};
+
+ModalOverlay.propTypes = {
+	closeHandler: PropTypes.func
 };
 
 /**
@@ -20,7 +36,7 @@ const ModalOverlay = ({children}) => {
  */
 const Modal = ({children, show, title, onClose}) => {
 	return show && ReactDOM.createPortal((
-		<ModalOverlay >
+		<ModalOverlay closeHandler={onClose}>
 			<div className={cl.dialog}>
 				<a href="#" className={cl.close}>
 					<CloseIcon type="primary" onClick={onClose}/>
