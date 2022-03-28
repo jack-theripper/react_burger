@@ -1,17 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerConstructor from "../burger-constructor/burger-constructor";
+import IngredientsService from "../../services/IngredientsService";
 // import styles from './app.module.css'; // @todo
 
-import data from "../../utils/data";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+const App = () => {
 
-function App() {
+    const [data, setData] = useState([]);
 
-    const [ingredients, setIngredients] = useState([
-        data[0], data[5], data[4], data[7], data[8],
-        // data[0], data[5], data[4], data[7], data[8],
-    ]);
+    useEffect( () => {
+         IngredientsService.getAll()
+             .then(response => setData(response))
+             .catch(error => alert(error));
+    }, []);
+
+    const [ingredients, setIngredients] = useState([]);
+
+    useEffect(() => {
+        if (data.length > 0) {
+            setIngredients([data[0], data[5], data[4], data[7], data[8]]);
+        }
+    }, [data])
 
     return (
         <div className="App">
@@ -30,6 +40,6 @@ function App() {
             </div>
         </div>
     );
-}
+};
 
 export default App;

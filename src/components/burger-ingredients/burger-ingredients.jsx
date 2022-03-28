@@ -1,133 +1,81 @@
-import React from "react";
-import {Tab, Counter, CurrencyIcon, CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useEffect, useMemo, useRef, useState} from "react";
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import PropTypeBurger from '../../utils/type-burger';
 import Modal from "../modal/modal";
 import cl from './burger-ingredients.module.css';
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import {IngredientPropType} from "../../propTypes";
+import {TITLES} from "../../constants";
+import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
 
 /**
  * BurgerIngredients — список ингредиентов;
  */
-class BurgerIngredients extends React.Component {
+const BurgerIngredients = (props) => {
 
-	constructor(props) {
-		super(props);
+	const groups = useMemo(() => props.list.reduce((prev, curr) => { // ингредиенты по типам
+		prev[curr.type] = prev[curr.type] || []
+		prev[curr.type].push(curr);
 
-		const groups = props.list.reduce((prev, curr) => {
-			prev[curr.type] = prev[curr.type] || []
-			prev[curr.type].push(curr);
+		return prev;
+	}, {}), [props.list]);
 
-			return prev;
-		}, {});
+	const [activeTab, setActiveTab] = useState(null);
+	const [viewport, setViewport] = useState('calc(100vh - 250px)');
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [selectedIngredient, setSelectedIngredient] = useState(null);
 
-		this.state = {
-			activeTab: Object.keys(groups)[0] ?? null,
-			groups,
-			viewport: 'calc(100vh - 250px)',
-			isModalOpen: false,
-			activeIngr: null,
-		}
+	const tabsScroll = useRef();
 
-		this.tabsScroll = React.createRef();
+	const $refs = new Map(); // vue.js I love u
+
+	const changeTab = (val) => {
+		setActiveTab(val);
+		$refs.get(val).scrollIntoView({block: 'start', behavior: 'smooth'});
 	}
 
-	$refs = new Map(); // vue.js I love u
-
-	changeTab = (val) => {
-		this.setState({...this.state, activeTab: val});
-		this.$refs.get(val).scrollIntoView({block: 'start', behavior: 'smooth'});
+	const createRef = ref => el => {
+		$refs.set(ref, el);
 	}
 
-	createRef = ref => el => {
-		this.$refs.set(ref, el);
+	useEffect(() => {
+		const boxRect = tabsScroll.current.getBoundingClientRect();
+		setViewport('calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)');
+
+		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то. Реакт, а ты точно реактивный?
+
+	}, [props.list])
+
+	const toggleModal = () => {
+		setIsModalOpen(!isModalOpen);
 	}
 
-	componentDidMount() {
-		const boxRect = this.tabsScroll.current.getBoundingClientRect();
-		this.setState({...this.state, viewport: 'calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)'});
+	const openIngrInfo = (value) => {
+		setSelectedIngredient(value);
+		setIsModalOpen(true);
 	}
 
-	toggleModal = () => {
-		this.setState({...this.state, isModalOpen: !this.state.isModalOpen});
-	}
-
-	openIngrInfo = (value) => {
-		return () => this.setState({isModalOpen: true, activeIngr: value});
-	}
-
-	render() {
-
-		const titles = {
-			bun: 'Булки',
-			main: 'Начинки',
-			sauce: 'Соусы'
-		};
-
-		return (
-			<React.Fragment>
-
-				<Modal show={this.state.isModalOpen} onClose={this.toggleModal} title="Детали ингредиента">
-					{this.state.activeIngr && (
-						<div className="text-center mb-10">
-							<img src={this.state.activeIngr.image} alt=""/>
-							<p className="text text_type_main-default">{this.state.activeIngr.name}</p>
-							<div className="flex flex-gap flex-center mt-4">
-								<div>
-									<p className="text text_type_main-default text_color_inactive">Калории,ккал</p>
-									<p className="text text_type_digits-default text_color_inactive">{this.state.activeIngr.calories}</p>
-								</div>
-								<div>
-									<p className="text text_type_main-default text_color_inactive">Белки, г</p>
-									<p className="text text_type_digits-default text_color_inactive">{this.state.activeIngr.proteins}</p>
-								</div>
-								<div>
-									<p className="text text_type_main-default text_color_inactive">Жиры, г</p>
-									<p className="text text_type_digits-default text_color_inactive">{this.state.activeIngr.fat}</p>
-								</div>
-								<div>
-									<p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
-									<p className="text text_type_digits-default text_color_inactive">{this.state.activeIngr.carbohydrates}</p>
-								</div>
-							</div>
-						</div>
-					)}
-				</Modal>
-
-				<div className={cl.tabs}>
-					{Object.keys(this.state.groups).map(key =>
-						<Tab value={key} key={key} active={this.state.activeTab === key}
-						     onClick={this.changeTab}>{titles[key]}</Tab>
-					)}
-				</div>
-				<div className={cl.scroll + ' custom-scroll'} ref={this.tabsScroll} style={{maxHeight: this.state.viewport}}>
-					{Object.keys(this.state.groups).map(key => (
-						<React.Fragment key={key}>
-							<h2 className="margin" ref={this.createRef(key)}>{titles[key]}</h2>
-							<ul className="grid p-5">
-								{this.state.groups[key].map(values => (
-									<li key={values._id} className="flex flex-center" onClick={this.openIngrInfo(values)}>
-										<div className={cl.item + ' relative'}>
-											<img src={values.image} alt={values.name} />
-											<Counter count={1} size="default" />
-											<p className={cl.digits}>
-												<span className="pr-1">{values.price}</span>
-												<CurrencyIcon type="primary"/>
-											</p>
-											<p className="m-1">{values.name}</p>
-										</div>
-									</li>
-								))}
-							</ul>
-						</React.Fragment>
-					))}
-				</div>
-			</React.Fragment>
-		)
-	}
-}
+	return (
+		<React.Fragment>
+			<div className={cl.tabs}>
+				{Object.keys(groups).map(key => (
+					<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
+				))}
+			</div>
+			<div className={cl.scroll + ' custom-scroll'} ref={tabsScroll} style={{maxHeight: viewport}}>
+				{Object.keys(groups).map(key => (
+					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={openIngrInfo} />
+				))}
+			</div>
+			<Modal show={isModalOpen} onClose={toggleModal} title="Детали ингредиента">
+				<IngredientDetails ingredient={selectedIngredient} />
+			</Modal>
+		</React.Fragment>
+	)
+};
 
 BurgerIngredients.propTypes = {
-	list: PropTypes.arrayOf(PropTypeBurger.isRequired)
+	list: PropTypes.arrayOf(IngredientPropType.isRequired)
 }
 
 BurgerIngredients.defaultProps = {
