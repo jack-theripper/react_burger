@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import PropTypes from 'prop-types';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import {Button, ConstructorElement, CurrencyIcon, CheckMarkIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,15 +6,18 @@ import Modal from "../modal/modal";
 import cl from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
 import {IngredientPropType} from "../../propTypes";
+import {OrderContext} from "../../services/context";
 
 /**
  * BurgerConstructor — текущий состав бургера.
  */
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
+	
+	const order = useContext(OrderContext);
 	
 	// @todo: state?
-	const bun = props.ingredients.find(ingredient => ingredient.type === 'bun');
-	const ingredients = props.ingredients.filter(ingredient => ingredient.type !== 'bun');
+	const bun = order.list.find(ingredient => ingredient.type === 'bun');
+	const ingredients = order.list.filter(ingredient => ingredient.type !== 'bun');
 	
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	
@@ -23,7 +26,7 @@ const BurgerConstructor = (props) => {
 	}
 
 	const [orderDetails, setOrderDetails] = useState({
-		id: '034536',
+		id: order.orderNumber,
 		status: 'processing'
 	});
 
@@ -66,13 +69,5 @@ const BurgerConstructor = (props) => {
 		</div>
 	)
 };
-
-BurgerIngredients.propTypes = {
-	ingredients: PropTypes.arrayOf(IngredientPropType.isRequired)
-}
-
-BurgerConstructor.defaultProps = {
-	ingredients: []
-}
 
 export default BurgerConstructor;
