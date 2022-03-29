@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import {IngredientPropType} from "../../propTypes";
-import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from './burger-ingredients-list.module.css';
 import {TITLES} from "../../constants";
+import Price from "../price/price";
 
 const BurgerIngredientsList = React.forwardRef(({type, list, onClick = () => null}, ref) => {
 	return (
@@ -15,10 +16,7 @@ const BurgerIngredientsList = React.forwardRef(({type, list, onClick = () => nul
 						<div className={cl.item + ' relative'}>
 							<img src={ingredient.image} alt={ingredient.name} />
 							<Counter count={1} size="default" />
-							<p className={cl.price}>
-								<span className="pr-1">{ingredient.price}</span>
-								<CurrencyIcon type="primary"/>
-							</p>
+							<Price value={ingredient.price} />
 							<p className="m-1">{ingredient.name}</p>
 						</div>
 					</li>
