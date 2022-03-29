@@ -16,11 +16,17 @@ const App = () => {
             .catch(error => alert(error));
     }, []);
 
-    const [orderList, setOrderList] = useState([]);
+    const [orderState, setOrderState] = useState({
+        orderNumber: 0,
+        list: [],
+    })
 
     useEffect(() => {
         if (data.length > 0) {
-            setOrderList([data[0], data[5], data[4], data[7], data[8]]);
+            setOrderState({
+                ...orderState,
+                list: [data[0], data[5], data[4], data[7], data[8]]
+            });
         }
     }, [data]);
 
@@ -31,7 +37,7 @@ const App = () => {
             <div className="container">
                 <h1>Соберите бургер</h1>
                 <IngredientsContext.Provider value={data}>
-                    <OrderContext.Provider value={{orderNumber: 0, list: orderList}}>
+                    <OrderContext.Provider value={{state: orderState, setOrderState}}>
                         <div className="grid">
                             <BurgerIngredients />
                             <BurgerConstructor />

@@ -22,7 +22,7 @@ export default class OrderService {
 			throw new Error(`Произошла ошибка: ${response.status}`);
 		}
 		
-		return await response.json().then(response => response.data); // response.status == true
+		return await response.json(); // .then(response => response);
 	}
 	
 }

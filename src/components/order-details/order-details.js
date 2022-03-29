@@ -8,12 +8,12 @@ import {OrderPropType} from "../../propTypes";
 const OrderDetails = ({order}) => {
 	return (
 		<div className="text-center mb-10">
-			<p className="text text_type_digits-large">{order.id}</p>
+			<p className="text text_type_digits-large">{order.orderNumber}</p>
 			<p className="text text_type_main-default">идентификатор заказа</p>
 			<div className="icon-size text-120">
 				<CheckMarkIcon type="primary"/>
 			</div>
-			{order.status === 'processing' && (
+			{order.orderNumber && (
 				<>
 					<p className="text text_type_main-default">Ваш заказ начали готовить</p>
 					<p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
