@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import {Button, ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import cl from './burger-constructor.module.css';
@@ -12,10 +12,10 @@ import Price from "../price/price";
 const BurgerConstructor = () => {
 	
 	const order = useContext(OrderContext);
-	
-	// @todo: state?
+
 	const bun = order.list.find(ingredient => ingredient.type === 'bun');
 	const ingredients = order.list.filter(ingredient => ingredient.type !== 'bun');
+	const price = useMemo(() => order.list.reduce((curr, prev) => prev.price + curr, 0), [order.list]);
 	
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	
@@ -57,7 +57,7 @@ const BurgerConstructor = () => {
 					/>)}
 				</div>
 				<div className="flex flex-middle flex-right">
-					<Price value={610} />
+					<Price value={price} />
 					<div className="ml-6">
 						<Button type="primary" size="medium" onClick={toggleModal}>Оформить заказ</Button>
 					</div>
