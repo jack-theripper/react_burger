@@ -33,12 +33,8 @@ const App = () => {
                 <IngredientsContext.Provider value={data}>
                     <OrderContext.Provider value={{orderNumber: 0, list: orderList}}>
                         <div className="grid">
-                            <div>
-                                <BurgerIngredients />
-                            </div>
-                            <div>
-                                <BurgerConstructor />
-                            </div>
+                            <BurgerIngredients />
+                            <BurgerConstructor />
                         </div>
                     </OrderContext.Provider>
                 </IngredientsContext.Provider>

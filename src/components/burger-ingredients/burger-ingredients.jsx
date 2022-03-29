@@ -56,7 +56,7 @@ const BurgerIngredients = () => {
 	}
 
 	return (
-		<React.Fragment>
+		<div>
 			<div className={cl.tabs}>
 				{Object.keys(groups).map(key => (
 					<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
@@ -70,7 +70,7 @@ const BurgerIngredients = () => {
 			<Modal show={isModalOpen} onClose={toggleModal} title="Детали ингредиента">
 				<IngredientDetails ingredient={selectedIngredient} />
 			</Modal>
-		</React.Fragment>
+		</div>
 	)
 };
 
