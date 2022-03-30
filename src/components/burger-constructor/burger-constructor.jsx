@@ -16,7 +16,10 @@ const BurgerConstructor = () => {
 
 	const bun = order.list.find(ingredient => ingredient.type === 'bun');
 	const ingredients = order.list.filter(ingredient => ingredient.type !== 'bun');
-	const price = useMemo(() => order.list.reduce((curr, prev) => prev.price + curr, 0), [order.list]);
+	const price = useMemo(
+		() => bun?.price * 2 + ingredients.reduce((curr, prev) => prev.price + curr, 0),
+		[order.list]
+	);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
