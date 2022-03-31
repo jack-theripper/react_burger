@@ -4,7 +4,7 @@ import {API_BASE} from "../constants";
  * Сервис для заказов
  */
 export default class OrderService {
-	
+
 	/**
 	 * @returns {Promise<any>} Создать заказ.
 	 */
@@ -17,12 +17,11 @@ export default class OrderService {
 			},
 			body: JSON.stringify({ingredients})
 		});
-		
-		if (!response.ok) {
-			throw new Error(`Произошла ошибка: ${response.status}`);
-		}
-		
-		return await response.json(); // .then(response => response);
+
+		return await response.json().then(response => {
+			if (!response.success) throw new Error(response.message)
+			return response;
+		});
 	}
-	
+
 }

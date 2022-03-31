@@ -6,6 +6,7 @@ import OrderDetails from "../order-details/order-details";
 import {OrderContext} from "../../services/context";
 import Price from "../price/price";
 import OrderService from "../../services/OrderService";
+import {useWaiting} from "../../hooks/useWaiting";
 
 /**
  * BurgerConstructor — текущий состав бургера.
@@ -27,23 +28,13 @@ const BurgerConstructor = () => {
 		setIsModalOpen(!isModalOpen);
 	}
 
-	useEffect(() => {
-		if ( ! isModalOpen) {
-			return ;
-		}
+	const [createOrder, isOrderCreating, hasOrderError] = useWaiting(async () => {
+		setOrderState({...order, orderNumber: null});
+		await OrderService.create(order.list.map(ingredient => ingredient._id))
+			.then(response => response.success && setOrderState({...order, orderNumber: response.order.number}))
+	});
 
-		OrderService.create(order.list.map(ingredient => ingredient._id))
-			.then(response => {
-				if (response.success) {
-					setOrderState({
-						...order,
-						orderNumber: response.order.number
-					})
-				}
-			})
-			.catch(e => alert(e))
-
-	}, [isModalOpen])
+	useEffect(() => isModalOpen && createOrder(), [isModalOpen])
 
 	return (
 		<div>
@@ -78,7 +69,8 @@ const BurgerConstructor = () => {
 				</div>
 			</div>
 			<Modal show={isModalOpen} onClose={toggleModal}>
-				<OrderDetails order={order}/>
+				{(isOrderCreating || hasOrderError) ? <h2 className="text-center pb-4">Заказ обрабатывается {hasOrderError}</h2>
+					: <OrderDetails order={order}/>}
 			</Modal>
 		</div>
 	)
