@@ -37,12 +37,12 @@ const App = () => {
             <div className="container">
                 <h1>Соберите бургер</h1>
                 <IngredientsContext.Provider value={data}>
-                    <OrderContext.Provider value={{state: orderState, setOrderState}}>
-                        <div className="grid">
-                            <BurgerIngredients />
-                            <BurgerConstructor />
-                        </div>
-                    </OrderContext.Provider>
+                    <div className="grid">
+                        <BurgerIngredients/>
+                        <OrderContext.Provider value={{state: orderState, setOrderState}}>
+                            <BurgerConstructor/>
+                        </OrderContext.Provider>
+                    </div>
                 </IngredientsContext.Provider>
             </div>
         </div>
