@@ -1,24 +1,24 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
 import Modal from "../modal/modal";
 import cl from './burger-ingredients.module.css';
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import {IngredientPropType} from "../../propTypes";
 import {TITLES} from "../../constants";
 import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
+import {IngredientsContext} from "../../services/context";
 
 /**
  * BurgerIngredients — список ингредиентов;
  */
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
 
-	const groups = useMemo(() => props.list.reduce((prev, curr) => { // ингредиенты по типам
+	const list = useContext(IngredientsContext);
+	const groups = useMemo(() => list.reduce((prev, curr) => { // ингредиенты по типам
 		prev[curr.type] = prev[curr.type] || []
 		prev[curr.type].push(curr);
 
 		return prev;
-	}, {}), [props.list]);
+	}, {}), [list]);
 
 	const [activeTab, setActiveTab] = useState(null);
 	const [viewport, setViewport] = useState('calc(100vh - 250px)');
@@ -44,7 +44,7 @@ const BurgerIngredients = (props) => {
 
 		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то. Реакт, а ты точно реактивный?
 
-	}, [props.list])
+	}, [list])
 
 	const toggleModal = () => {
 		setIsModalOpen(!isModalOpen);
@@ -56,7 +56,7 @@ const BurgerIngredients = (props) => {
 	}
 
 	return (
-		<React.Fragment>
+		<div>
 			<div className={cl.tabs}>
 				{Object.keys(groups).map(key => (
 					<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
@@ -70,16 +70,8 @@ const BurgerIngredients = (props) => {
 			<Modal show={isModalOpen} onClose={toggleModal} title="Детали ингредиента">
 				<IngredientDetails ingredient={selectedIngredient} />
 			</Modal>
-		</React.Fragment>
+		</div>
 	)
 };
-
-BurgerIngredients.propTypes = {
-	list: PropTypes.arrayOf(IngredientPropType.isRequired)
-}
-
-BurgerIngredients.defaultProps = {
-	list: []
-}
 
 export default BurgerIngredients;
