@@ -8,8 +8,8 @@ import Price from "../price/price";
 
 const BurgerIngredientsList = React.forwardRef(({type, list, onClick = () => null}, ref) => {
 	return (
-		<>
-			<h2 className="margin" ref={ref}>{TITLES[type]}</h2>
+		<section id={type} ref={ref}>
+			<h2 className="margin">{TITLES[type]}</h2>
 			<ul className="grid p-5">
 				{list.map(ingredient => (
 					<li key={ingredient._id} className="flex flex-center" onClick={() => onClick(ingredient)}>
@@ -22,7 +22,7 @@ const BurgerIngredientsList = React.forwardRef(({type, list, onClick = () => nul
 					</li>
 				))}
 			</ul>
-		</>
+		</section>
 	);
 });
 

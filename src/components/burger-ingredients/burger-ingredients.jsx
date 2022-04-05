@@ -31,12 +31,16 @@ const BurgerIngredients = () => {
 		$refs.get(val).scrollIntoView({block: 'start', behavior: 'smooth'});
 	}
 
-	const createRef = ref => el => {
-		$refs.set(ref, el);
+	const createRef = ref => element => {
+		$refs.set(ref, element);
+
+		if (element != null) {
+			observer.observe(element);
+		}
 	}
 
 	useEffect(() => {
-		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то. Реакт, а ты точно реактивный?
+		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то.
 	}, [list])
 
 	const toggleModal = () => {
@@ -48,6 +52,34 @@ const BurgerIngredients = () => {
 		setIsModalOpen(true);
 	}
 
+	const scrollRef = useRef();
+	const [scrollRatio, setScrollRatio] = useState({});
+
+	const observer = useMemo(() => new IntersectionObserver((entries) => {
+		entries.forEach(({target, intersectionRatio}) => {
+			setScrollRatio(prev => {
+				return {...prev, [target.getAttribute('id')]: intersectionRatio}
+			});
+		})
+	}, {
+		root: scrollRef.current,
+		threshold: [0.0, 0.5]
+	}), []);
+
+	useEffect(() => {
+		let previous = [null, 0];
+
+		for (const [key, value] of Object.entries(scrollRatio)) {
+			if (value > previous[1]) {
+				previous = [key, value]
+			}
+		}
+
+		if (previous[0] != null) {
+			setActiveTab(previous[0]);
+		}
+	}, [scrollRatio]);
+
 	return (
 		<div>
 			<div className={cl.tabs}>
@@ -55,7 +87,7 @@ const BurgerIngredients = () => {
 					<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
 				))}
 			</div>
-			<div className={cl.scroll + ' custom-scroll'}>
+			<div className={cl.scroll + ' custom-scroll'} ref={scrollRef}>
 				{Object.keys(groups).map(key => (
 					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={openIngrInfo} />
 				))}
