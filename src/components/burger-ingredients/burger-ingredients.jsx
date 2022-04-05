@@ -21,11 +21,8 @@ const BurgerIngredients = () => {
 	}, {}), [list]);
 
 	const [activeTab, setActiveTab] = useState(null);
-	const [viewport, setViewport] = useState('calc(100vh - 250px)');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedIngredient, setSelectedIngredient] = useState(null);
-
-	const tabsScroll = useRef();
 
 	const $refs = new Map(); // vue.js I love u
 
@@ -39,11 +36,7 @@ const BurgerIngredients = () => {
 	}
 
 	useEffect(() => {
-		const boxRect = tabsScroll.current.getBoundingClientRect();
-		setViewport('calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)');
-
 		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то. Реакт, а ты точно реактивный?
-
 	}, [list])
 
 	const toggleModal = () => {
@@ -62,7 +55,7 @@ const BurgerIngredients = () => {
 					<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
 				))}
 			</div>
-			<div className={cl.scroll + ' custom-scroll'} ref={tabsScroll} style={{maxHeight: viewport}}>
+			<div className={cl.scroll + ' custom-scroll'}>
 				{Object.keys(groups).map(key => (
 					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={openIngrInfo} />
 				))}
