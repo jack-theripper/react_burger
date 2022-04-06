@@ -48,6 +48,10 @@ const BurgerConstructor = () => {
 	const [, dropTarget] = useDrop({
 		accept: "ingredient",
 		drop(ingredient) {
+			if (ingredient.type === 'bun' && bun) { // @todo: bun._id === ingredient._id) -> return ;
+				dispatch(orderRemoveIngredientAction(bun));
+			}
+
 			dispatch(orderAddIngredientAction(ingredient))
 		},
 	});
