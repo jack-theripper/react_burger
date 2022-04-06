@@ -24,8 +24,8 @@ const BurgerConstructor = () => {
 	const list = useSelector(state => state.order.ingredients);
 	const bun = list.find(ingredient => ingredient.type === 'bun');
 	const ingredients = list.filter(ingredient => ingredient.type !== 'bun');
-	const price = useMemo(
-		() => bun?.price * 2 + ingredients.reduce((curr, prev) => prev.price + curr, 0),
+	const price = useMemo(() =>
+			(bun?.price * 2 || 0) + ingredients.reduce((curr, prev) => prev.price + curr, 0),
 		[list]
 	);
 
