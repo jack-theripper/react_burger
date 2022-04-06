@@ -9,7 +9,7 @@ export function orderAddIngredientAction(ingredient) {
 		type: ORDER_ADD_INGREDIENT,
 		payload: {
 			...ingredient,
-			unique: Symbol('ingredient')
+			unique: Math.random() * 0x10000 // React!!! Symbol()
 		}
 	}
 }
