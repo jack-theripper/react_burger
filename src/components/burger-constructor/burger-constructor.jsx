@@ -1,25 +1,28 @@
-import React, {useContext, useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {Button, ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import cl from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
-import {OrderContext} from "../../services/context";
 import Price from "../price/price";
-import OrderService from "../../services/OrderService";
 import {useWaiting} from "../../hooks/useWaiting";
+import {useDispatch, useSelector} from "react-redux";
+import {orderDetailsChangeAction} from "../../services/actions/orderActions";
 
 /**
  * BurgerConstructor — текущий состав бургера.
  */
 const BurgerConstructor = () => {
 
-	const {state: order, setOrderState} = useContext(OrderContext);
+	const list = useSelector(state => state.order.ingredients);
+	const order = useSelector(state => state.order.details);
 
-	const bun = order.list.find(ingredient => ingredient.type === 'bun');
-	const ingredients = order.list.filter(ingredient => ingredient.type !== 'bun');
+	const dispatch = useDispatch();
+
+	const bun = list.find(ingredient => ingredient.type === 'bun');
+	const ingredients = list.filter(ingredient => ingredient.type !== 'bun');
 	const price = useMemo(
 		() => bun?.price * 2 + ingredients.reduce((curr, prev) => prev.price + curr, 0),
-		[order.list]
+		[list]
 	);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,9 +32,9 @@ const BurgerConstructor = () => {
 	}
 
 	const [createOrder, isOrderCreating, hasOrderError] = useWaiting(async () => {
-		setOrderState({...order, orderNumber: null});
-		await OrderService.create(order.list.map(ingredient => ingredient._id))
-			.then(response => response.success && setOrderState({...order, orderNumber: response.order.number}))
+		//setOrderState({...order, orderNumber: null});
+		//await OrderService.create(list.map(ingredient => ingredient._id))
+		//	.then(response => response.success && setOrderState({...order, orderNumber: response.order.number}))
 	});
 
 	useEffect(() => isModalOpen && createOrder(), [isModalOpen])
