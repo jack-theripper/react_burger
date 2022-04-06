@@ -6,18 +6,16 @@ import OrderDetails from "../order-details/order-details";
 import Price from "../price/price";
 import {useWaiting} from "../../hooks/useWaiting";
 import {useDispatch, useSelector} from "react-redux";
-import {orderDetailsChangeAction} from "../../services/actions/orderActions";
+import {orderCreateAction} from "../../services/actions/orderActions";
 
 /**
  * BurgerConstructor — текущий состав бургера.
  */
 const BurgerConstructor = () => {
 
-	const list = useSelector(state => state.order.ingredients);
-	const order = useSelector(state => state.order.details);
-
 	const dispatch = useDispatch();
 
+	const list = useSelector(state => state.order.ingredients);
 	const bun = list.find(ingredient => ingredient.type === 'bun');
 	const ingredients = list.filter(ingredient => ingredient.type !== 'bun');
 	const price = useMemo(
@@ -32,9 +30,8 @@ const BurgerConstructor = () => {
 	}
 
 	const [createOrder, isOrderCreating, hasOrderError] = useWaiting(async () => {
-		//setOrderState({...order, orderNumber: null});
-		//await OrderService.create(list.map(ingredient => ingredient._id))
-		//	.then(response => response.success && setOrderState({...order, orderNumber: response.order.number}))
+		// @todo: Обработать ошибки для получение hasOrderError
+		dispatch(orderCreateAction());
 	});
 
 	useEffect(() => isModalOpen && createOrder(), [isModalOpen])
@@ -73,7 +70,7 @@ const BurgerConstructor = () => {
 			</div>
 			<Modal show={isModalOpen} onClose={toggleModal}>
 				{(isOrderCreating || hasOrderError) ? <h2 className="text-center pb-4">Заказ обрабатывается {hasOrderError}</h2>
-					: <OrderDetails order={order}/>}
+					: <OrderDetails />}
 			</Modal>
 		</div>
 	)

@@ -13,8 +13,3 @@ export const IngredientPropType = PropTypes.shape({
 	image_mobile: PropTypes.string,
 	image_large: PropTypes.string
 });
-
-export const OrderPropType = PropTypes.shape({
-	id: PropTypes.string,
-	status: PropTypes.string,
-});

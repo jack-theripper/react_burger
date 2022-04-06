@@ -1,11 +1,14 @@
 import React from 'react';
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {OrderPropType} from "../../propTypes";
+import {useSelector} from "react-redux";
 
 /**
  * Детали заказа.
  */
-const OrderDetails = ({order}) => {
+const OrderDetails = () => {
+
+	const order = useSelector(state => state.order.details);
+
 	return (
 		<div className="text-center mb-10">
 			<p className="text text_type_digits-large">{order.orderNumber}</p>
@@ -22,9 +25,5 @@ const OrderDetails = ({order}) => {
 		</div>
 	);
 };
-
-OrderDetails.propType = {
-	order: OrderPropType.isRequired
-}
 
 export default OrderDetails;

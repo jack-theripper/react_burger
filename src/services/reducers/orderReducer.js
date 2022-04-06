@@ -2,7 +2,9 @@ import {ORDER_ADD_INGREDIENT, ORDER_DETAILS_CHANGE} from "../actions/orderAction
 
 const defaultState = {
 	ingredients: [],
-	details: {}
+	details: {
+		orderNumber: null
+	}
 }
 
 export default function orderReducer(state = defaultState, action) {
