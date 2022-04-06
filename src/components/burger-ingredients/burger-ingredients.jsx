@@ -46,6 +46,7 @@ const BurgerIngredients = () => {
 	}, [list])
 
 	const toggleModal = () => {
+		isModalOpen && dispatch(ingredientDetailsSetAction(null));
 		setIsModalOpen(!isModalOpen);
 	}
 
