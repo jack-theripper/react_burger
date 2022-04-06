@@ -3,6 +3,7 @@ import OrderService from "../OrderService";
 export const ORDER_ADD_INGREDIENT = 'ORD_ING_ADD';
 export const ORDER_REMOVE_INGREDIENT = 'ORD_ING_DEL';
 export const ORDER_DETAILS_CHANGE = 'ORD_DET_CNG';
+export const ORDER_INGREDIENTS_SWAP = 'ORD_ING_SWAP';
 
 export function orderAddIngredientAction(ingredient) {
 	return {
@@ -42,5 +43,13 @@ export function orderRemoveIngredientAction(ingredient) {
 	return {
 		type: ORDER_REMOVE_INGREDIENT,
 		payload: ingredient.unique
+	}
+}
+
+export function orderIngredientSwapAction(firstIngredient, secondIngredient) {
+	return {
+		type: ORDER_INGREDIENTS_SWAP,
+		from: firstIngredient,
+		to: secondIngredient
 	}
 }

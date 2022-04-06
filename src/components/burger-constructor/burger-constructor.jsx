@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Button, ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import cl from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
@@ -12,6 +12,7 @@ import {
 	orderRemoveIngredientAction
 } from "../../services/actions/orderActions";
 import {useDrop} from "react-dnd";
+import BurgerConstructorItem from "./burger-constructor-item";
 
 /**
  * BurgerConstructor — текущий состав бургера.
@@ -35,8 +36,7 @@ const BurgerConstructor = () => {
 	}
 
 	const [createOrder, isOrderCreating, hasOrderError] = useWaiting(async () => {
-		// @todo: Обработать ошибки для получение hasOrderError
-		dispatch(orderCreateAction());
+		dispatch(orderCreateAction()); // @todo: Обработать ошибки для получение hasOrderError
 	});
 
 	useEffect(() => isModalOpen && createOrder(), [isModalOpen])
@@ -46,14 +46,14 @@ const BurgerConstructor = () => {
 	}
 
 	const [, dropTarget] = useDrop({
-		accept: "ingredient",
+		accept: 'ingredient',
 		drop(ingredient) {
 			if (ingredient.type === 'bun' && bun) { // @todo: bun._id === ingredient._id) -> return ;
 				dispatch(orderRemoveIngredientAction(bun));
 			}
 
 			dispatch(orderAddIngredientAction(ingredient))
-		},
+		}
 	});
 
 	return (
@@ -66,14 +66,9 @@ const BurgerConstructor = () => {
 					)}
 				</div>
 				<div className={cl.list + ' custom-scroll'}>
-					{ingredients.map(value => {
-						return (
-							<div className="flex flex-middle" key={value.unique}>
-								<a href="#" className="p-1"><DragIcon type="primary"/></a>
-								<ConstructorElement text={value.name} price={value.price} thumbnail={value.image} handleClose={handleClose(value)}/>
-							</div>
-						)
-					})}
+					{ingredients.map(value =>
+						<BurgerConstructorItem key={value.unique} ingredient={value} handleClose={handleClose} />
+					)}
 				</div>
 				<div className="flex pl-8 pl-2">
 					{bun && (
