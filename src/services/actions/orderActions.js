@@ -1,13 +1,13 @@
 import OrderService from "../OrderService";
 
-export const ORDER_ADD_INGREDIENT = 'ORD_ING_ADD';
-export const ORDER_REMOVE_INGREDIENT = 'ORD_ING_DEL';
 export const ORDER_DETAILS_CHANGE = 'ORD_DET_CNG';
+export const ORDER_INGREDIENT_REMOVE = 'ORD_ING_DEL';
+export const ORDER_INGREDIENTS_ADD = 'ORD_ING_ADD';
 export const ORDER_INGREDIENTS_SWAP = 'ORD_ING_SWAP';
 
 export function orderAddIngredientAction(ingredient) {
 	return {
-		type: ORDER_ADD_INGREDIENT,
+		type: ORDER_INGREDIENTS_ADD,
 		payload: {
 			...ingredient,
 			unique: Math.random() * 0x10000 // React!!! Symbol()
@@ -41,7 +41,7 @@ export function orderCreateAction() {
 
 export function orderRemoveIngredientAction(ingredient) {
 	return {
-		type: ORDER_REMOVE_INGREDIENT,
+		type: ORDER_INGREDIENT_REMOVE,
 		payload: ingredient.unique
 	}
 }

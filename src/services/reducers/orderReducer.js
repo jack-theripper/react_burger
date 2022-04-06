@@ -1,8 +1,8 @@
 import {
-	ORDER_ADD_INGREDIENT,
+	ORDER_INGREDIENTS_ADD,
 	ORDER_DETAILS_CHANGE,
 	ORDER_INGREDIENTS_SWAP,
-	ORDER_REMOVE_INGREDIENT
+	ORDER_INGREDIENT_REMOVE
 } from "../actions/orderActions";
 
 const defaultState = {
@@ -15,7 +15,7 @@ const defaultState = {
 export default function orderReducer(state = defaultState, action) {
 	switch (action.type) {
 
-		case ORDER_ADD_INGREDIENT:
+		case ORDER_INGREDIENTS_ADD:
 			return {
 				...state,
 				ingredients: [
@@ -33,7 +33,7 @@ export default function orderReducer(state = defaultState, action) {
 				}
 			}
 
-		case ORDER_REMOVE_INGREDIENT:
+		case ORDER_INGREDIENT_REMOVE:
 			return {
 				...state,
 				ingredients: [
