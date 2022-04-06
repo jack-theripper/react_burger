@@ -1,4 +1,4 @@
-import {ORDER_ADD_INGREDIENT, ORDER_DETAILS_CHANGE} from "../actions/orderActions";
+import {ORDER_ADD_INGREDIENT, ORDER_DETAILS_CHANGE, ORDER_REMOVE_INGREDIENT} from "../actions/orderActions";
 
 const defaultState = {
 	ingredients: [],
@@ -26,6 +26,14 @@ export default function orderReducer(state = defaultState, action) {
 					...state.details,
 					...action.payload
 				}
+			}
+
+		case ORDER_REMOVE_INGREDIENT:
+			return {
+				...state,
+				ingredients: [
+					...state.ingredients.filter(value => value.unique !== action.payload)
+				]
 			}
 
 		default:

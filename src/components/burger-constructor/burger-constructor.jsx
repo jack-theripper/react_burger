@@ -6,7 +6,7 @@ import OrderDetails from "../order-details/order-details";
 import Price from "../price/price";
 import {useWaiting} from "../../hooks/useWaiting";
 import {useDispatch, useSelector} from "react-redux";
-import {orderCreateAction} from "../../services/actions/orderActions";
+import {orderCreateAction, orderRemoveIngredientAction} from "../../services/actions/orderActions";
 
 /**
  * BurgerConstructor — текущий состав бургера.
@@ -36,6 +36,10 @@ const BurgerConstructor = () => {
 
 	useEffect(() => isModalOpen && createOrder(), [isModalOpen])
 
+	const handleClose = (ingredient) => {
+		return () => dispatch(orderRemoveIngredientAction(ingredient))
+	}
+
 	return (
 		<div>
 			<div className={cl.container}>
@@ -50,7 +54,7 @@ const BurgerConstructor = () => {
 						return (
 							<div className="flex flex-middle" key={value._id}>
 								<a href="#" className="p-1"><DragIcon type="primary"/></a>
-								<ConstructorElement text={value.name} price={value.price} thumbnail={value.image}/>
+								<ConstructorElement text={value.name} price={value.price} thumbnail={value.image} handleClose={handleClose(value)}/>
 							</div>
 						)
 					})}

@@ -1,6 +1,7 @@
 import OrderService from "../OrderService";
 
 export const ORDER_ADD_INGREDIENT = 'ORD_ING_ADD';
+export const ORDER_REMOVE_INGREDIENT = 'ORD_ING_DEL';
 export const ORDER_DETAILS_CHANGE = 'ORD_DET_CNG';
 
 export function orderAddIngredientAction(ingredient) {
@@ -34,5 +35,12 @@ export function orderCreateAction() {
 				}
 			})
 
+	}
+}
+
+export function orderRemoveIngredientAction(ingredient) {
+	return {
+		type: ORDER_REMOVE_INGREDIENT,
+		payload: ingredient.unique
 	}
 }
