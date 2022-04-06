@@ -15,7 +15,7 @@ const BurgerIngredient = ({ingredient}) => {
 	const orderIngredients = useSelector(state => state.order.ingredients);
 	const count = useMemo(() =>
 		orderIngredients.reduce((function (previousValue, currentValue) {
-			return previousValue + (currentValue._id === ingredient._id ? 1 : 0);
+			return previousValue + (currentValue._id === ingredient._id ? (ingredient.type === 'bun' ? 2 : 1) : 0);
 		}), 0), [orderIngredients]);
 
 	return (
