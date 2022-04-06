@@ -6,7 +6,12 @@ import OrderDetails from "../order-details/order-details";
 import Price from "../price/price";
 import {useWaiting} from "../../hooks/useWaiting";
 import {useDispatch, useSelector} from "react-redux";
-import {orderCreateAction, orderRemoveIngredientAction} from "../../services/actions/orderActions";
+import {
+	orderAddIngredientAction,
+	orderCreateAction,
+	orderRemoveIngredientAction
+} from "../../services/actions/orderActions";
+import {useDrop} from "react-dnd";
 
 /**
  * BurgerConstructor — текущий состав бургера.
@@ -40,9 +45,16 @@ const BurgerConstructor = () => {
 		return () => dispatch(orderRemoveIngredientAction(ingredient))
 	}
 
+	const [, dropTarget] = useDrop({
+		accept: "ingredient",
+		drop(ingredient) {
+			dispatch(orderAddIngredientAction(ingredient))
+		},
+	});
+
 	return (
 		<div>
-			<div className={cl.container}>
+			<div className={cl.container} ref={dropTarget}>
 				<div className="flex pl-8 pl-2">
 					{bun && (
 						<ConstructorElement type="top" isLocked={true} text={bun.name + ' (верх)'} price={bun.price}
@@ -52,7 +64,7 @@ const BurgerConstructor = () => {
 				<div className={cl.list + ' custom-scroll'}>
 					{ingredients.map(value => {
 						return (
-							<div className="flex flex-middle" key={value._id}>
+							<div className="flex flex-middle" key={value.unique}>
 								<a href="#" className="p-1"><DragIcon type="primary"/></a>
 								<ConstructorElement text={value.name} price={value.price} thumbnail={value.image} handleClose={handleClose(value)}/>
 							</div>
