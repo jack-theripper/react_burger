@@ -5,12 +5,15 @@ import cl from './burger-ingredients.module.css';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {TITLES} from "../../constants";
 import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {ingredientDetailsSetAction} from "../../services/actions/ingredientDetailsActions";
 
 /**
  * BurgerIngredients — список ингредиентов;
  */
 const BurgerIngredients = () => {
+
+	const dispatch = useDispatch();
 
 	const list = useSelector(state => state.ingredients);
 	const groups = useMemo(() => list.reduce((prev, curr) => { // ингредиенты по типам
@@ -22,7 +25,6 @@ const BurgerIngredients = () => {
 
 	const [activeTab, setActiveTab] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [selectedIngredient, setSelectedIngredient] = useState(null);
 
 	const $refs = new Map(); // vue.js I love u
 
@@ -48,7 +50,7 @@ const BurgerIngredients = () => {
 	}
 
 	const openIngrInfo = (value) => {
-		setSelectedIngredient(value);
+		dispatch(ingredientDetailsSetAction(value));
 		setIsModalOpen(true);
 	}
 
@@ -93,7 +95,7 @@ const BurgerIngredients = () => {
 				))}
 			</div>
 			<Modal show={isModalOpen} onClose={toggleModal} title="Детали ингредиента">
-				<IngredientDetails ingredient={selectedIngredient} />
+				<IngredientDetails />
 			</Modal>
 		</div>
 	)
