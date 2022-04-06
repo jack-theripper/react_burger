@@ -1,18 +1,18 @@
-import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import cl from './burger-ingredients.module.css';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {TITLES} from "../../constants";
 import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
-import {IngredientsContext} from "../../services/context";
+import {useSelector} from "react-redux";
 
 /**
  * BurgerIngredients — список ингредиентов;
  */
 const BurgerIngredients = () => {
 
-	const list = useContext(IngredientsContext);
+	const list = useSelector(state => state.ingredients);
 	const groups = useMemo(() => list.reduce((prev, curr) => { // ингредиенты по типам
 		prev[curr.type] = prev[curr.type] || []
 		prev[curr.type].push(curr);
