@@ -76,7 +76,7 @@ const BurgerConstructor = () => {
 				<div className="flex flex-middle flex-right">
 					<Price value={price}/>
 					<div className="ml-6">
-						<Button type="primary" size="medium" onClick={toggleModal}>Оформить заказ</Button>
+						<Button type="primary" size="medium" onClick={toggleModal} disabled={!bun}>Оформить заказ</Button>
 					</div>
 				</div>
 			</div>
