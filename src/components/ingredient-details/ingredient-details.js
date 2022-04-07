@@ -8,7 +8,7 @@ const IngredientDetails = () => {
 
 	const ingredient = useSelector(state => state.ingredientDetails);
 
-	return (
+	return ingredient && (
 		<div className="text-center mb-10">
 			<img src={ingredient.image} alt=""/>
 			<p className="text text_type_main-default">{ingredient.name}</p>
