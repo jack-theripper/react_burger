@@ -21,7 +21,7 @@ const Modal = ({children, show, title, onClose}) => {
 				</div>
 			</div>
 		</ModalOverlay>
-	), document.body);
+	),  document.getElementById('modals'));
 };
 
 Modal.propTypes = {
