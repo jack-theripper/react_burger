@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import {IngredientPropType} from "../../propTypes";
-import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TITLES} from "../../constants";
-import Price from "../price/price";
-import {useDrag} from "react-dnd";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 
 const BurgerIngredientsList = React.forwardRef(({type, list, onClick = () => null}, ref) => {
