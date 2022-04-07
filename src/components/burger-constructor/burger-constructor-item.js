@@ -3,8 +3,10 @@ import {useDrag, useDrop} from "react-dnd";
 import {orderIngredientSwapAction} from "../../services/actions/orderActions";
 import React, {useRef} from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+import {IngredientPropType} from "../../propTypes";
 
-const BurgerConstructorItem = ({ingredient, handleClose}) => {
+const BurgerConstructorItem = ({ingredient, handleClose = () => null}) => {
 
 	const ref = useRef();
 	const dispatch = useDispatch();
@@ -41,5 +43,10 @@ const BurgerConstructorItem = ({ingredient, handleClose}) => {
 		</div>
 	)
 };
+
+BurgerConstructorItem.propTypes = {
+	ingredient: IngredientPropType.isRequired,
+	handleClose: PropTypes.func
+}
 
 export default BurgerConstructorItem;

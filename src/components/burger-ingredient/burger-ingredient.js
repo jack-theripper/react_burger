@@ -4,6 +4,7 @@ import cl from "./burger-ingredient.module.css";
 import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import Price from "../price/price";
 import {useSelector} from "react-redux";
+import {IngredientPropType} from "../../propTypes";
 
 const BurgerIngredient = ({ingredient}) => {
 
@@ -27,5 +28,9 @@ const BurgerIngredient = ({ingredient}) => {
 		</div>
 	)
 };
+
+BurgerIngredient.propTypes = {
+	ingredient: IngredientPropType.isRequired
+}
 
 export default BurgerIngredient;
