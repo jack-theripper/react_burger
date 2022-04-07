@@ -4,7 +4,7 @@ import {
 	ORDER_CREATE_SUCCESS,
 	ORDER_DETAILS_CHANGE,
 	ORDER_INGREDIENT_REMOVE,
-	ORDER_INGREDIENTS_ADD,
+	ORDER_INGREDIENTS_ADD, ORDER_INGREDIENTS_CLEAR,
 	ORDER_INGREDIENTS_SWAP
 } from "../actions/orderActions";
 
@@ -67,6 +67,12 @@ export default function orderReducer(state = defaultState, action) {
 			return {
 				...state,
 				errorMessage: null
+			}
+
+		case ORDER_INGREDIENTS_CLEAR:
+			return {
+				...state,
+				ingredients: []
 			}
 			
 		default:
