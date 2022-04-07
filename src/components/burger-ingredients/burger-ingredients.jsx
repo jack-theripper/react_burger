@@ -45,14 +45,14 @@ const BurgerIngredients = () => {
 		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то.
 	}, [list])
 
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
-		isModalOpen && dispatch(ingredientDetailsSetAction(null));
+	const showModalHandler = (ingredient) => (event) => {
+		setIsModalOpen(true);
+		dispatch(ingredientDetailsSetAction(ingredient));
 	}
 
-	const openIngrInfo = (value) => {
-		dispatch(ingredientDetailsSetAction(value));
-		setIsModalOpen(true);
+	const hideModalHandler = () => {
+		setIsModalOpen(false);
+		dispatch(ingredientDetailsSetAction(null));
 	}
 
 	const scrollRef = useRef();
@@ -92,10 +92,10 @@ const BurgerIngredients = () => {
 			</div>
 			<div className={cl.scroll + ' custom-scroll'} ref={scrollRef}>
 				{Object.keys(groups).map(key => (
-					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={openIngrInfo} />
+					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={showModalHandler} />
 				))}
 			</div>
-			<Modal show={isModalOpen} onClose={toggleModal} title="Детали ингредиента">
+			<Modal show={isModalOpen} onClose={hideModalHandler} title="Детали ингредиента">
 				<IngredientDetails />
 			</Modal>
 		</div>

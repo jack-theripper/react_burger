@@ -10,7 +10,7 @@ const BurgerIngredientsList = React.forwardRef(({type, list, onClick = () => nul
 			<h2 className="margin">{TITLES[type]}</h2>
 			<ul className="grid p-5">
 				{list.map(ingredient => (
-					<li key={ingredient._id} className="flex flex-center" onClick={() => onClick(ingredient)}>
+					<li key={ingredient._id} className="flex flex-center" onClick={onClick(ingredient)}>
 						<BurgerIngredient ingredient={ingredient} />
 					</li>
 				))}

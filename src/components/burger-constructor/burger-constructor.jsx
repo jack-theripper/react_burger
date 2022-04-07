@@ -29,11 +29,6 @@ const BurgerConstructor = () => {
 	);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
-	}
-	
 	const hasOrderError = useSelector(state => state.order.errorMessage);
 
 	useEffect(() => isModalOpen && dispatch(orderCreateAction()), [isModalOpen, dispatch])
@@ -76,11 +71,11 @@ const BurgerConstructor = () => {
 				<div className="flex flex-middle flex-right">
 					<Price value={price}/>
 					<div className="ml-6">
-						<Button type="primary" size="medium" onClick={toggleModal} disabled={!bun}>Оформить заказ</Button>
+						<Button type="primary" size="medium" onClick={() => setIsModalOpen(true)} disabled={!bun}>Оформить заказ</Button>
 					</div>
 				</div>
 			</div>
-			<Modal show={isModalOpen} onClose={toggleModal}>
+			<Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
 				{hasOrderError && <h2 className="text-center pb-4">Произошла ошибка {hasOrderError}</h2>}
 				{!hasOrderError && <OrderDetails />}
 			</Modal>
