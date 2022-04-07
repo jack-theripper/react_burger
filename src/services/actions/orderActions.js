@@ -4,6 +4,9 @@ export const ORDER_DETAILS_CHANGE = 'ORD_DET_CNG';
 export const ORDER_INGREDIENT_REMOVE = 'ORD_ING_DEL';
 export const ORDER_INGREDIENTS_ADD = 'ORD_ING_ADD';
 export const ORDER_INGREDIENTS_SWAP = 'ORD_ING_SWAP';
+export const ORDER_CREATE_REQUEST = 'ORD_CRT_REQUEST';
+export const ORDER_CREATE_FAILURE = 'ORD_CRT_FAIL';
+export const ORDER_CREATE_SUCCESS = 'ORD_CRT_SUCCESS';
 
 export function orderAddIngredientAction(ingredient) {
 	return {
@@ -24,18 +27,18 @@ export function orderDetailsChangeAction(newDetails) {
 
 export function orderCreateAction() {
 	return (dispatch, getState) => {
-
-		const {order} = getState();
-
+		
+		dispatch(orderRequestAction());
 		dispatch(orderDetailsChangeAction({orderNumber: null}));
 
-		OrderService.create(order.ingredients.map(ingredient => ingredient._id))
+		OrderService.create(getState().order.ingredients.map(ingredient => ingredient._id))
 			.then(response => {
-				if (response.success) {
-					dispatch(orderDetailsChangeAction({orderNumber: response.order.number}))
-				}
+				dispatch(orderRequestSuccessAction());
+				dispatch(orderDetailsChangeAction({orderNumber: response.order.number}));
 			})
-
+			.catch(e => {
+				dispatch(orderRequestFailedAction(e.toString()))
+			})
 	}
 }
 
@@ -51,5 +54,24 @@ export function orderIngredientSwapAction(firstIngredient, secondIngredient) {
 		type: ORDER_INGREDIENTS_SWAP,
 		from: firstIngredient,
 		to: secondIngredient
+	}
+}
+
+export function orderRequestAction() {
+	return {
+		type: ORDER_CREATE_REQUEST
+	}
+}
+
+export function orderRequestFailedAction(errorMessage = '') {
+	return {
+		type: ORDER_CREATE_FAILURE,
+		payload: errorMessage
+	}
+}
+
+export function orderRequestSuccessAction() {
+	return {
+		type: ORDER_CREATE_SUCCESS
 	}
 }

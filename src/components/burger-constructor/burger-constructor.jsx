@@ -4,7 +4,6 @@ import Modal from "../modal/modal";
 import cl from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
 import Price from "../price/price";
-import {useWaiting} from "../../hooks/useWaiting";
 import {useDispatch, useSelector} from "react-redux";
 import {
 	orderAddIngredientAction,
@@ -34,18 +33,16 @@ const BurgerConstructor = () => {
 	const toggleModal = () => {
 		setIsModalOpen(!isModalOpen);
 	}
+	
+	const hasOrderError = useSelector(state => state.order.errorMessage);
 
-	const [createOrder, isOrderCreating, hasOrderError] = useWaiting(async () => {
-		dispatch(orderCreateAction()); // @todo: Обработать ошибки для получение hasOrderError
-	});
-
-	useEffect(() => isModalOpen && createOrder(), [isModalOpen])
+	useEffect(() => isModalOpen && dispatch(orderCreateAction()), [isModalOpen, dispatch])
 
 	const handleClose = (ingredient) => {
 		return () => dispatch(orderRemoveIngredientAction(ingredient))
 	}
 
-	const [, dropTarget] = useDrop({
+	const [, dropRef] = useDrop({
 		accept: 'ingredient',
 		drop(ingredient) {
 			if (ingredient.type === 'bun' && bun) { // @todo: bun._id === ingredient._id) -> return ;
@@ -58,7 +55,7 @@ const BurgerConstructor = () => {
 
 	return (
 		<div>
-			<div className={cl.container} ref={dropTarget}>
+			<div className={cl.container} ref={dropRef}>
 				<div className="flex pl-8 pl-2">
 					{bun && (
 						<ConstructorElement type="top" isLocked={true} text={bun.name + ' (верх)'} price={bun.price}
@@ -84,8 +81,8 @@ const BurgerConstructor = () => {
 				</div>
 			</div>
 			<Modal show={isModalOpen} onClose={toggleModal}>
-				{(isOrderCreating || hasOrderError) ? <h2 className="text-center pb-4">Заказ обрабатывается {hasOrderError}</h2>
-					: <OrderDetails />}
+				{hasOrderError && <h2 className="text-center pb-4">Произошла ошибка {hasOrderError}</h2>}
+				{!hasOrderError && <OrderDetails />}
 			</Modal>
 		</div>
 	)

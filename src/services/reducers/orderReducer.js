@@ -1,15 +1,19 @@
 import {
-	ORDER_INGREDIENTS_ADD,
+	ORDER_CREATE_FAILURE,
+	ORDER_CREATE_REQUEST,
+	ORDER_CREATE_SUCCESS,
 	ORDER_DETAILS_CHANGE,
-	ORDER_INGREDIENTS_SWAP,
-	ORDER_INGREDIENT_REMOVE
+	ORDER_INGREDIENT_REMOVE,
+	ORDER_INGREDIENTS_ADD,
+	ORDER_INGREDIENTS_SWAP
 } from "../actions/orderActions";
 
 const defaultState = {
 	ingredients: [],
 	details: {
 		orderNumber: null
-	}
+	},
+	errorMessage: null
 }
 
 export default function orderReducer(state = defaultState, action) {
@@ -52,6 +56,19 @@ export default function orderReducer(state = defaultState, action) {
 
 			return {...state, ingredients}
 
+		case ORDER_CREATE_FAILURE:
+			return {
+				...state,
+				errorMessage: action.payload
+			}
+			
+		case ORDER_CREATE_REQUEST:
+		case ORDER_CREATE_SUCCESS:
+			return {
+				...state,
+				errorMessage: null
+			}
+			
 		default:
 			return state;
 	}
