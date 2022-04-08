@@ -1,11 +1,14 @@
 import React from 'react';
-import {IngredientPropType} from '../../propTypes';
+import {useSelector} from "react-redux";
 
 /**
  * Модальное окно с описанием конкретного ингредиента.
  */
-const IngredientDetails = ({ingredient}) => {
-	return (
+const IngredientDetails = () => {
+
+	const ingredient = useSelector(state => state.ingredientDetails);
+
+	return ingredient && (
 		<div className="text-center mb-10">
 			<img src={ingredient.image} alt=""/>
 			<p className="text text_type_main-default">{ingredient.name}</p>
@@ -30,9 +33,5 @@ const IngredientDetails = ({ingredient}) => {
 		</div>
 	);
 };
-
-IngredientDetails.propType = {
-	ingredient: IngredientPropType.isRequired
-}
 
 export default IngredientDetails;

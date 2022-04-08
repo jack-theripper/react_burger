@@ -108,3 +108,24 @@ ul, li {
     vertical-align: -0.15em;
     font-size: 1.25em;
 }
+
+.dragging {
+    opacity: .5;
+}
+
+.dropping {
+    position: relative;
+}
+
+.dropping:not(:first-child)::before {
+    margin-top: -5px;
+}
+
+.dropping::before {
+    content: '';
+    border-top: 2px #ddd dotted;
+    display: block;
+    width: 100%;
+    position: absolute;
+    align-self: normal;
+}

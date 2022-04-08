@@ -5,25 +5,22 @@
     bottom: 0;
     left: 0;
     z-index: 1010;
-    overflow-y: auto;
     background: rgba(0, 0, 0, .6);
-    align-items: flex-start;
-    display: flex;
-    padding: 15px 40px;
+    cursor: pointer;
 }
 
 .dialog {
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1020;
+
     box-sizing: border-box;
     margin: 0 auto;
 
     width: 720px;
     max-width: 100% !important;
-
-    margin-top: auto !important;
-    margin-bottom: auto !important;
-
-    display: flow-root;
     padding: 30px 30px;
 
     background: #1C1C21;

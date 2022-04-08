@@ -1,18 +1,21 @@
-import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import cl from './burger-ingredients.module.css';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {TITLES} from "../../constants";
 import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
-import {IngredientsContext} from "../../services/context";
+import {useDispatch, useSelector} from "react-redux";
+import {ingredientDetailsSetAction} from "../../services/actions/ingredientDetailsActions";
 
 /**
  * BurgerIngredients — список ингредиентов;
  */
 const BurgerIngredients = () => {
 
-	const list = useContext(IngredientsContext);
+	const dispatch = useDispatch();
+
+	const list = useSelector(state => state.ingredients);
 	const groups = useMemo(() => list.reduce((prev, curr) => { // ингредиенты по типам
 		prev[curr.type] = prev[curr.type] || []
 		prev[curr.type].push(curr);
@@ -21,11 +24,7 @@ const BurgerIngredients = () => {
 	}, {}), [list]);
 
 	const [activeTab, setActiveTab] = useState(null);
-	const [viewport, setViewport] = useState('calc(100vh - 250px)');
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [selectedIngredient, setSelectedIngredient] = useState(null);
-
-	const tabsScroll = useRef();
 
 	const $refs = new Map(); // vue.js I love u
 
@@ -34,26 +33,55 @@ const BurgerIngredients = () => {
 		$refs.get(val).scrollIntoView({block: 'start', behavior: 'smooth'});
 	}
 
-	const createRef = ref => el => {
-		$refs.set(ref, el);
+	const createRef = ref => element => {
+		$refs.set(ref, element);
+
+		if (element != null) {
+			observer.observe(element);
+		}
 	}
 
 	useEffect(() => {
-		const boxRect = tabsScroll.current.getBoundingClientRect();
-		setViewport('calc(100vh - ' + Math.ceil(boxRect.y + 10) + 'px)');
-
-		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то. Реакт, а ты точно реактивный?
-
+		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то.
 	}, [list])
 
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
+	const showModalHandler = (ingredient) => (event) => {
+		setIsModalOpen(true);
+		dispatch(ingredientDetailsSetAction(ingredient));
 	}
 
-	const openIngrInfo = (value) => {
-		setSelectedIngredient(value);
-		setIsModalOpen(true);
+	const hideModalHandler = () => {
+		setIsModalOpen(false);
+		dispatch(ingredientDetailsSetAction(null));
 	}
+
+	const scrollRef = useRef();
+	const [scrollRatio, setScrollRatio] = useState({});
+
+	const observer = useMemo(() => new IntersectionObserver((entries) => {
+		entries.forEach(({target, intersectionRatio}) => {
+			setScrollRatio(prev => {
+				return {...prev, [target.getAttribute('id')]: intersectionRatio}
+			});
+		})
+	}, {
+		root: scrollRef.current,
+		threshold: [0.0, 0.5]
+	}), []);
+
+	useEffect(() => {
+		let previous = [null, 0];
+
+		for (const [key, value] of Object.entries(scrollRatio)) {
+			if (value > previous[1]) {
+				previous = [key, value]
+			}
+		}
+
+		if (previous[0] != null) {
+			setActiveTab(previous[0]);
+		}
+	}, [scrollRatio]);
 
 	return (
 		<div>
@@ -62,13 +90,13 @@ const BurgerIngredients = () => {
 					<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
 				))}
 			</div>
-			<div className={cl.scroll + ' custom-scroll'} ref={tabsScroll} style={{maxHeight: viewport}}>
+			<div className={cl.scroll + ' custom-scroll'} ref={scrollRef}>
 				{Object.keys(groups).map(key => (
-					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={openIngrInfo} />
+					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={showModalHandler} />
 				))}
 			</div>
-			<Modal show={isModalOpen} onClose={toggleModal} title="Детали ингредиента">
-				<IngredientDetails ingredient={selectedIngredient} />
+			<Modal show={isModalOpen} onClose={hideModalHandler} title="Детали ингредиента">
+				<IngredientDetails />
 			</Modal>
 		</div>
 	)
