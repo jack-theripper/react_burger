@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from "../burger-constructor/burger-constructor";
 import {useDispatch} from "react-redux";
 import {fetchIngredientsAction} from "../../services/actions/ingredientsActions";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import IndexPage from "../../pages/IndexPage";
 
 const App = () => {
 
@@ -17,13 +15,13 @@ const App = () => {
 		<div className="App">
 			<AppHeader/>
 			<div className="container">
-				<h1>Соберите бургер</h1>
-				<div className="grid">
-					<DndProvider backend={HTML5Backend}>
-						<BurgerIngredients/>
-						<BurgerConstructor/>
-					</DndProvider>
-				</div>
+				<BrowserRouter>
+					<Switch>
+						<Route path="/" exact>
+							<IndexPage />
+						</Route>
+					</Switch>
+				</BrowserRouter>
 			</div>
 		</div>
 	);
