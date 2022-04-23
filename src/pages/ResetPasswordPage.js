@@ -2,15 +2,22 @@ import React, {useState} from 'react';
 import cl from "./styles.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {userResetPasswordConfirmationAction} from "../services/actions/userActions";
 
 /**
  * /reset-password - страница сброса пароля.
  */
 const ResetPasswordPage = () => {
+	const dispatch = useDispatch();
 	const [code, setCode] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	const passwordVisibleToggle = () => setPasswordVisible((state) => !state);
+
+	const onClickHandler = () => {
+		dispatch(userResetPasswordConfirmationAction(password, code));
+	}
 
 	return (
 		<div className={cl.container + ' flex flex-center flex-middle'}>
@@ -28,7 +35,7 @@ const ResetPasswordPage = () => {
 					<Input type={'text'} placeholder={'Введите код из письма'} onChange={e => setCode(e.target.value)} value={code} />
 				</div>
 				<div className={'mb-10'}>
-					<Button type="primary" size="medium">Сохранить</Button>
+					<Button type="primary" size="medium" onClick={onClickHandler}>Сохранить</Button>
 				</div>
 				<div className={'mt-10'}>
 					<p className={'text text_type_main-default'}>
