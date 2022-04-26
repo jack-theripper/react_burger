@@ -25,9 +25,21 @@ export function useAuth() {
 		
 		return result;
 	}
+
+	const signIn = async (email, password) => {
+		const result = await AuthService.login({email, password});
+
+		if (result.success) {
+			setUser(result.user);
+			setToken(result.accessToken || '');
+			setRefreshToken(result.refreshToken || '');
+		}
+
+		return result;
+	}
 	
 	return {
-		signUp, setUser
+		signUp, setUser, signIn
 	}
 	
 }
