@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import cl from "./styles.module.css";
+import {useAuth} from "../hooks/useAuth";
 
 /**
  * /register - страница регистрации.
@@ -13,6 +14,17 @@ const RegisterPage = () => {
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	const passwordVisibleToggle = () => setPasswordVisible((state) => !state);
 
+	const {signUp} = useAuth();
+	
+	const registrationHandler = async () => {
+		try {
+			await signUp(email, password, name);
+			alert('ok')
+		} catch (e) {
+			alert('Ошибка: ' + e.toString());
+		}
+	}
+	
 	return (
 		<div className={cl.container + ' flex flex-center flex-middle'}>
 			<div className={cl.govnokod_privet_ot_yandex_praktikum}>
@@ -30,7 +42,7 @@ const RegisterPage = () => {
 					/>
 				</div>
 				<div className={'mb-10'}>
-					<Button type="primary" size="medium">Зарегистрироваться</Button>
+					<Button type="primary" size="medium" onClick={registrationHandler}>Зарегистрироваться</Button>
 				</div>
 				<div className={'mt-10'}>
 					<p className={'text text_type_main-default'}>
