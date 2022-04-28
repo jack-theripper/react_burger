@@ -12,27 +12,27 @@ import {fetchUserActon} from "../../services/actions/userActions";
 
 const App = () => {
 
-	const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-	useEffect(() => dispatch(fetchUserActon()), [dispatch]);
-	useEffect(() => dispatch(fetchIngredientsAction()), [dispatch]);
+    useEffect(() => dispatch(fetchUserActon()), [dispatch]);
+    useEffect(() => dispatch(fetchIngredientsAction()), [dispatch]);
 
-	return (
-		<div className="App">
-			<AppHeader/>
-			<div className="container">
-				<BrowserRouter>
-					<Switch>
-						<Route path="/" component={IndexPage} exact />
-						<Route path="/login" component={LoginPage} />
-						<Route path="/register" component={RegisterPage} />
-						<Route path="/forgot-password" component={ForgotPasswordPage} />
-						<Route path="/reset-password" component={ResetPasswordPage} />
-					</Switch>
-				</BrowserRouter>
-			</div>
-		</div>
-	);
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <AppHeader/>
+                <div className="container">
+                    <Switch>
+                        <Route path="/" component={IndexPage} exact/>
+                        <Route path="/login" component={LoginPage}/>
+                        <Route path="/register" component={RegisterPage}/>
+                        <Route path="/forgot-password" component={ForgotPasswordPage}/>
+                        <Route path="/reset-password" component={ResetPasswordPage}/>
+                    </Switch>
+                </div>
+            </BrowserRouter>
+        </div>
+    );
 };
 
 export default App;
