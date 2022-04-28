@@ -9,13 +9,19 @@ import RegisterPage from "../../pages/RegisterPage";
 import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage";
 import {fetchUserActon} from "../../services/actions/userActions";
+import ProfilePage from "../../pages/ProfilePage";
 
 const App = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => dispatch(fetchUserActon()), [dispatch]);
-    useEffect(() => dispatch(fetchIngredientsAction()), [dispatch]);
+    useEffect(() => {
+        dispatch(fetchUserActon())
+    }, []);
+
+    useEffect(() => {
+        dispatch(fetchIngredientsAction())
+    }, []);
 
     return (
         <div className="App">
@@ -28,6 +34,7 @@ const App = () => {
                         <Route path="/register" component={RegisterPage}/>
                         <Route path="/forgot-password" component={ForgotPasswordPage}/>
                         <Route path="/reset-password" component={ResetPasswordPage}/>
+                        <Route path="/profile" component={ProfilePage}/>
                     </Switch>
                 </div>
             </BrowserRouter>
