@@ -24,22 +24,20 @@ const App = () => {
     }, []);
 
     return (
-        <div className="App">
-            <BrowserRouter>
-                <AppHeader/>
-                <div className="container">
-                    <Switch>
-                        <Route path="/" component={IndexPage} exact/>
-                        <Route path="/login" component={LoginPage}/>
-                        <Route path="/register" component={RegisterPage}/>
-                        <Route path="/forgot-password" component={ForgotPasswordPage}/>
-                        <Route path="/reset-password" component={ResetPasswordPage}/>
-                        <Route path="/profile" component={ProfilePage}/>
-                    </Switch>
-                </div>
-            </BrowserRouter>
-        </div>
-    );
+        <BrowserRouter>
+            <AppHeader/>
+            <div className="container">
+                <Switch>
+                    <Route path="/" component={IndexPage} exact/>
+                    <Route path="/login" component={LoginPage}/>
+                    <Route path="/register" component={RegisterPage}/>
+                    <Route path="/forgot-password" component={ForgotPasswordPage}/>
+                    <Route path="/reset-password" component={ResetPasswordPage}/>
+                    <Route path="/profile" component={ProfilePage}/>
+                </Switch>
+            </div>
+        </BrowserRouter>
+    )
 };
 
 export default App;

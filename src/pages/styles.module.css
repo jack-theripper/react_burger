@@ -1,16 +1,16 @@
 .container {
     text-align: center;
     height: 100%;
+    max-width: 480px;
+    margin-top: min(120px, 25%);
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.govnokod_privet_ot_yandex_praktikum {
-    min-width: 480px;
-}
-
-.govnokod_privet_ot_yandex_praktikum :global .input__container {
+.container :global .input__container {
     width: 100%;
 }
 
-.govnokod_privet_ot_yandex_praktikum :global .input {
+.container :global .input {
     width: 100%;
 }
