@@ -14,6 +14,10 @@ export const USER_SIGN_IN = 'USER_SIGN_IN';
 export const USER_SIGN_IN_SUCCESS = 'USER_SIGN_IN_SUCCESS';
 export const USER_SIGN_IN_FAILURE = 'USER_SIGN_IN_FAILURE';
 
+export const USER_SIGN_OUT = 'USER_SIGN_OUT';
+export const USER_SIGN_OUT_SUCCESS = 'USER_SIGN_OUT_SUCCESS';
+export const USER_SIGN_OUT_FAILURE = 'USER_SIGN_OUT_FAILURE';
+
 export const USER_PROFILE_UPDATE = 'USER_PROFILE_UPDATE';
 
 export function fetchUserActon() {
@@ -61,7 +65,24 @@ export function userProfileUpdateAction(state) {
 	}
 }
 
+export function userSignOutAction() {
+	return {
+		type: USER_SIGN_OUT
+	}
+}
 
+export function userSignOutSuccessAction() {
+	return {
+		type: USER_SIGN_OUT_SUCCESS
+	}
+}
+
+export function userSignOutFailureAction(errorMessage = '') {
+	return {
+		type: USER_SIGN_OUT_FAILURE,
+		payload: errorMessage
+	}
+}
 
 export function userSetInfo(payload) {
 	return {

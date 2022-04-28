@@ -6,6 +6,18 @@ import {checkResponse} from "./checkResponse";
  */
 export default class AuthService {
 
+	static async logout() {
+		return await AuthService.fetch(`${API_BASE}/api/auth/logout`, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({token: AuthService.getToken('refresh_token')})
+		})
+			.then(checkResponse);
+	}
+
 	static async login(credentials) {
 		return await fetch(`${API_BASE}/api/auth/login`, {
 			method: 'POST',

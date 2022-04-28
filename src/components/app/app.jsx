@@ -10,6 +10,7 @@ import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage";
 import {fetchUserActon} from "../../services/actions/userActions";
 import ProfilePage from "../../pages/ProfilePage";
+import LogoutPage from "../../pages/LogoutPage";
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
                     <Route path="/forgot-password" component={ForgotPasswordPage}/>
                     <Route path="/reset-password" component={ResetPasswordPage}/>
                     <Route path="/profile" component={ProfilePage}/>
+                    <Route path="/logout" component={LogoutPage}/>
                 </Switch>
             </div>
         </BrowserRouter>

@@ -37,6 +37,16 @@ export default function userReducer(state = defaultState, action) {
 			return {
 				...defaultState, user: {...action.payload}
 			};
+
+		case ActionTypes.USER_SIGN_OUT_SUCCESS:
+			return {
+				...defaultState
+			}
+
+		case ActionTypes.USER_SIGN_OUT_FAILURE:
+			return {
+				...state, errorMessage: action.payload
+			}
 		
 		default:
 			return state;

@@ -1,14 +1,38 @@
 import {all, call, fork, put, takeEvery, takeLatest} from 'redux-saga/effects'
 import * as ActionTypes from "../actions/userActions";
-import {userSetInfo, userSignInFailureAction, userSignUpFailureAction} from "../actions/userActions";
+import {
+	userSetInfo,
+	userSignInFailureAction,
+	userSignOutFailureAction,
+	userSignOutSuccessAction,
+	userSignUpFailureAction
+} from "../actions/userActions";
 import AuthService from "../AuthService";
 import UserService from "../UserService";
 
 
 function* watchUserAuthentication() {
-	yield takeEvery(ActionTypes.USER_TRY_AUTH, userAuth);
-	yield takeLatest(ActionTypes.USER_SIGN_UP, userSignUpSaga);
 	yield takeLatest(ActionTypes.USER_SIGN_IN, userSignInSaga);
+	yield takeLatest(ActionTypes.USER_SIGN_UP, userSignUpSaga);
+	yield takeEvery(ActionTypes.USER_SIGN_OUT, userSignOutSaga);
+
+	yield takeEvery(ActionTypes.USER_TRY_AUTH, userAuth);
+}
+
+function* userSignOutSaga() {
+	try {
+		const result = yield call(AuthService.logout);
+
+		if (result.success) {
+			yield call(AuthService.removeTokens);
+			yield put(userSignOutSuccessAction());
+		} else {
+			yield put(userSignOutFailureAction(result.message));
+		}
+
+	} catch (error) {
+		yield put(userSignOutFailureAction(error.toString()));
+	}
 }
 
 function* userAuth() {
