@@ -34,7 +34,7 @@ function* userSignUpSaga({payload}) {
 
 		if (result.success) {
 			yield all([
-				call(AuthService.setTokens, result.accessToken || '', result.refreshToken || null),
+				call(AuthService.updateTokens, result),
 				put({type: ActionTypes.USER_SIGN_UP_SUCCESS, payload: result.user})
 			])
 		} else {

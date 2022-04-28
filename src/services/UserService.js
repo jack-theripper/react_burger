@@ -1,5 +1,6 @@
 import {API_BASE} from "../constants";
 import {checkResponse} from "./checkResponse";
+import AuthService from "./AuthService";
 
 export default class UserService {
 
@@ -30,16 +31,15 @@ export default class UserService {
 			.then(checkResponse);
 	}
 
-	static async fetchUser(token) {
-		return await fetch(`${API_BASE}/api/auth/user`, {
+	static async fetchUser() {
+		return await AuthService.fetch(`${API_BASE}/api/auth/user`, {
 			method: 'GET',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
-				'Authorization': token, // 'Bearer ' + token
 			}
 		})
-			.then(checkResponse);
+		//	.then(checkResponse);
 	}
 
 	static async update(data) {
