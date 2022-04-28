@@ -2,8 +2,8 @@ import * as ActionTypes from '../actions/userActions';
 
 const defaultState = {
 	user: {
-		email: null,
-		name: null
+		email: '',
+		name: ''
 	},
 	isLogged: false,
 	errorMessage: null

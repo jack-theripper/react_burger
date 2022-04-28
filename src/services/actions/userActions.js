@@ -14,6 +14,8 @@ export const USER_SIGN_IN = 'USER_SIGN_IN';
 export const USER_SIGN_IN_SUCCESS = 'USER_SIGN_IN_SUCCESS';
 export const USER_SIGN_IN_FAILURE = 'USER_SIGN_IN_FAILURE';
 
+export const USER_PROFILE_UPDATE = 'USER_PROFILE_UPDATE';
+
 export function fetchUserActon() {
 	return {
 		type: USER_TRY_AUTH
@@ -49,6 +51,13 @@ export function userSignInFailureAction(errorMessage = '') {
 	return {
 		type: USER_SIGN_UP_FAILURE,
 		payload: errorMessage
+	}
+}
+
+export function userProfileUpdateAction(state) {
+	return {
+		type: USER_PROFILE_UPDATE,
+		payload: state
 	}
 }
 

@@ -79,6 +79,10 @@ ul, li {
     box-sizing: border-box;
 }
 
+.width-1-4 {
+    width: calc(100% / 4);
+}
+
 /*
  * Отступы
  */

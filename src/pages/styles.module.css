@@ -14,3 +14,18 @@
 .container :global .input {
     width: 100%;
 }
+
+.navMenu > li > a {
+    display: flex;
+    align-items: center;
+    column-gap: .25em;
+    text-decoration: none;
+    padding: 15px 0;
+
+    cursor: pointer;
+    color: #8585AD;
+}
+
+.navMenu > li > a:hover, .active {
+    color: #F2F2F3 !important;
+}
