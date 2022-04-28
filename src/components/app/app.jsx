@@ -8,11 +8,13 @@ import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage";
+import {fetchUserActon} from "../../services/actions/userActions";
 
 const App = () => {
 
 	const dispatch = useDispatch();
 
+	useEffect(() => dispatch(fetchUserActon()), [dispatch]);
 	useEffect(() => dispatch(fetchIngredientsAction()), [dispatch]);
 
 	return (

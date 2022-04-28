@@ -29,5 +29,22 @@ export default class AuthService {
 		})
 			.then(checkResponse);
 	}
+
+	static async refreshToken(refreshToken) {
+		return await fetch(`${API_BASE}/api/auth/token`, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({token: refreshToken})
+		})
+			.then(checkResponse);
+	}
+
+	static setTokens(token, refreshToken = null) {
+		localStorage.setItem('token', token);
+		refreshToken && localStorage.setItem('refresh_token', refreshToken);
+	}
 	
 }
