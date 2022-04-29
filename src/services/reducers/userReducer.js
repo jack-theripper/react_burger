@@ -1,4 +1,5 @@
 import * as ActionTypes from '../actions/userActions';
+import {USER_PROFILE_UPDATE_SUCCESS} from "../actions/userActions";
 
 const defaultState = {
 	user: {
@@ -34,6 +35,7 @@ export default function userReducer(state = defaultState, action) {
 			}
 
 		case ActionTypes.USER_SET_INFO:
+		case ActionTypes.USER_PROFILE_UPDATE_SUCCESS:
 			return {
 				...defaultState, user: {...action.payload}
 			};
@@ -47,7 +49,7 @@ export default function userReducer(state = defaultState, action) {
 			return {
 				...state, errorMessage: action.payload
 			}
-		
+
 		default:
 			return state;
 	}

@@ -39,11 +39,11 @@ export default class UserService {
 				'Content-Type': 'application/json',
 			}
 		})
-		//	.then(checkResponse);
+			.then(checkResponse);
 	}
 
 	static async update(data) {
-		return await fetch(`${API_BASE}/api/auth/user`, {
+		return await AuthService.fetch(`${API_BASE}/api/auth/user`, {
 			method: 'PATCH',
 			headers: {
 				'Accept': 'application/json',

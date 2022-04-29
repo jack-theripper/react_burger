@@ -1,26 +1,18 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {userProfileUpdateAction} from "../../services/actions/userActions";
 
 const ProfileForm = () => {
 
 	const dispatch = useDispatch();
+	const profile = useSelector(({user}) => ({...user.user, password: ''}), shallowEqual);
 
-	const profile = useSelector(state => ({...state.user.user, password: ''}));
 	const [state, setState] = useState(profile);
+	const [hasChanged, setHasChanged] = useState(false);
 
-	const hasChanged = useMemo(() => {
-		const keys = Object.keys(profile);
-
-		for (let key of keys) {
-			if (profile[key] !== state[key]) {
-				return true;
-			}
-		}
-
-		return false;
-	}, [state, profile])
+	useEffect(() => setState(profile), [profile]);
+	useEffect(() => setHasChanged(!Object.keys(profile).every(key => profile[key] === state[key])), [state, profile]);
 
 	const onEditField = (e) => setState({...state, [e.currentTarget.name]: e.currentTarget.value})
 
