@@ -83,7 +83,7 @@ export default class AuthService {
 		try {
 			const response = await request();
 
-			if (response.status !== 401 || this.getToken('refresh_token') === null) {
+			if ((response.status !== 401 && response.status !== 403) || this.getToken('refresh_token') === null) {
 				return response;
 			}
 
