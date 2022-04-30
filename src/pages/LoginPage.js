@@ -14,12 +14,15 @@ const LoginPage = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const passwordVisibleToggle = () => setPasswordVisible((state) => !state);
-    const loginHandler = () => dispatch(userSignInAction(email, password));
+    const loginHandler = (e) => {
+        e.preventDefault();
+        dispatch(userSignInAction(email, password));
+    }
 
     const errorMessage = useSelector(state => state.user.errorMessage);
 
     return (
-        <div className={cl.container}>
+        <form className={cl.container} onSubmit={loginHandler}>
             <h1 className={'text text_type_main-medium mb-6'}>Вход</h1>
             {errorMessage && <p>{errorMessage}</p>}
             <div className={'mb-6'}>
@@ -32,7 +35,7 @@ const LoginPage = () => {
                 />
             </div>
             <div className={'mb-10'}>
-                <Button type="primary" size="medium" onClick={loginHandler}>Войти</Button>
+                <Button type="primary" htmlType={'submit'} size="medium">Войти</Button>
             </div>
             <div className={'mt-10'}>
                 <p className={'text text_type_main-default pb-2'}>
@@ -44,7 +47,7 @@ const LoginPage = () => {
                     <Link to={'/forgot-password'} className={'p-2'}>Восстановить пароль</Link>
                 </p>
             </div>
-        </div>
+        </form>
     )
 }
 

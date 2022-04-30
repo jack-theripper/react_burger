@@ -16,13 +16,16 @@ const ProfileForm = () => {
 
 	const onEditField = (e) => setState({...state, [e.currentTarget.name]: e.currentTarget.value})
 
-	const updateProfileHandler = () => dispatch(userProfileUpdateAction(state));
+	const updateProfileHandler = (e) => {
+		e.preventDefault();
+		dispatch(userProfileUpdateAction(state));
+	}
 	const cancelProfileHandler = () => setState(profile);
 
 	const errorMessage = useSelector(state => state.user.errorMessage);
 
 	return (
-		<>
+		<form onSubmit={updateProfileHandler}>
 			{errorMessage && (<p>{errorMessage}</p>)}
 			<div className={'mb-6'}>
 				<Input type={'text'} placeholder={'Имя'} name={'name'} icon={'EditIcon'} onChange={onEditField}
@@ -38,13 +41,13 @@ const ProfileForm = () => {
 			</div>
 			{hasChanged && (<>
 				<div className={'mb-10'}>
-					<Button type="primary" size="medium" onClick={updateProfileHandler}>Сохранить</Button>
+					<Button type="primary" size="medium" htmlType={'submit'}>Сохранить</Button>
 				</div>
 				<div className={'mb-5'}>
 					<Button type="primary" size="medium" onClick={cancelProfileHandler}>Отмена</Button>
 				</div>
 			</>)}
-		</>
+		</form>
 	)
 };
 

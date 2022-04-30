@@ -10,10 +10,13 @@ const ForgotPasswordPage = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
 
-    const forgotPasswordHandler = () => dispatch(userResetPasswordRequestAction(email, history));
+    const forgotPasswordHandler = (e) => {
+        e.preventDefault();
+        dispatch(userResetPasswordRequestAction(email, history));
+    }
 
     return (
-        <div className={cl.container}>
+        <form className={cl.container} onSubmit={forgotPasswordHandler}>
             <h1 className={'text text_type_main-medium mb-6'}>
                 Восстановление пароля
             </h1>
@@ -22,7 +25,7 @@ const ForgotPasswordPage = () => {
                        value={email}/>
             </div>
             <div className={'mb-10'}>
-                <Button type="primary" size="medium" onClick={forgotPasswordHandler}>Восстановить</Button>
+                <Button type="primary" size="medium" htmlType={'submit'}>Восстановить</Button>
             </div>
             <div className={'mt-10'}>
                 <p className={'text text_type_main-default'}>
@@ -30,7 +33,7 @@ const ForgotPasswordPage = () => {
                     <Link to={'/login'} className={'p-2'}>Войти</Link>
                 </p>
             </div>
-        </div>
+        </form>
     )
 };
 

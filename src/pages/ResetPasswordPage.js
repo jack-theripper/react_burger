@@ -19,10 +19,13 @@ const ResetPasswordPage = () => {
 	}
 
 	const passwordVisibleToggle = () => setPasswordVisible((state) => !state);
-	const onClickHandler = () => dispatch(userResetPasswordConfirmationAction(password, code, history));
+	const onResetHandler = (e) => {
+		e.preventDefault();
+		dispatch(userResetPasswordConfirmationAction(password, code, history));
+	}
 
 	return (
-		<div className={cl.container}>
+		<form className={cl.container} onSubmit={onResetHandler}>
 			<h1 className={'text text_type_main-medium mb-6'}>
 				Восстановление пароля
 			</h1>
@@ -37,7 +40,7 @@ const ResetPasswordPage = () => {
 				       value={code}/>
 			</div>
 			<div className={'mb-10'}>
-				<Button type="primary" size="medium" onClick={onClickHandler}>Сохранить</Button>
+				<Button type="primary" size="medium" htmlType={'submit'}>Сохранить</Button>
 			</div>
 			<div className={'mt-10'}>
 				<p className={'text text_type_main-default'}>
@@ -45,7 +48,7 @@ const ResetPasswordPage = () => {
 					<Link to={'/login'} className={'p-2'}>Войти</Link>
 				</p>
 			</div>
-		</div>
+		</form>
 	)
 };
 
