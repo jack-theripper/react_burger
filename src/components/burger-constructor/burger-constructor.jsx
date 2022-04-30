@@ -37,8 +37,13 @@ const BurgerConstructor = () => {
 		return () => dispatch(orderRemoveIngredientAction(ingredient))
 	}
 
+	const isLogged = useSelector(state => state.user.isLogged);
+
 	const handleCloseModal = () => {
-		dispatch(orderIngredientsRemoveAllAction());
+		if (isLogged) {
+			dispatch(orderIngredientsRemoveAllAction());
+		}
+
 		setIsModalOpen(false);
 	};
 
