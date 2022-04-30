@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import {IngredientPropType} from "../../propTypes";
 import {TITLES} from "../../constants";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
-import {ingredientDetailsSetAction} from "../../services/actions/ingredientDetailsActions";
+import {ingredientShowDetailsAction} from "../../services/actions/ingredientDetailsActions";
 import {useDispatch} from "react-redux";
 
 const BurgerIngredientsList = React.forwardRef(({type, list}, ref) => {
 
 	const dispatch = useDispatch();
-	const detailsHandler = useCallback((ingredient) => dispatch(ingredientDetailsSetAction(ingredient)), [dispatch]);
+	const detailsHandler = useCallback((ingredient) => dispatch(ingredientShowDetailsAction(ingredient)), [dispatch]);
 
 	return (
 		<section id={type} ref={ref}>

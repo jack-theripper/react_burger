@@ -6,7 +6,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import {TITLES} from "../../constants";
 import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
 import {useDispatch, useSelector} from "react-redux";
-import {ingredientDetailsSetAction} from "../../services/actions/ingredientDetailsActions";
+import {ingredientShowDetailsAction} from "../../services/actions/ingredientDetailsActions";
 
 /**
  * BurgerIngredients — список ингредиентов;
@@ -46,7 +46,7 @@ const BurgerIngredients = () => {
 	const isModalOpen = useSelector(state => state.ingredientDetails != null)
 
 	const hideModalHandler = () => {
-		dispatch(ingredientDetailsSetAction(null));
+		dispatch(ingredientShowDetailsAction(null));
 	}
 
 	const scrollRef = useRef();

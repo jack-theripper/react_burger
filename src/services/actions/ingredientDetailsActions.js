@@ -1,6 +1,6 @@
-export const INGREDIENT_DETAILS = 'ING_DETAILS';
+export const INGREDIENT_DETAILS = 'INGREDIENT_DETAILS';
 
-export function ingredientDetailsSetAction(ingredient) {
+export function ingredientShowDetailsAction(ingredient) {
 	return {
 		type: INGREDIENT_DETAILS,
 		payload: ingredient
