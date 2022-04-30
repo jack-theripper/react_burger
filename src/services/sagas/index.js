@@ -1,6 +1,7 @@
 import {all, call, fork, put, takeEvery, takeLatest} from 'redux-saga/effects'
 import * as ActionTypes from "../actions/userActions";
 import {
+	USER_PASSWORD_RESET_REQUEST,
 	USER_PROFILE_UPDATE_FAILURE,
 	USER_PROFILE_UPDATE_SUCCESS, userSetData,
 	userSignInFailureAction,
@@ -19,6 +20,36 @@ function* watchUserAuthentication() {
 
 	yield takeEvery(ActionTypes.USER_TRY_AUTH, userAuth);
 	yield takeEvery(ActionTypes.USER_PROFILE_UPDATE, userProfileUpdateSaga);
+
+	yield takeLatest(ActionTypes.USER_PASSWORD_RESET_REQUEST, userPasswordResetReqSaga);
+	yield takeLatest(ActionTypes.USER_PASSWORD_RESET_CONFIRM_REQUEST, userPasswordResetConfirmSaga);
+}
+
+function* userPasswordResetReqSaga({payload: email, history}) {
+	try {
+		const result = yield call(UserService.resetPassword, {email});
+
+		if (result.success) {
+			yield call(history.push, '/reset-password', {from: '/forgot-password'})
+		} else {
+			console.error('ForgotPasswordHandler: ', result)
+		}
+	} catch (error) {
+		console.error('ForgotPasswordHandler: ', error);
+	}
+}
+
+function* userPasswordResetConfirmSaga({payload, history}) {
+	try {
+		const {newPassword, confirmCode} = payload;
+		const result = yield call(UserService.resetPasswordConfirm, newPassword, confirmCode);
+
+		if (result.success) {
+			yield call(history.push, '/login')
+		}
+	} catch (error) {
+		console.error('ResetPasswordHandler: ', error);
+	}
 }
 
 function* userProfileUpdateSaga({payload}) {
