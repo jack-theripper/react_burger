@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import cl from "./styles.module.css";
 import {userSignUpAction} from "../services/actions/userActions";
 import {useDispatch, useSelector} from "react-redux";
+import withAuth from "../services/withAuth";
 
 const RegisterPage = () => {
     const dispatch = useDispatch();
@@ -47,4 +48,4 @@ const RegisterPage = () => {
     );
 };
 
-export default RegisterPage;
+export default withAuth(RegisterPage, false);

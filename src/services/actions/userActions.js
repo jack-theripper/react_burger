@@ -5,6 +5,7 @@ export const USER_PASSWORD_RESET_CONFIRM_REQUEST = 'USER_PASSWORD_RESET_CONFIRM_
 export const USER_SET_INFO = 'USER_SET_INFO';
 
 export const USER_TRY_AUTH = 'USER_TRY_AUTH';
+export const USER_TRY_AUTH_FAILURE = 'USER_TRY_AUTH_FAILURE';
 
 export const USER_SIGN_UP = 'USER_SIGN_UP';
 export const USER_SIGN_UP_SUCCESS = 'USER_SIGN_UP_SUCCESS';
@@ -21,12 +22,6 @@ export const USER_SIGN_OUT_FAILURE = 'USER_SIGN_OUT_FAILURE';
 export const USER_PROFILE_UPDATE = 'USER_PROFILE_UPDATE';
 export const USER_PROFILE_UPDATE_SUCCESS = 'USER_PROFILE_UPDATE_SUCCESS';
 export const USER_PROFILE_UPDATE_FAILURE = 'USER_PROFILE_UPDATE_FAILURE';
-
-export function fetchUserActon() {
-	return {
-		type: USER_TRY_AUTH
-	}
-}
 
 export function userSignUpAction(email, password, name) {
 	return {
@@ -86,7 +81,20 @@ export function userSignOutFailureAction(errorMessage = '') {
 	}
 }
 
-export function userSetInfo(payload) {
+export function userTryAuth() {
+	return {
+		type: USER_TRY_AUTH
+	}
+}
+
+export function userTryAuthFailure(errorMessage = '') {
+	return {
+		type: USER_TRY_AUTH_FAILURE,
+		payload: errorMessage
+	}
+}
+
+export function userSetData(payload) {
 	return {
 		type: USER_SET_INFO,
 		payload

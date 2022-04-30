@@ -1,6 +1,7 @@
 import React from 'react';
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
+import withAuth from "../../services/withAuth";
 
 /**
  * Детали заказа.
@@ -28,4 +29,4 @@ const OrderDetails = () => {
 	);
 };
 
-export default OrderDetails;
+export default withAuth(OrderDetails);

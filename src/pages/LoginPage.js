@@ -1,9 +1,10 @@
 import {useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import cl from './styles.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {userSignInAction} from "../services/actions/userActions";
+import withAuth from "../services/withAuth";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -15,14 +16,7 @@ const LoginPage = () => {
     const passwordVisibleToggle = () => setPasswordVisible((state) => !state);
     const loginHandler = () => dispatch(userSignInAction(email, password));
 
-    const loggedIn = useSelector(state => state.user.isLogged);
     const errorMessage = useSelector(state => state.user.errorMessage);
-
-    if (loggedIn) {
-        return (
-            <Redirect to={'/'}/>
-        )
-    }
 
     return (
         <div className={cl.container}>
@@ -54,4 +48,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage;
+export default withAuth(LoginPage, false);

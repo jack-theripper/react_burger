@@ -1,12 +1,12 @@
 import {all, call, fork, put, takeEvery, takeLatest} from 'redux-saga/effects'
 import * as ActionTypes from "../actions/userActions";
 import {
-	USER_PROFILE_UPDATE, USER_PROFILE_UPDATE_FAILURE, USER_PROFILE_UPDATE_SUCCESS,
-	userSetInfo,
+	USER_PROFILE_UPDATE_FAILURE,
+	USER_PROFILE_UPDATE_SUCCESS, userSetData,
 	userSignInFailureAction,
 	userSignOutFailureAction,
 	userSignOutSuccessAction,
-	userSignUpFailureAction
+	userSignUpFailureAction, userTryAuthFailure
 } from "../actions/userActions";
 import AuthService from "../AuthService";
 import UserService from "../UserService";
@@ -51,18 +51,15 @@ function* userSignOutSaga() {
 
 function* userAuth() {
 	try {
-
-		const token = localStorage.getItem('token');
-
-		const result = yield UserService.fetchUser(token);
+		const result = yield call(UserService.fetchUser);
 
 		if (result.success) {
-			yield put(userSetInfo(result.user))
+			yield put(userSetData(result.user))
+		} else {
+			yield put(userTryAuthFailure(result.message))
 		}
-
-
 	} catch (error) {
-		console.log('Error: ' + error)
+		yield put(userTryAuthFailure(error.toString()));
 	}
 }
 
@@ -101,6 +98,5 @@ function* userSignInSaga({payload}) {
 }
 
 export default function* rootSaga() {
-	// yield takeLatest("USER_FETCH_REQUESTED", fetchUser);
 	yield fork(watchUserAuthentication);
 }

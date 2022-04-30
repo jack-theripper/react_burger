@@ -8,12 +8,14 @@ import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage";
-import {fetchUserActon} from "../../services/actions/userActions";
+import {userSetData, userTryAuth, userTryAuthFailure} from "../../services/actions/userActions";
 import ProfilePage from "../../pages/ProfilePage";
 import LogoutPage from "../../pages/LogoutPage";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientViewPage from "../../pages/IngredientViewPage";
+import AuthService from "../../services/AuthService";
+import UserService from "../../services/UserService";
 
 const App = () => {
 
@@ -23,15 +25,15 @@ const App = () => {
     const location = useLocation();
     const background = location.state && location.state.background;
 
-    console.log(location);
-
-    useEffect(() => {
-        dispatch(fetchUserActon())
-    }, []);
-
     useEffect(() => {
         dispatch(fetchIngredientsAction())
-    }, []);
+    }, [dispatch]);
+
+    useEffect(async () => {
+        if (AuthService.getToken('token') || AuthService.getToken('refresh_token')) {
+            dispatch(userTryAuth());
+        }
+    }, [dispatch]);
 
     return (<>
         <AppHeader/>
