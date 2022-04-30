@@ -33,7 +33,7 @@ const BurgerConstructor = () => {
 
 	useEffect(() => isModalOpen && dispatch(orderCreateAction()), [isModalOpen, dispatch])
 
-	const handleClose = (ingredient) => {
+	const handleRemove = (ingredient) => {
 		return () => dispatch(orderRemoveIngredientAction(ingredient))
 	}
 
@@ -59,7 +59,7 @@ const BurgerConstructor = () => {
 				</div>
 				<div className={cl.list + ' custom-scroll'}>
 					{ingredients.map(value =>
-						<BurgerConstructorItem key={value.unique} ingredient={value} handleClose={handleClose} />
+						<BurgerConstructorItem key={value.unique} ingredient={value} handleClose={handleRemove} />
 					)}
 				</div>
 				<div className="flex pl-8 pl-2">
