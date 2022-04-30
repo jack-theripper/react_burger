@@ -75,10 +75,10 @@ const BurgerConstructor = () => {
 					</div>
 				</div>
 			</div>
-			<Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
+			{isModalOpen && (<Modal onClose={() => setIsModalOpen(false)}>
 				{hasOrderError && <h2 className="text-center pb-4">Произошла ошибка {hasOrderError}</h2>}
 				{!hasOrderError && <OrderDetails />}
-			</Modal>
+			</Modal>)}
 		</div>
 	)
 };

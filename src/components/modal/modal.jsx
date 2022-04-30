@@ -5,11 +5,7 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import ModalOverlay from './modal-overlay';
 
-/**
- * Modal — компонент самого модального окна: шапка с заголовком и иконка закрытия.
- */
-const Modal = ({children, show, title, onClose}) => {
-
+const Modal = ({children, title, onClose}) => {
 	const onCloseByEsc = useCallback(event => {
 		if (event.keyCode === 27) {
 			onClose()
@@ -21,9 +17,6 @@ const Modal = ({children, show, title, onClose}) => {
 	}, []);
 
 	useEffect(() => {
-
-		if ( ! show) return ;
-
 		document.addEventListener('keydown', onCloseByEsc);
 		document.addEventListener('focusin', focusHandler);
 
@@ -31,9 +24,9 @@ const Modal = ({children, show, title, onClose}) => {
 			document.removeEventListener('keydown', onCloseByEsc);
 			document.addEventListener('focusin', focusHandler);
 		}
-	}, [show]);
+	}, []);
 
-	return show && ReactDOM.createPortal(<React.Fragment>
+	return ReactDOM.createPortal(<>
 		<ModalOverlay closeHandler={onClose}/>
 		<div tabIndex="-1" className={cl.dialog}>
 			<a href="#" className={cl.close}>
@@ -44,12 +37,10 @@ const Modal = ({children, show, title, onClose}) => {
 				{children}
 			</div>
 		</div>
-
-	</React.Fragment>, document.getElementById('modals'));
+	</>, document.getElementById('modals'));
 };
 
 Modal.propTypes = {
-	show: PropTypes.bool,
 	onClose: PropTypes.func.isRequired,
 	title: PropTypes.string
 }

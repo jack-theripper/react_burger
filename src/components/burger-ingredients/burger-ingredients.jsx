@@ -83,23 +83,22 @@ const BurgerIngredients = () => {
 		}
 	}, [scrollRatio]);
 
-	return (
-		<div>
-			<div className={cl.tabs}>
-				{Object.keys(groups).map(key => (
-					<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
-				))}
-			</div>
-			<div className={cl.scroll + ' custom-scroll'} ref={scrollRef}>
-				{Object.keys(groups).map(key => (
-					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={showModalHandler} />
-				))}
-			</div>
-			<Modal show={isModalOpen} onClose={hideModalHandler} title="Детали ингредиента">
-				<IngredientDetails />
-			</Modal>
+	return (<div>
+		<div className={cl.tabs}>
+			{Object.keys(groups).map(key => (
+				<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
+			))}
 		</div>
-	)
+		<div className={cl.scroll + ' custom-scroll'} ref={scrollRef}>
+			{Object.keys(groups).map(key => (
+				<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]}
+				                       onClick={showModalHandler}/>
+			))}
+		</div>
+		{isModalOpen && (<Modal onClose={hideModalHandler} title="Детали ингредиента">
+			<IngredientDetails/>
+		</Modal>)}
+	</div>)
 };
 
 export default BurgerIngredients;
