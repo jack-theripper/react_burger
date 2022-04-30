@@ -24,8 +24,6 @@ const BurgerIngredients = () => {
 	}, {}), [list]);
 
 	const [activeTab, setActiveTab] = useState(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-
 	const $refs = new Map(); // vue.js I love u
 
 	const changeTab = (val) => {
@@ -45,13 +43,9 @@ const BurgerIngredients = () => {
 		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то.
 	}, [list])
 
-	const showModalHandler = (ingredient) => (event) => {
-		setIsModalOpen(true);
-		dispatch(ingredientDetailsSetAction(ingredient));
-	}
+	const isModalOpen = useSelector(state => state.ingredientDetails != null)
 
 	const hideModalHandler = () => {
-		setIsModalOpen(false);
 		dispatch(ingredientDetailsSetAction(null));
 	}
 
@@ -91,8 +85,7 @@ const BurgerIngredients = () => {
 		</div>
 		<div className={cl.scroll + ' custom-scroll'} ref={scrollRef}>
 			{Object.keys(groups).map(key => (
-				<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]}
-				                       onClick={showModalHandler}/>
+				<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} />
 			))}
 		</div>
 		{isModalOpen && (<Modal onClose={hideModalHandler} title="Детали ингредиента">

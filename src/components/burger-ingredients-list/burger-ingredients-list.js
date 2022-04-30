@@ -1,16 +1,22 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from "prop-types";
 import {IngredientPropType} from "../../propTypes";
 import {TITLES} from "../../constants";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
+import {ingredientDetailsSetAction} from "../../services/actions/ingredientDetailsActions";
+import {useDispatch} from "react-redux";
 
-const BurgerIngredientsList = React.forwardRef(({type, list, onClick = () => null}, ref) => {
+const BurgerIngredientsList = React.forwardRef(({type, list}, ref) => {
+
+	const dispatch = useDispatch();
+	const detailsHandler = useCallback((ingredient) => dispatch(ingredientDetailsSetAction(ingredient)), [dispatch]);
+
 	return (
 		<section id={type} ref={ref}>
 			<h2 className="margin">{TITLES[type]}</h2>
 			<ul className="grid p-5">
 				{list.map(ingredient => (
-					<li key={ingredient._id} className="flex flex-center" onClick={onClick(ingredient)}>
+					<li key={ingredient._id} className="flex flex-center" onClick={() => detailsHandler(ingredient)}>
 						<BurgerIngredient ingredient={ingredient} />
 					</li>
 				))}
@@ -22,7 +28,6 @@ const BurgerIngredientsList = React.forwardRef(({type, list, onClick = () => nul
 BurgerIngredientsList.propTypes = {
 	type: PropTypes.string.isRequired,
 	list: PropTypes.arrayOf(IngredientPropType.isRequired),
-	onClick: PropTypes.func
 }
 
 BurgerIngredientsList.defaultProps = {
