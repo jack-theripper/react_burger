@@ -15,6 +15,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientViewPage from "../../pages/IngredientViewPage";
 import AuthService from "../../services/AuthService";
+import NotFoundPage from "../../pages/NotFoundPage";
 
 const App = () => {
 
@@ -46,6 +47,7 @@ const App = () => {
                 <Route path="/profile" component={ProfilePage}/>
                 <Route path="/logout" component={LogoutPage}/>
                 <Route path="/ingredients/:id" component={IngredientViewPage}/>
+                <Route component={NotFoundPage}/>
             </Switch>
         </div>
 
