@@ -1,13 +1,12 @@
 import {all, call, fork, put, takeEvery, takeLatest} from 'redux-saga/effects'
 import * as ActionTypes from "../actions/userActions";
 import {
-	USER_PASSWORD_RESET_REQUEST,
-	USER_PROFILE_UPDATE_FAILURE,
-	USER_PROFILE_UPDATE_SUCCESS, userSetData,
+	userSetData,
 	userSignInFailureAction,
 	userSignOutFailureAction,
 	userSignOutSuccessAction,
-	userSignUpFailureAction, userTryAuthFailure
+	userSignUpFailureAction,
+	userTryAuthFailure
 } from "../actions/userActions";
 import AuthService from "../AuthService";
 import UserService from "../UserService";
@@ -57,12 +56,12 @@ function* userProfileUpdateSaga({payload}) {
 		const result = yield call(UserService.update, payload);
 
 		if (result.success) {
-			yield put({type: USER_PROFILE_UPDATE_SUCCESS, payload: result.user})
+			yield put({type: ActionTypes.USER_PROFILE_UPDATE_SUCCESS, payload: result.user})
 		} else {
-			yield put({type: USER_PROFILE_UPDATE_FAILURE, payload: result.message});
+			yield put({type: ActionTypes.USER_PROFILE_UPDATE_FAILURE, payload: result.message});
 		}
 	} catch (error) {
-		yield put({type: USER_PROFILE_UPDATE_FAILURE, payload: error.toString()});
+		yield put({type: ActionTypes.USER_PROFILE_UPDATE_FAILURE, payload: error.toString()});
 	}
 }
 

@@ -2,20 +2,19 @@ import React, {useEffect} from 'react';
 import AppHeader from "../app-header/app-header";
 import {useDispatch} from "react-redux";
 import {fetchIngredientsAction} from "../../services/actions/ingredientsActions";
-import {BrowserRouter, Route, Switch, useHistory, useLocation} from 'react-router-dom';
+import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
 import IndexPage from "../../pages/IndexPage";
 import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage";
-import {userSetData, userTryAuth, userTryAuthFailure} from "../../services/actions/userActions";
+import {userTryAuth} from "../../services/actions/userActions";
 import ProfilePage from "../../pages/ProfilePage";
 import LogoutPage from "../../pages/LogoutPage";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientViewPage from "../../pages/IngredientViewPage";
 import AuthService from "../../services/AuthService";
-import UserService from "../../services/UserService";
 
 const App = () => {
 
