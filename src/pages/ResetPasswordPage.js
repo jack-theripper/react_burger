@@ -4,6 +4,7 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {userResetPasswordConfirmationAction} from "../services/actions/userActions";
+import withAuth from "../services/withAuth";
 
 const ResetPasswordPage = () => {
 	const history = useHistory();
@@ -52,4 +53,4 @@ const ResetPasswordPage = () => {
 	)
 };
 
-export default ResetPasswordPage;
+export default withAuth(ResetPasswordPage, false);

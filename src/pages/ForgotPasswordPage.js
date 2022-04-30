@@ -1,9 +1,10 @@
 import {useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import cl from "./styles.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {userResetPasswordRequestAction} from "../services/actions/userActions";
+import withAuth from "../services/withAuth";
 
 const ForgotPasswordPage = () => {
     const history = useHistory();
@@ -37,4 +38,4 @@ const ForgotPasswordPage = () => {
     )
 };
 
-export default ForgotPasswordPage;
+export default withAuth(ForgotPasswordPage, false);
