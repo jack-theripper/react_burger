@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
 
-/**
- * Модальное окно с описанием конкретного ингредиента.
- */
 const IngredientDetails = () => {
 
-	const ingredient = useSelector(state => state.ingredientDetails);
+	const {id} = useParams();
+	const ingredients = useSelector(state => state.ingredients);
+	const ingredient = useMemo(() => ingredients.find(ingredient => ingredient._id === id), [ingredients, id]);
 
-	return ingredient && (
+	return ingredient ? (
 		<div className="text-center mb-10">
 			<img src={ingredient.image} alt=""/>
 			<p className="text text_type_main-default">{ingredient.name}</p>
@@ -31,7 +31,7 @@ const IngredientDetails = () => {
 				</li>
 			</ul>
 		</div>
-	);
+	) : null
 };
 
 export default IngredientDetails;

@@ -1,19 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
 import cl from './burger-ingredients.module.css';
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import {TITLES} from "../../constants";
 import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
-import {useDispatch, useSelector} from "react-redux";
-import {ingredientShowDetailsAction} from "../../services/actions/ingredientDetailsActions";
+import {useSelector} from "react-redux";
 
-/**
- * BurgerIngredients — список ингредиентов;
- */
 const BurgerIngredients = () => {
-
-	const dispatch = useDispatch();
 
 	const list = useSelector(state => state.ingredients);
 	const groups = useMemo(() => list.reduce((prev, curr) => { // ингредиенты по типам
@@ -41,13 +33,7 @@ const BurgerIngredients = () => {
 
 	useEffect(() => {
 		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то.
-	}, [list])
-
-	const isModalOpen = useSelector(state => state.ingredientDetails != null)
-
-	const hideModalHandler = () => {
-		dispatch(ingredientShowDetailsAction(null));
-	}
+	}, [list]);
 
 	const scrollRef = useRef();
 	const [scrollRatio, setScrollRatio] = useState({});
@@ -88,9 +74,6 @@ const BurgerIngredients = () => {
 				<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} />
 			))}
 		</div>
-		{isModalOpen && (<Modal onClose={hideModalHandler} title="Детали ингредиента">
-			<IngredientDetails/>
-		</Modal>)}
 	</div>)
 };
 
