@@ -32,6 +32,6 @@
     column-gap: 10px;
 }
 
-.navbar ul li:hover > a, .navbar .active a {
+.navbar ul li:hover > a, .navbar .active {
     color: #F2F2F3;
 }
