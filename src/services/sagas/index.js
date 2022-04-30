@@ -86,13 +86,14 @@ function* userSignInSaga({payload}) {
 
 		if (result.success) {
 			yield all([
-				call(AuthService.setTokens, result.accessToken || '', result.refreshToken || null),
+				call(AuthService.updateTokens, result),
 				put({type: ActionTypes.USER_SIGN_IN_SUCCESS, payload: result.user})
 			])
 		} else {
 			yield put(userSignInFailureAction(result.message));
 		}
 	} catch (error) {
+		console.log(error);
 		yield put(userSignInFailureAction(error.toString()));
 	}
 }
