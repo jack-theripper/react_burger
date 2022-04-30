@@ -36,7 +36,6 @@ export function orderCreateAction() {
 			.then(response => {
 				dispatch(orderRequestSuccessAction());
 				dispatch(orderDetailsChangeAction({orderNumber: response.order.number}));
-				dispatch(orderIngredientsRemoveAllAction());
 			})
 			.catch(e => {
 				dispatch(orderRequestFailedAction(e.toString()))

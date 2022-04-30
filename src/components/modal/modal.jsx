@@ -12,18 +12,10 @@ const Modal = ({children, title, onClose}) => {
 		}
 	}, []);
 
-	const focusHandler = useCallback(event => {
-		document.activeElement.blur()
-	}, []);
-
 	useEffect(() => {
 		document.addEventListener('keydown', onCloseByEsc);
-		document.addEventListener('focusin', focusHandler);
 
-		return () => {
-			document.removeEventListener('keydown', onCloseByEsc);
-			document.addEventListener('focusin', focusHandler);
-		}
+		return () => document.removeEventListener('keydown', onCloseByEsc);
 	}, []);
 
 	return ReactDOM.createPortal(<>

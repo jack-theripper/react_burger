@@ -7,7 +7,7 @@ import Price from "../price/price";
 import {useDispatch, useSelector} from "react-redux";
 import {
 	orderAddIngredientAction,
-	orderCreateAction,
+	orderCreateAction, orderIngredientsRemoveAllAction,
 	orderRemoveIngredientAction
 } from "../../services/actions/orderActions";
 import {useDrop} from "react-dnd";
@@ -36,6 +36,11 @@ const BurgerConstructor = () => {
 	const handleRemove = (ingredient) => {
 		return () => dispatch(orderRemoveIngredientAction(ingredient))
 	}
+
+	const handleCloseModal = () => {
+		dispatch(orderIngredientsRemoveAllAction());
+		setIsModalOpen(false);
+	};
 
 	const [, dropRef] = useDrop({
 		accept: 'ingredient',
@@ -75,7 +80,7 @@ const BurgerConstructor = () => {
 					</div>
 				</div>
 			</div>
-			{isModalOpen && (<Modal onClose={() => setIsModalOpen(false)}>
+			{isModalOpen && (<Modal onClose={handleCloseModal}>
 				{hasOrderError && <h2 className="text-center pb-4">Произошла ошибка {hasOrderError}</h2>}
 				{!hasOrderError && <OrderDetails />}
 			</Modal>)}
