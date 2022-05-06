@@ -5,6 +5,7 @@ import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import Price from "../price/price";
 import {useSelector} from "react-redux";
 import {IngredientPropType} from "../../propTypes";
+import {Link, useLocation} from "react-router-dom";
 
 const BurgerIngredient = ({ingredient}) => {
 
@@ -19,14 +20,18 @@ const BurgerIngredient = ({ingredient}) => {
 			return previousValue + (currentValue._id === ingredient._id ? (ingredient.type === 'bun' ? 2 : 1) : 0);
 		}), 0), [orderIngredients]);
 
-	return (
-		<div draggable ref={dragRef} className={cl.item + ' relative'}>
+	const location = useLocation();
+
+	return (<Link className={cl.item} ref={dragRef}
+	              to={{pathname: `/ingredients/${ingredient._id}`, state: {background: location}}}
+	>
+		<div className={'relative'}>
 			<img src={ingredient.image} alt={ingredient.name}/>
 			{count > 0 && <Counter count={count} size="default"/>}
 			<Price value={ingredient.price}/>
 			<p className="m-1">{ingredient.name}</p>
 		</div>
-	)
+	</Link>)
 };
 
 BurgerIngredient.propTypes = {

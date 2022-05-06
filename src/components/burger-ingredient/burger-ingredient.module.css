@@ -1,4 +1,6 @@
 .item {
     cursor: pointer;
     text-align: center;
+    text-decoration: none;
+    color: #F2F2F3;
 }

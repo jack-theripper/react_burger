@@ -1,19 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
 import cl from './burger-ingredients.module.css';
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import {TITLES} from "../../constants";
 import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
-import {useDispatch, useSelector} from "react-redux";
-import {ingredientDetailsSetAction} from "../../services/actions/ingredientDetailsActions";
+import {useSelector} from "react-redux";
 
-/**
- * BurgerIngredients — список ингредиентов;
- */
 const BurgerIngredients = () => {
-
-	const dispatch = useDispatch();
 
 	const list = useSelector(state => state.ingredients);
 	const groups = useMemo(() => list.reduce((prev, curr) => { // ингредиенты по типам
@@ -24,8 +16,6 @@ const BurgerIngredients = () => {
 	}, {}), [list]);
 
 	const [activeTab, setActiveTab] = useState(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-
 	const $refs = new Map(); // vue.js I love u
 
 	const changeTab = (val) => {
@@ -43,17 +33,7 @@ const BurgerIngredients = () => {
 
 	useEffect(() => {
 		setActiveTab(Object.keys(groups)[0] ?? null); // Это кошмар какой-то.
-	}, [list])
-
-	const showModalHandler = (ingredient) => (event) => {
-		setIsModalOpen(true);
-		dispatch(ingredientDetailsSetAction(ingredient));
-	}
-
-	const hideModalHandler = () => {
-		setIsModalOpen(false);
-		dispatch(ingredientDetailsSetAction(null));
-	}
+	}, [list]);
 
 	const scrollRef = useRef();
 	const [scrollRatio, setScrollRatio] = useState({});
@@ -83,23 +63,18 @@ const BurgerIngredients = () => {
 		}
 	}, [scrollRatio]);
 
-	return (
-		<div>
-			<div className={cl.tabs}>
-				{Object.keys(groups).map(key => (
-					<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
-				))}
-			</div>
-			<div className={cl.scroll + ' custom-scroll'} ref={scrollRef}>
-				{Object.keys(groups).map(key => (
-					<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} onClick={showModalHandler} />
-				))}
-			</div>
-			<Modal show={isModalOpen} onClose={hideModalHandler} title="Детали ингредиента">
-				<IngredientDetails />
-			</Modal>
+	return (<div>
+		<div className={cl.tabs}>
+			{Object.keys(groups).map(key => (
+				<Tab value={key} key={key} active={activeTab === key} onClick={changeTab}>{TITLES[key]}</Tab>
+			))}
 		</div>
-	)
+		<div className={cl.scroll + ' custom-scroll'} ref={scrollRef}>
+			{Object.keys(groups).map(key => (
+				<BurgerIngredientsList key={key} ref={createRef(key)} type={key} list={groups[key]} />
+			))}
+		</div>
+	</div>)
 };
 
 export default BurgerIngredients;

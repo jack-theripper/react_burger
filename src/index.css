@@ -47,6 +47,7 @@ ul, li {
 
 .container {
     display: flow-root;
+    flex-grow: 1;
     box-sizing: content-box;
     max-width: 1200px;
     margin-left: auto;
@@ -76,6 +77,10 @@ ul, li {
     padding-left: 40px;
     width: 50%; /* Сетка 1/2 */
     box-sizing: border-box;
+}
+
+.width-1-4 {
+    width: calc(100% / 4);
 }
 
 /*

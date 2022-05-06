@@ -1,31 +1,31 @@
 import React from "react";
 import cl from './app-header.module.css';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Link, NavLink} from "react-router-dom";
 
-/**
- * AppHeader — шапка приложения;
- */
 const AppHeader = () => {
 	return (
 		<header className={cl.container}>
 			<div className={cl.navbar + ' container'}>
 				<ul>
-					<li className={cl.active}>
-						<a href="#">
+					<li>
+						<NavLink to={'/'} activeClassName={cl.active} exact>
 							<BurgerIcon type="primary"/>
 							<span>Конструктор</span>
-						</a>
+						</NavLink>
 					</li>
 					<li>
 						<a href="#"><ListIcon type="secondary"/> Лента заказов</a>
 					</li>
 				</ul>
-				<div className={cl.center}>
+				<Link to={'/'} className={cl.center}>
 					<Logo/>
-				</div>
+				</Link>
 				<ul>
 					<li>
-						<a href="#"><ProfileIcon type="secondary"/> Личный кабинет</a>
+						<NavLink to={'/profile'} activeClassName={cl.active}>
+							<ProfileIcon type="secondary"/> Личный кабинет
+						</NavLink>
 					</li>
 				</ul>
 			</div>
