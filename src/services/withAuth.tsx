@@ -3,7 +3,9 @@ import {useSelector} from "react-redux";
 import {Redirect, useLocation} from "react-router-dom";
 
 interface LocationState {
-	from?: string;
+	from?: {
+		pathname: string;
+	};
 }
 
 const withAuth = (Component: React.FC, shouldLoggedIn: boolean = true) => {
@@ -15,7 +17,9 @@ const withAuth = (Component: React.FC, shouldLoggedIn: boolean = true) => {
 			return isLogged ? <Component/> : <Redirect to={{pathname: '/login', state: {from: location}}}/>;
 		}
 
-		return isLogged ? (<Redirect to={location.state?.from || '/'}/>) : <Component/>;
+		const from = (location.state.from && location.state.from?.pathname != '/logout') ? location.state?.from : '/';
+
+		return isLogged ? (<Redirect to={from}/>) : <Component/>;
 	}
 };
 
