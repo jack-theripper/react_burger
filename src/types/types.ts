@@ -1,0 +1,24 @@
+import {TITLES} from "../constants";
+
+export type IngredientTypes = keyof typeof TITLES;
+
+export type IngredientType = {
+    _id: string;
+    name: string;
+    type: IngredientTypes;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
+    calories: number;
+    price: number;
+    image: string;
+    image_mobile: string;
+    image_large: string;
+    unique?: number;
+}
+
+export type Profile = {
+    email: string;
+    name: string;
+    password: string;
+}
