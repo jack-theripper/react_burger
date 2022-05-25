@@ -17,7 +17,7 @@ const withAuth = (Component: React.FC, shouldLoggedIn: boolean = true) => {
 			return isLogged ? <Component/> : <Redirect to={{pathname: '/login', state: {from: location}}}/>;
 		}
 
-		const from = (location.state.from && location.state.from?.pathname != '/logout') ? location.state?.from : '/';
+		const from = (location.state?.from && location.state.from?.pathname != '/logout') ? location.state?.from : '/';
 
 		return isLogged ? (<Redirect to={from}/>) : <Component/>;
 	}

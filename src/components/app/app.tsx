@@ -16,6 +16,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientViewPage from "../../pages/IngredientViewPage";
 import AuthService from "../../services/AuthService";
 import NotFoundPage from "../../pages/NotFoundPage";
+import FeedPage from "../../pages/FeedPage";
 
 interface LocationState {
     background?: any;
@@ -51,6 +52,7 @@ const App: React.FC = () => {
                 <Route path="/profile" component={ProfilePage}/>
                 <Route path="/logout" component={LogoutPage}/>
                 <Route path="/ingredients/:id" component={IngredientViewPage}/>
+                <Route path="/feed" component={FeedPage}/>
                 <Route component={NotFoundPage}/>
             </Switch>
         </div>
