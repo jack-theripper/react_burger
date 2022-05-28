@@ -6,6 +6,7 @@ import Price from "../price/price";
 import {useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom";
 import {IngredientType} from "../../types/types";
+import {RootState} from "../../services/store";
 
 interface BurgerIngredient {
 	ingredient: IngredientType;
@@ -18,7 +19,7 @@ const BurgerIngredient: React.FC<BurgerIngredient> = ({ingredient}) => {
 		item: ingredient
 	});
 
-	const orderIngredients = useSelector<any, IngredientType[]>(state => state.order.ingredients);
+	const orderIngredients = useSelector<RootState, IngredientType[]>(state => state.order.ingredients);
 	const count = useMemo(() =>
 		orderIngredients.reduce((function (previousValue, currentValue) {
 			return previousValue + (currentValue._id === ingredient._id ? (ingredient.type === 'bun' ? 2 : 1) : 0);

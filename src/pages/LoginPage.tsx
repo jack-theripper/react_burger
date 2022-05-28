@@ -5,9 +5,10 @@ import cl from './styles.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {userSignInAction} from "../services/actions/userActions";
 import withAuth from "../services/withAuth";
+import {AppDispatch, RootState} from "../services/store";
 
 const LoginPage: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -19,7 +20,7 @@ const LoginPage: React.FC = () => {
         dispatch(userSignInAction(email, password));
     }
 
-    const errorMessage = useSelector<any, string | null>(state => state.user.errorMessage);
+    const errorMessage = useSelector<RootState, string | null>(state => state.user.errorMessage);
 
     return (
         <form className={cl.container} onSubmit={loginHandler}>

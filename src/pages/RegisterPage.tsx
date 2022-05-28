@@ -5,9 +5,10 @@ import cl from "./styles.module.css";
 import {userSignUpAction} from "../services/actions/userActions";
 import {useDispatch, useSelector} from "react-redux";
 import withAuth from "../services/withAuth";
+import {AppDispatch, RootState} from "../services/store";
 
 const RegisterPage: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -20,7 +21,7 @@ const RegisterPage: React.FC = () => {
         dispatch(userSignUpAction(email, password, name));
     }
 
-    const errorMessage = useSelector<any, string | null>(state => state.user.errorMessage);
+    const errorMessage = useSelector<RootState, string | null>(state => state.user.errorMessage);
 
     return (
         <form className={cl.container} onSubmit={registrationHandler}>

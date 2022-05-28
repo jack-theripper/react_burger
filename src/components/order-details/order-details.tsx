@@ -2,14 +2,13 @@ import React from 'react';
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
 import withAuth from "../../services/withAuth";
+import {RootState} from "../../services/store";
+import {OrderDetailsType} from "../../types/types";
 
-interface OrderDetails {
-	orderNumber?: number
-}
 
 const OrderDetails: React.FC = () => {
 	
-	const order = useSelector<any, OrderDetails>(state => state.order.details);
+	const order = useSelector<RootState, OrderDetailsType>(state => state.order.details);
 	
 	return (
 		<div className="text-center mb-10">

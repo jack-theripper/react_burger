@@ -14,12 +14,13 @@ import {
 import {useDrop} from "react-dnd";
 import BurgerConstructorItem from "./burger-constructor-item";
 import {IngredientType} from "../../types/types";
+import {AppDispatch, AppThunk, RootState} from "../../services/store";
 
 const BurgerConstructor: React.FC = () => {
 
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch | AppThunk>();
 
-	const list = useSelector<any, IngredientType[]>(state => state.order.ingredients);
+	const list = useSelector<RootState, IngredientType[]>(state => state.order.ingredients);
 	const bun = list.find(ingredient => ingredient.type === 'bun');
 	const ingredients = list.filter(ingredient => ingredient.type !== 'bun');
 	const price = useMemo(() =>
@@ -28,7 +29,7 @@ const BurgerConstructor: React.FC = () => {
 	);
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const hasOrderError = useSelector<any, string | null>(state => state.order.errorMessage);
+	const hasOrderError = useSelector<RootState, string | null>(state => state.order.errorMessage);
 
 	useEffect(() => {
 		isModalOpen && dispatch(orderCreateAction());
@@ -38,7 +39,7 @@ const BurgerConstructor: React.FC = () => {
 		return () => dispatch(orderRemoveIngredientAction(ingredient))
 	}
 
-	const isLogged = useSelector<any, boolean>(state => state.user.isLogged);
+	const isLogged = useSelector<RootState, boolean>(state => state.user.isLogged);
 
 	const handleCloseModal = () => {
 		if (isLogged) {

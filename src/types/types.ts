@@ -14,11 +14,24 @@ export type IngredientType = {
     image: string;
     image_mobile: string;
     image_large: string;
-    unique?: number;
+    unique: number;
 }
 
 export type Profile = {
     email: string;
     name: string;
     password: string;
+}
+
+export type OrderNewDetails = {
+    orderNumber: number | null;
+}
+
+export type UserType = {
+    email: string;
+    name: string;
+}
+
+export type OrderDetailsType = {
+    orderNumber: number | null;
 }

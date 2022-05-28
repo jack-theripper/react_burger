@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {IngredientType} from "../../types/types";
+import {RootState} from "../../services/store";
 
 interface DetailsRouteParams {
 	id: string;
@@ -10,7 +11,7 @@ interface DetailsRouteParams {
 const IngredientDetails: React.FC = () => {
 
 	const {id} = useParams<DetailsRouteParams>();
-	const ingredients = useSelector<any, IngredientType[]>(state => state.ingredients);
+	const ingredients = useSelector<RootState, IngredientType[]>(state => state.ingredients);
 	const ingredient = useMemo(() => ingredients.find(ingredient => ingredient._id === id), [ingredients, id]);
 
 	return ingredient ? (

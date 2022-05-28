@@ -1,4 +1,12 @@
 import * as ActionTypes from '../actions/userActions';
+import {TUserActions} from "../actions/userActions";
+import {UserType} from "../../types/types";
+
+interface UserState {
+	user: UserType;
+	isLogged: boolean;
+	errorMessage: string | null;
+}
 
 const defaultState = {
 	user: {
@@ -9,7 +17,7 @@ const defaultState = {
 	errorMessage: null
 };
 
-export default function userReducer(state = defaultState, action: any) {
+export default function userReducer(state: UserState = defaultState, action: TUserActions) {
 
 	switch (action.type) {
 

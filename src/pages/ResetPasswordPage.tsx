@@ -5,6 +5,7 @@ import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {userResetPasswordConfirmationAction} from "../services/actions/userActions";
 import withAuth from "../services/withAuth";
+import {AppDispatch} from "../services/store";
 
 interface LocationState {
     from?: string
@@ -13,7 +14,7 @@ interface LocationState {
 const ResetPasswordPage: React.FC = () => {
     const history = useHistory();
     const location = useLocation<LocationState>();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const [code, setCode] = useState<string>('');
     const [password, setPassword] = useState<string>('');

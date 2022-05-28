@@ -17,6 +17,7 @@ import IngredientViewPage from "../../pages/IngredientViewPage";
 import AuthService from "../../services/AuthService";
 import NotFoundPage from "../../pages/NotFoundPage";
 import FeedPage from "../../pages/FeedPage";
+import {AppDispatch, AppThunk} from "../../services/store";
 
 interface LocationState {
     background?: any;
@@ -24,7 +25,7 @@ interface LocationState {
 
 const App: React.FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch | AppThunk>();
 
     const history = useHistory();
     const location = useLocation<LocationState>();

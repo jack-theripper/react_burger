@@ -1,6 +1,9 @@
-import {INGREDIENTS_SET} from "../actions/ingredientsActions";
+import {INGREDIENTS_SET, TIngredientsActions} from "../actions/ingredientsActions";
+import {IngredientType} from "../../types/types";
 
-export default function ingredientsReducer(state = [], action: any) {
+type IngredientsState = Array<IngredientType>;
+
+export default function ingredientsReducer(state: IngredientsState = [], action: TIngredientsActions) {
 	switch (action.type) {
 
 		case INGREDIENTS_SET:

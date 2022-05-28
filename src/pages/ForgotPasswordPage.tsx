@@ -5,10 +5,11 @@ import cl from "./styles.module.css";
 import {useDispatch} from "react-redux";
 import {userResetPasswordRequestAction} from "../services/actions/userActions";
 import withAuth from "../services/withAuth";
+import {AppDispatch} from "../services/store";
 
 const ForgotPasswordPage: React.FC = () => {
     const history = useHistory();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const [email, setEmail] = useState<string>('');
 
     const forgotPasswordHandler = (e: React.SyntheticEvent<HTMLFormElement>) => {

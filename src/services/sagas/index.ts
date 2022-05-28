@@ -1,25 +1,20 @@
 import {all, call, fork, put, takeEvery, takeLatest} from 'redux-saga/effects'
 import * as ActionTypes from "../actions/userActions";
 import {
+    UserProfileUpdate,
+    UserResetPasswordConfirmation,
+    UserResetPasswordRequest,
     userSetData,
+    UserSignIn,
     userSignInFailureAction,
     userSignOutFailureAction,
     userSignOutSuccessAction,
+    UserSignUp,
     userSignUpFailureAction,
     userTryAuthFailure
 } from "../actions/userActions";
 import AuthService from "../AuthService";
 import UserService from "../UserService";
-import {History} from 'history';
-
-type SagaAction = {
-    type: keyof typeof ActionTypes;
-    payload: any;
-}
-
-type SagaActionHistory = SagaAction & {
-    history: History;
-}
 
 function* watchUserAuthentication(): IterableIterator<any> {
     yield takeLatest(ActionTypes.USER_SIGN_IN, userSignInSaga);
@@ -33,7 +28,7 @@ function* watchUserAuthentication(): IterableIterator<any> {
     yield takeLatest(ActionTypes.USER_PASSWORD_RESET_CONFIRM_REQUEST, userPasswordResetConfirmSaga);
 }
 
-function* userPasswordResetReqSaga({payload: email, history}: SagaActionHistory): any {
+function* userPasswordResetReqSaga({payload: email, history}: UserResetPasswordRequest): any {
     try {
         const result = yield call(UserService.resetPassword, {email});
 
@@ -47,7 +42,7 @@ function* userPasswordResetReqSaga({payload: email, history}: SagaActionHistory)
     }
 }
 
-function* userPasswordResetConfirmSaga({payload, history}: SagaActionHistory): any {
+function* userPasswordResetConfirmSaga({payload, history}: UserResetPasswordConfirmation): any {
     try {
         const {newPassword, confirmCode} = payload;
         const result = yield call(UserService.resetPasswordConfirm, newPassword, confirmCode);
@@ -60,7 +55,7 @@ function* userPasswordResetConfirmSaga({payload, history}: SagaActionHistory): a
     }
 }
 
-function* userProfileUpdateSaga({payload}: SagaAction): any {
+function* userProfileUpdateSaga({payload}: UserProfileUpdate): any {
     try {
         const result = yield call(UserService.update, payload);
 
@@ -108,7 +103,7 @@ function* userAuth(): any {
     }
 }
 
-function* userSignUpSaga({payload}: SagaAction): any {
+function* userSignUpSaga({payload}: UserSignUp): any {
     try {
         const result = yield call(AuthService.create, payload);
 
@@ -127,7 +122,7 @@ function* userSignUpSaga({payload}: SagaAction): any {
     }
 }
 
-function* userSignInSaga({payload}: SagaAction): any {
+function* userSignInSaga({payload}: UserSignIn): any {
     try {
         const result = yield call(AuthService.login, payload);
 
