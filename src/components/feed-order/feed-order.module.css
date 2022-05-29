@@ -81,3 +81,7 @@
     color: #00CCCC;
     column-count: 3;
 }
+
+.status_done {
+    color: #00CCCC;
+}

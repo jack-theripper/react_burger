@@ -8,9 +8,10 @@ import FeedOrderItem from "./feed-order-item";
 
 interface FeedOrderProps {
     order: FeedOrderType;
+    onClick?: () => void;
 }
 
-const FeedOrder: React.FC<FeedOrderProps> = ({order}) => {
+const FeedOrder: React.FC<FeedOrderProps> = ({order, onClick}) => {
 
     const allIngredients = useSelector<RootState, IngredientType[]>(state => state.ingredients);
     const {items, price} = useMemo(() => {
@@ -32,7 +33,7 @@ const FeedOrder: React.FC<FeedOrderProps> = ({order}) => {
     }, [order.ingredients, allIngredients]);
 
     return (
-        <div className={cl.box}>
+        <div className={cl.box} onClick={onClick}>
             <div className={cl.header}>
                 <span className={'text_type_digits-default'}>#{order.number}</span>
                 <span className={'text_type_main-default'}>Сегодня, 16:20 i-GMT+3</span>
