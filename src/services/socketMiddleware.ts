@@ -20,12 +20,9 @@ export const socketMiddleware: Middleware = (store: MiddlewareAPI<AppDispatch, R
         const {dispatch} = store;
 
         if (action.type === SOCKET_OPEN_CONNECTION) {
+
             socket !== null && socket.close(1000);
             socket = new WebSocket(action.url);
-            handler = action.handler;
-        }
-
-        if (socket) {
 
             socket.addEventListener('open', () => dispatch(socketConnectionEstablishedAction()));
             socket.addEventListener('close', () => dispatch(socketConnectionLostAction()));
@@ -36,9 +33,11 @@ export const socketMiddleware: Middleware = (store: MiddlewareAPI<AppDispatch, R
                 handler && dispatch(handler(JSON.parse(event.data)));
             });
 
-            if (action.type === SOCKET_CLOSE_CONNECTION) {
-                socket.close(1000);
-            }
+            handler = action.handler;
+        }
+
+        if (socket && action.type === SOCKET_CLOSE_CONNECTION) {
+            socket.close(1000);
         }
 
         return next(action);
