@@ -4,7 +4,6 @@ import Price from "../price/price";
 import {FeedOrderType, IngredientType} from "../../types/types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../services/store";
-import FeedOrderItem from "./feed-order-item";
 
 interface FeedOrderProps {
     order: FeedOrderType;
@@ -13,18 +12,21 @@ interface FeedOrderProps {
 const FeedOrder: React.FC<FeedOrderProps> = ({order}) => {
 
     const allIngredients = useSelector<RootState, IngredientType[]>(state => state.ingredients);
-    const items = useMemo(() => {
+    const {items, price} = useMemo(() => {
 
-        let items = [];
-        let item = null;
+        let ingredients = [];
+        let ingredient = null;
 
         for (let i = 0; i < order.ingredients.length; i++) {
-            if ((item = allIngredients.find(item => item._id === order.ingredients[i]))) {
-                items.push(item);
+            if ((ingredient = allIngredients.find(item => item._id === order.ingredients[i]))) {
+                ingredients.push(ingredient);
             }
         }
 
-        return items.reverse();
+        return {
+            items: ingredients.reverse(),
+            price: ingredients.reduce((value, ingredient) => value + ingredient.price, 0)
+        };
 
     }, [order, allIngredients]);
 
@@ -61,7 +63,7 @@ const FeedOrder: React.FC<FeedOrderProps> = ({order}) => {
                 </div>
 
                 <div>
-                    <Price value={123}/>
+                    <Price value={price}/>
                 </div>
             </div>
         </div>
