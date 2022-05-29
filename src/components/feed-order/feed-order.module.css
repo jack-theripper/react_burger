@@ -57,3 +57,15 @@
     transform: translate(-50%,-50%);
     height: 100%;
 }
+
+.column {
+    max-height: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.done_column {
+    color: #00CCCC;
+    column-count: 3;
+}

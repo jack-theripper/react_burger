@@ -35,3 +35,13 @@ export type UserType = {
 export type OrderDetailsType = {
     orderNumber: number | null;
 }
+
+export type FeedOrderType = {
+    _id: string;
+    createdAt: string;
+    ingredients: string[];
+    name: string;
+    number: number;
+    status: 'created' | 'pending' | 'done';
+    updatedAt: string;
+}

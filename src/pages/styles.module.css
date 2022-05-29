@@ -30,7 +30,14 @@
     color: #F2F2F3 !important;
 }
 
-.orders {
+.orders_container {
+    flex-grow: 1;
+    max-height: calc(100vh - 200px);
+    overflow: hidden scroll;
+    scrollbar-width: thin;
+}
+
+.orders_cards_container {
     gap: 24px;
     display: flex;
     flex-direction: column;

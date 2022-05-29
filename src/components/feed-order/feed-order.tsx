@@ -41,9 +41,9 @@ const FeedOrder: React.FC<FeedOrderProps> = ({order}) => {
             <div className={cl.center}>
                 <div className={cl.items}>
 
-                    {items.map(item => (
+                    {/*{items.map(item => (
                         <FeedOrderItem ingredient={item} />
-                    ))}
+                    ))}*/}
 
 
                     {/*<div className={cl.item}>*/}

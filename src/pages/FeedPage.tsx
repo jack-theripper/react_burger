@@ -1,93 +1,48 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../services/store";
+import {socketCloseConnectionAction, socketOpenConnectionAction} from "../services/actions/socketActions";
+import {WS_FEED_URL} from "../constants";
+import {feedReceiveOrdersAction} from "../services/actions/feedActions";
+import FeedOrder from "../components/feed-order/feed-order";
 import cl from "./styles.module.css";
-import Price from "../components/price/price";
+import FeedOrderSummary from "../components/feed-order/feed-order-summary";
 
 const FeedPage: React.FC = () => {
+
+    const dispatch = useDispatch<AppDispatch>();
+    const {orders, ...feed} = useSelector((state: RootState) => state.feed);
+
+    useEffect(() => {
+        dispatch(socketOpenConnectionAction(WS_FEED_URL, feedReceiveOrdersAction));
+
+        return () => {
+            dispatch(socketCloseConnectionAction());
+        }
+    }, []);
+
     return (<>
         <h1>Лента заказов</h1>
         <div className="grid">
             <div>
-
-
-                <div style={{flexGrow: 1, maxHeight: 'calc(100vh - 200px)', overflow: 'hidden scroll', scrollbarWidth: 'thin' }} className={'custom-scroll'}>
-
-                    <div className={cl.orders}>
-
-                        {[...Array(10)].map((e, i) => (
-                            <div className={cl.box}>
-                                <div className={cl.header}>
-                                    <span className={'text_type_digits-default'}>#034535</span>
-                                    <span className={'text_type_main-default'}>Сегодня, 16:20 i-GMT+3</span>
-                                </div>
-                                <h3 className={'text_type_main-medium'} style={{display: 'flex', alignItems: 'center'}}>
-                                    Death Star Starship Main бургер
-                                </h3>
-                                <p className={'text_type_main-default'}>Создан</p>
-                                <div style={{display: 'flex', alignItems: 'center'}}>
-                                    <div style={{flexGrow: 1}} className={cl.items}>
-                                        <div className={cl.item}>
-                                            <img src="https://code.s3.yandex.net/react/code/bun-02.png" width={'auto'} alt=""/>
-                                        </div>
-                                        <div className={cl.item}>
-                                            <img src="https://code.s3.yandex.net/react/code/meat-02.png" alt=""/>
-                                        </div>
-                                        <div className={cl.item}>
-                                            <img src="https://code.s3.yandex.net/react/code/core.png" alt=""/>
-                                            <div style={{
-                                                background: '#1C1C21',
-                                                opacity: '0.6',
-                                                position: 'absolute',
-                                                top: 0, left: 0, bottom: 0, right: 0, textAlign: "center", paddingTop: '30%'
-                                            }}>
-                                                +3
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <Price value={123}/>
-                                    </div>
-                                </div>
-                            </div>))}
-
-
+                <div className={`${cl.orders_container} custom-scroll`}>
+                    <div className={cl.orders_cards_container}>
+                        {orders.map(order => (
+                            <FeedOrder order={order} key={order.number}/>
+                        ))}
                     </div>
-
                 </div>
             </div>
             <div>
+                <FeedOrderSummary orders={orders}/>
 
+                <p className={'text_type_main-medium'}>Выполнено за все время:</p>
+                <div className={'text_type_digits-large'}>{feed.total.toLocaleString()}</div>
 
-                <div className={'grid'}>
-                    <div>
-                        Готовы:
-                        <ul className={'text_type_digits-default mt-3'} style={{color: '#00CCCC'}}>
-                            <li>034533</li>
-                            <li>034533</li>
-                            <li>034533</li>
-                            <li>034533</li>
-                            <li>034533</li>
-                        </ul>
-                    </div>
-                    <div>
-                        В работе:
-                        <ul className={'text_type_digits-default mt-3'}>
-                            <li>034533</li>
-                            <li>034533</li>
-                            <li>034533</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <p className={'text_type_main-large'}>Выполнено за все время:</p>
-                <div className={'text_type_digits-large'}>28 752</div>
-
-                <p className={'text_type_main-large'}>Выполнено за сегодня:</p>
-                <div className={'text_type_digits-large'}>138</div>
-
+                <p className={'text_type_main-medium'}>Выполнено за сегодня:</p>
+                <div className={'text_type_digits-large'}>{feed.totalToday.toLocaleString()}</div>
             </div>
         </div>
-
     </>);
 };
 
