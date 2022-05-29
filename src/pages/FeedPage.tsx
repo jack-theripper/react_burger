@@ -37,10 +37,10 @@ const FeedPage: React.FC = () => {
                 <FeedOrderSummary orders={orders}/>
 
                 <p className={'text_type_main-medium'}>Выполнено за все время:</p>
-                <div className={'text_type_digits-large'}>{feed.total.toLocaleString()}</div>
+                <div className={`${cl.digits_highlight} text_type_digits-large`}>{feed.total.toLocaleString()}</div>
 
                 <p className={'text_type_main-medium'}>Выполнено за сегодня:</p>
-                <div className={'text_type_digits-large'}>{feed.totalToday.toLocaleString()}</div>
+                <div className={`${cl.digits_highlight} text_type_digits-large`}>{feed.totalToday.toLocaleString()}</div>
             </div>
         </div>
     </>);
