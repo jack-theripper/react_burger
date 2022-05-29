@@ -42,7 +42,7 @@ const FeedOrder: React.FC<FeedOrderProps> = ({order}) => {
             <div className={cl.center}>
                 <div className={cl.items}>
                     {items.length > 5 && <FeedOrderItem ingredient={items[5]} overlay={items.length}/>}
-                    {items.slice(0, 5).map(item => <FeedOrderItem ingredient={item} />)}
+                    {items.slice(0, 5).map((item, index) => <FeedOrderItem ingredient={item} key={index} />)}
                 </div>
                 <Price value={price}/>
             </div>

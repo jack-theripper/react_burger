@@ -16,13 +16,13 @@ const FeedOrderSummary: React.FC<FeedOrderSummaryProps> = ({orders}) => {
             <div>
                 Готовы:
                 <ul className={`${cl.done_column} ${cl.column} text_type_digits-default mt-3`}>
-                    {doneOrders.map(order => <li>{order.number}</li>)}
+                    {doneOrders.map(order => <li key={order.number}>{order.number}</li>)}
                 </ul>
             </div>
             <div>
                 В работе:
                 <ul className={`${cl.column} text_type_digits-default mt-3`}>
-                    {pendingOrders.map(order => <li>{order.number}</li>)}
+                    {pendingOrders.map(order => <li key={order.number}>{order.number}</li>)}
                 </ul>
             </div>
         </div>
