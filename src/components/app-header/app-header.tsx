@@ -14,7 +14,9 @@ const AppHeader: React.FC = () => (
                     </NavLink>
                 </li>
                 <li>
-                    <a href="#"><ListIcon type="secondary"/> Лента заказов</a>
+                    <NavLink to={'/feed'} activeClassName={cl.active} exact>
+                        <ListIcon type="secondary"/> Лента заказов
+                    </NavLink>
                 </li>
             </ul>
             <Link to={'/'} className={cl.center}>
