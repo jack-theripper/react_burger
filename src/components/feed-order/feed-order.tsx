@@ -38,7 +38,6 @@ const FeedOrder: React.FC<FeedOrderProps> = ({order}) => {
                 <span className={'text_type_main-default'}>Сегодня, 16:20 i-GMT+3</span>
             </div>
             <h3 className={cl.center + ' text_type_main-medium'}>{order.name}</h3>
-            <p className={'text_type_main-default'}>Создан</p>
             <div className={cl.center}>
                 <div className={cl.items}>
                     {items.length > 5 && <FeedOrderItem ingredient={items[5]} overlay={items.length}/>}
