@@ -68,7 +68,7 @@ const App: React.FC = () => {
         </Route>}
 
         {feed && <Route path='/feed/:id'>
-            <Modal onClose={() => history.goBack()} title="Детали заказа">
+            <Modal onClose={() => history.goBack()}>
                 <FeedOrderDetails />
             </Modal>
         </Route>}

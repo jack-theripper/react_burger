@@ -32,13 +32,7 @@ const FeedPage: React.FC = () => {
         }
     }, []);
 
-    const onClickHandler = (orderId: number) => {
-        return () => {
-            history.push(`/feed/${orderId}`, {
-                feed: location
-            })
-        }
-    }
+    const onClickHandler = (orderId: number) => () => history.push(`/feed/${orderId}`, {feed: location})
 
     return (<Switch>
         <Route path={`${path}`} render={() => (<>

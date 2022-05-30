@@ -36,7 +36,7 @@ const FeedOrder: React.FC<FeedOrderProps> = ({order, onClick}) => {
         <div className={cl.box} onClick={onClick}>
             <div className={cl.header}>
                 <span className={'text_type_digits-default'}>#{order.number}</span>
-                <span className={'text_type_main-default'}>Сегодня, 16:20 i-GMT+3</span>
+                <span className={'text_type_main-default'}>{new Date(order.createdAt).toLocaleString()}</span>
             </div>
             <h3 className={cl.center + ' text_type_main-medium'}>{order.name}</h3>
             <div className={cl.center}>

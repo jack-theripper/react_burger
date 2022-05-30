@@ -85,3 +85,42 @@
 .status_done {
     color: #00CCCC;
 }
+
+.container {
+    height: 100%;
+    max-width: 620px;
+    margin-top: min(120px, 25%);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.details_container {
+    overflow: auto;
+    max-height: 20em;
+    gap: 15px 0px;
+    padding-right: 24px;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+}
+
+.details_row {
+    display: flex;
+    align-items: center;
+    gap: 16px
+}
+
+.details_row_title {
+    flex-grow: 1
+}
+
+.date_container {
+    display: flex;
+}
+
+.date_container :first-child {
+    flex-grow: 1;
+    color: #8585AD;
+}
+
+
