@@ -6,13 +6,16 @@ import {WS_ORDERS_URL} from "../constants";
 import {orderReceiveUserHistoryAction} from "../services/actions/orderActions";
 import AuthService from "../services/AuthService";
 import FeedOrder from "../components/feed-order/feed-order";
-import {useHistory, useLocation} from "react-router-dom";
+import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
+import FeedOrderDetails from "../components/feed-order/feed-order-details";
 import cl from './styles.module.css';
 
 const OrdersPage: React.FC = () => {
 
     const location = useLocation();
     const history = useHistory();
+
+    const {path} = useRouteMatch<{ path: string }>();
 
     const dispatch = useDispatch<AppDispatch>();
     const errorMessage = useSelector((state: RootState) => state.order.errorMessage);
@@ -33,15 +36,19 @@ const OrdersPage: React.FC = () => {
 
     const onClickHandler = (orderId: number) => () => history.push(`/profile/orders/${orderId}`, {feed: location})
 
-    return (
-        <div className={`${cl.orders_container} custom-scroll`}>
-            <div className={cl.orders_cards_container}>
-                {orders.map(order => (
-                    <FeedOrder order={order} key={order.number} onClick={onClickHandler(order.number)}/>
-                ))}
+    return (<Switch>
+        <Route path={`${path}`} render={() => (<div className={`${cl.orders_container} custom-scroll`}>
+                <div className={cl.orders_cards_container}>
+                    {orders.map(order => (
+                            <FeedOrder order={order} key={order.number} onClick={onClickHandler(order.number)}/>
+                        )
+                    )}
+                </div>
             </div>
-        </div>
-    )
+        )} exact>
+        </Route>
+        <Route path={`${path}/:id`} component={FeedOrderDetails} exact/>
+    </Switch>)
 };
 
 export default OrdersPage;

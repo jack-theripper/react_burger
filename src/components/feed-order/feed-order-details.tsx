@@ -7,18 +7,16 @@ import FeedOrderItem from "./feed-order-item";
 import Price from "../price/price";
 import cl from './feed-order.module.css';
 
-interface FeedOrderDetailsParams {
-    id: string;
-}
-
 const FeedOrderDetails: React.FC = () => {
 
-    const {id} = useParams<FeedOrderDetailsParams>();
+    const {id} = useParams<{ id: string }>();
 
     const location = useLocation<{ feed: any }>();
     const isModal = location.state && location.state?.feed != null;
 
-    const orders = useSelector((state: RootState) => state.feed.orders);
+    const isLogged = useSelector<RootState, boolean>(state => state.user.isLogged);
+    const orders = useSelector((state: RootState) => isLogged ? state.order.history.orders : state.feed.orders);
+
     const ingredients = useSelector<RootState, IngredientType[]>(state => state.ingredients);
 
     // @ts-ignore
@@ -38,7 +36,7 @@ const FeedOrderDetails: React.FC = () => {
             <div className={`${cl.details_container} custom-scroll`}>
                 {order.ingredients.map(item => {
                     const ingredient = ingredients.find(value => value._id == item);
-                    return ingredient ? (<div className={cl.details_row}>
+                    return ingredient ? (<div className={cl.details_row} key={item}>
                         <FeedOrderItem ingredient={ingredient}/>
                         <div className={cl.details_row_title}>{ingredient.name}</div>
                         <Price value={ingredient.price}/>
