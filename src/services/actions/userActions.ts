@@ -1,6 +1,5 @@
 import {Profile, UserType} from "../../types/types";
 import {History} from 'history';
-import exp from "constants";
 
 export const USER_PASSWORD_RESET_REQUEST = 'USER_PASSWORD_RESET_REQUEST';
 export const USER_PASSWORD_RESET_CONFIRM_REQUEST = 'USER_PASSWORD_RESET_CONFIRM_REQUEST';

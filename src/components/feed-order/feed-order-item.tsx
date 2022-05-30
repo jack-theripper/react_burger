@@ -2,12 +2,12 @@ import React from 'react';
 import {IngredientType} from "../../types/types";
 import cl from "./feed-order.module.css";
 
-interface FeedOrderItem {
+interface FeedOrderItemProps {
     ingredient: IngredientType;
     overlay?: number;
 }
 
-const FeedOrderItem: React.FC<FeedOrderItem> = ({ingredient, overlay}) => {
+const FeedOrderItem: React.FC<FeedOrderItemProps> = ({ingredient, overlay}) => {
     return (
         <div className={cl.item}>
             <img src={ingredient.image_mobile} title={ingredient.name} width={'auto'} alt=""/>

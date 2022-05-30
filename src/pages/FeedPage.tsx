@@ -30,7 +30,7 @@ const FeedPage: React.FC = () => {
         return () => {
             dispatch(socketCloseConnectionAction());
         }
-    }, []);
+    }, [dispatch]);
 
     const onClickHandler = (orderId: number) => () => history.push(`/feed/${orderId}`, {feed: location})
 
