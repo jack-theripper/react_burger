@@ -1,17 +1,20 @@
 import OrderService from "../OrderService";
-import {IngredientType, OrderNewDetails} from "../../types/types";
+import {FeedOrderType, IngredientType, OrderNewDetails} from "../../types/types";
 import {AppDispatch, AppThunk, RootState} from "../store";
 
-export const ORDER_DETAILS_CHANGE = 'ORD_DET_CNG';
-export const ORDER_INGREDIENT_REMOVE = 'ORD_ING_DEL';
-export const ORDER_INGREDIENTS_ADD = 'ORD_ING_ADD';
-export const ORDER_INGREDIENTS_SWAP = 'ORD_ING_SWAP';
-export const ORDER_INGREDIENTS_CLEAR = 'ORD_ING_EMPTY';
-export const ORDER_CREATE_REQUEST = 'ORD_CRT_REQUEST';
-export const ORDER_CREATE_FAILURE = 'ORD_CRT_FAIL';
-export const ORDER_CREATE_SUCCESS = 'ORD_CRT_SUCCESS';
+export const ORDER_DETAILS_CHANGE = 'ORDER_DETAILS_CHANGE';
 
+export const ORDER_INGREDIENT_REMOVE = 'ORDER_INGREDIENT_REMOVE';
 
+export const ORDER_INGREDIENTS_ADD = 'ORDER_INGREDIENTS_ADD';
+export const ORDER_INGREDIENTS_SWAP = 'ORDER_INGREDIENTS_SWAP';
+export const ORDER_INGREDIENTS_CLEAR = 'ORDER_INGREDIENTS_CLEAR';
+
+export const ORDER_CREATE_REQUEST = 'ORDER_CREATE_REQUEST';
+export const ORDER_CREATE_FAILURE = 'ORDER_CREATE_FAILURE';
+export const ORDER_CREATE_SUCCESS = 'ORDER_CREATE_SUCCESS';
+
+export const ORDER_RECEIVE_USER_HISTORY = 'ORDER_RECEIVE_USER_HISTORY';
 
 export interface OrderAddIngredient {
     readonly type: typeof ORDER_INGREDIENTS_ADD;
@@ -51,7 +54,20 @@ export interface OrderIngredientsRemoveAll {
     readonly type: typeof ORDER_INGREDIENTS_CLEAR;
 }
 
-export type TOrderActions = OrderAddIngredient | OrderDetailsChange | OrderRemoveIngredient
+export type OrderReceiveUserHistoryPayload = {
+    orders: FeedOrderType[];
+    total: number;
+    totalToday: number;
+    success: boolean;
+    message: string | null;
+} ;
+
+export interface OrderReceiveUserHistory {
+    readonly type: typeof ORDER_RECEIVE_USER_HISTORY;
+    readonly payload: OrderReceiveUserHistoryPayload;
+}
+
+export type TOrderActions = OrderAddIngredient | OrderDetailsChange | OrderRemoveIngredient | OrderReceiveUserHistory
     | OrderIngredientSwap | OrderRequest | OrderRequestFailed | OrderRequestSuccess | OrderIngredientsRemoveAll;
 
 export function orderAddIngredientAction(ingredient: IngredientType): OrderAddIngredient {
@@ -125,5 +141,12 @@ export function orderRequestSuccessAction(): OrderRequestSuccess {
 export function orderIngredientsRemoveAllAction(): OrderIngredientsRemoveAll {
     return {
         type: ORDER_INGREDIENTS_CLEAR
+    }
+}
+
+export function orderReceiveUserHistoryAction(payload: OrderReceiveUserHistoryPayload): OrderReceiveUserHistory {
+    return {
+        type: ORDER_RECEIVE_USER_HISTORY,
+        payload
     }
 }

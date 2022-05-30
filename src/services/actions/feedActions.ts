@@ -10,7 +10,7 @@ export interface FeedReceiveOrdersPayload {
 
 export interface FeedReceiveOrders {
     readonly type: typeof FEED_RECEIVE_ORDERS;
-    readonly payload: FeedReceiveOrdersPayload
+    readonly payload: FeedReceiveOrdersPayload;
 }
 
 export type TFeedActions = FeedReceiveOrders;

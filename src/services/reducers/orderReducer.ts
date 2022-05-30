@@ -4,8 +4,11 @@ import {
 	ORDER_CREATE_SUCCESS,
 	ORDER_DETAILS_CHANGE,
 	ORDER_INGREDIENT_REMOVE,
-	ORDER_INGREDIENTS_ADD, ORDER_INGREDIENTS_CLEAR,
-	ORDER_INGREDIENTS_SWAP, TOrderActions
+	ORDER_INGREDIENTS_ADD,
+	ORDER_INGREDIENTS_CLEAR,
+	ORDER_INGREDIENTS_SWAP,
+	ORDER_RECEIVE_USER_HISTORY,
+	TOrderActions
 } from "../actions/orderActions";
 import {IngredientType, OrderDetailsType} from "../../types/types";
 
@@ -13,6 +16,11 @@ interface OrderState {
 	ingredients: IngredientType[];
 	details: OrderDetailsType;
 	errorMessage: string | null;
+	history: {
+		orders: any[],
+		total: number,
+		totalToday: number
+	}
 }
 
 const defaultState: OrderState = {
@@ -20,7 +28,12 @@ const defaultState: OrderState = {
 	details: {
 		orderNumber: null
 	},
-	errorMessage: null
+	errorMessage: '',
+	history: {
+		orders: [],
+		total: 0,
+		totalToday: 0
+	}
 }
 
 export default function orderReducer(state: OrderState = defaultState, action: TOrderActions) {
@@ -81,7 +94,14 @@ export default function orderReducer(state: OrderState = defaultState, action: T
 				...state,
 				ingredients: []
 			}
-			
+
+		case ORDER_RECEIVE_USER_HISTORY:
+			if (!action.payload.success) {
+				return {...state, errorMessage: action.payload.message}
+			} else {
+				return {...state, history: action.payload};
+			}
+
 		default:
 			return state;
 	}
