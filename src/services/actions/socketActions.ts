@@ -25,6 +25,7 @@ export interface SocketConnectionEstablished {
 
 export interface SocketConnectionLost {
     readonly type: typeof SOCKET_CONNECTION_LOST;
+    readonly event: CloseEvent;
 }
 
 export interface SocketReceiveMessage {
@@ -61,9 +62,10 @@ export function socketConnectionEstablishedAction(): SocketConnectionEstablished
     }
 }
 
-export function socketConnectionLostAction(): SocketConnectionLost {
+export function socketConnectionLostAction(event: CloseEvent): SocketConnectionLost {
     return {
-        type: SOCKET_CONNECTION_LOST
+        type: SOCKET_CONNECTION_LOST,
+        event
     }
 }
 

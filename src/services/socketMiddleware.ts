@@ -25,7 +25,7 @@ export const socketMiddleware: Middleware = (store: MiddlewareAPI<AppDispatch, R
             socket = new WebSocket(action.url);
 
             socket.addEventListener('open', () => dispatch(socketConnectionEstablishedAction()));
-            socket.addEventListener('close', () => dispatch(socketConnectionLostAction()));
+            socket.addEventListener('close', (event: CloseEvent) => dispatch(socketConnectionLostAction(event)));
             socket.addEventListener('error', (event: Event) => dispatch(socketErrorAction(event)));
 
             socket.addEventListener('message', (event: MessageEvent) => {
