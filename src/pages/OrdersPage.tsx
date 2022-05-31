@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../services/store";
 import {WS_ORDERS_URL} from "../constants";
@@ -19,6 +19,7 @@ const OrdersPage: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const orders = useSelector((state: RootState) => state.feed.orders);
+    const sortedOrders = useMemo(() => [...orders].sort((a, b) => b.number - a.number), [orders]);
 
     useEffect(() => {
         dispatch(feedOpenConnectionAction(WS_ORDERS_URL + AuthService.getToken('token')));
@@ -27,6 +28,7 @@ const OrdersPage: React.FC = () => {
             dispatch(feedCloseConnectionAction());
         }
     }, [dispatch]);
+
 
     const onClickHandler = (orderId: number) => () => history.push(`/profile/orders/${orderId}`, {background: location})
 
@@ -37,7 +39,7 @@ const OrdersPage: React.FC = () => {
             </div>
             <div className={`${cl.profile_container} custom-scroll`}>
                 <div className={cl.orders_cards_container}>
-                    {orders.map(order => (
+                    {sortedOrders.map(order => (
                             <FeedOrder order={order} key={order._id} onClick={onClickHandler(order.number)}/>
                         )
                     )}
