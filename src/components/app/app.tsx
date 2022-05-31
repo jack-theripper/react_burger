@@ -20,13 +20,19 @@ import FeedPage from "../../pages/FeedPage";
 import {AppDispatch, AppThunk} from "../../services/store";
 import FeedOrderDetails from "../feed-order/feed-order-details";
 
+interface LocationState {
+    background?: any;
+    feed?: any;
+}
+
 const App: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch | AppThunk>();
 
     const history = useHistory();
-    const location = useLocation<{ background?: any; }>();
+    const location = useLocation<LocationState>();
     const background = location.state && location.state.background;
+    const feed = location.state && location.state.feed;
 
     useEffect(() => {
         dispatch(fetchIngredientsAction())
@@ -41,7 +47,7 @@ const App: React.FC = () => {
     return (<>
         <AppHeader/>
         <div className="container">
-            <Switch location={background || location}>
+            <Switch location={background || feed || location}>
                 <Route path="/" component={IndexPage} exact/>
                 <Route path="/login" component={LoginPage}/>
                 <Route path="/register" component={RegisterPage}/>
@@ -55,14 +61,24 @@ const App: React.FC = () => {
             </Switch>
         </div>
 
-        {background && (<Switch>
-            <Route path='/ingredients/:id' render={() => (
-                <Modal onClose={() => history.goBack()} title="Детали ингредиента"><IngredientDetails/></Modal>
-            )}/>
-            <Route path={`${background.pathname}/:id`} render={() => (
-                <Modal onClose={() => history.goBack()}><FeedOrderDetails/></Modal>
-            )}/>
-        </Switch>)}
+        {background && <Route path='/ingredients/:id'>
+            <Modal onClose={() => history.goBack()} title="Детали ингредиента">
+                <IngredientDetails/>
+            </Modal>
+        </Route>}
+
+        {feed && <Switch>
+            <Route path='/feed/:id'>
+                <Modal onClose={() => history.goBack()}>
+                    <FeedOrderDetails />
+                </Modal>
+            </Route>
+            <Route path='/profile/orders/:id'>
+                <Modal onClose={() => history.goBack()}>
+                    <FeedOrderDetails />
+                </Modal>
+            </Route>
+        </Switch>}
 
     </>)
 };

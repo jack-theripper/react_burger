@@ -30,15 +30,11 @@
     color: #F2F2F3 !important;
 }
 
-.profile_container {
+.orders_container {
     flex-grow: 1;
     max-height: calc(100vh - 200px);
     overflow: hidden scroll;
     scrollbar-width: thin;
-}
-
-.profile_menu_w :first-child {
-    width: calc(100% / 4);
 }
 
 .orders_cards_container {

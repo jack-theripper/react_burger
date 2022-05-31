@@ -30,14 +30,14 @@ const FeedPage: React.FC = () => {
         }
     }, [dispatch]);
 
-    const onClickHandler = (orderId: number) => () => history.push(`/feed/${orderId}`, {background: location})
+    const onClickHandler = (orderId: number) => () => history.push(`/feed/${orderId}`, {feed: location})
 
     return (<Switch>
         <Route path={`${path}`} render={() => (<>
             <h1>Лента заказов</h1>
             <div className="grid">
                 <div>
-                    <div className={`${cl.profile_container} custom-scroll`}>
+                    <div className={`${cl.orders_container} custom-scroll`}>
                         <div className={cl.orders_cards_container}>
                             {orders.map(order => (
                                 <FeedOrder order={order} key={order.number} onClick={onClickHandler(order.number)}/>

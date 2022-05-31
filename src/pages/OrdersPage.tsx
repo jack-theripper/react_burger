@@ -1,5 +1,6 @@
-import React, {useEffect, useMemo} from 'react';
-import {useDispatch, useSelector} from "../services/store";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../services/store";
 import {WS_ORDERS_URL} from "../constants";
 import AuthService from "../services/AuthService";
 import FeedOrder from "../components/feed-order/feed-order";
@@ -28,15 +29,14 @@ const OrdersPage: React.FC = () => {
         }
     }, [dispatch]);
 
+    useEffect(() => {
+        errorMessage && alert(errorMessage);
+    }, [errorMessage])
 
-    const onClickHandler = (orderId: number) => () => history.push(`/profile/orders/${orderId}`, {background: location})
+    const onClickHandler = (orderId: number) => () => history.push(`/profile/orders/${orderId}`, {feed: location})
 
     return (<Switch>
-        <Route path={path} exact>
-            <div className={'width-1-4'}>
-                <ProfileMenu/>
-            </div>
-            <div className={`${cl.profile_container} custom-scroll`}>
+        <Route path={`${path}`} render={() => (<div className={`${cl.orders_container} custom-scroll`}>
                 <div className={cl.orders_cards_container}>
                     {sortedOrders.map(order => (
                             <FeedOrder order={order} key={order._id} onClick={onClickHandler(order.number)}/>
@@ -44,8 +44,8 @@ const OrdersPage: React.FC = () => {
                     )}
                 </div>
             </div>
+        )} exact>
         </Route>
-
         <Route path={`${path}/:id`} component={FeedOrderDetails} exact/>
     </Switch>)
 };
