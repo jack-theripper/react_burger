@@ -11,8 +11,8 @@ const FeedOrderDetails: React.FC = () => {
 
     const {id} = useParams<{ id: string }>();
 
-    const location = useLocation<{ feed: any }>();
-    const isModal = location.state && location.state?.feed != null;
+    const location = useLocation<{ background: any }>();
+    const isModal = location.state && location.state?.background != null;
 
     const orders = useSelector((state: RootState) => state.feed.orders);
     const ingredients = useSelector<RootState, IngredientType[]>(state => state.ingredients);
