@@ -1,7 +1,6 @@
 import React from "react";
-import {useSelector} from "react-redux";
 import {Redirect, useLocation} from "react-router-dom";
-import {RootState} from "./store";
+import {useSelector} from "./store";
 
 interface LocationState {
 	from?: {
@@ -12,7 +11,7 @@ interface LocationState {
 const withAuth = (Component: React.FC, shouldLoggedIn: boolean = true) => {
 	return () => {
 		const location = useLocation<LocationState>();
-		const isLogged = useSelector<RootState, boolean>(state => state.user.isLogged);
+		const isLogged = useSelector(state => state.user.isLogged);
 
 		if (shouldLoggedIn) {
 			return isLogged ? <Component/> : <Redirect to={{pathname: '/login', state: {from: location}}}/>;

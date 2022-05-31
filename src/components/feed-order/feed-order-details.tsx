@@ -1,8 +1,6 @@
 import React, {useMemo} from 'react';
 import {useLocation, useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "../../services/store";
-import {IngredientType} from "../../types/types";
+import {useSelector} from "../../services/store";
 import FeedOrderItem from "./feed-order-item";
 import Price from "../price/price";
 import cl from './feed-order.module.css';
@@ -14,8 +12,8 @@ const FeedOrderDetails: React.FC = () => {
     const location = useLocation<{ background: any }>();
     const isModal = location.state && location.state?.background != null;
 
-    const orders = useSelector((state: RootState) => state.feed.orders);
-    const ingredients = useSelector<RootState, IngredientType[]>(state => state.ingredients);
+    const orders = useSelector((state) => state.feed.orders);
+    const ingredients = useSelector(state => state.ingredients);
 
     // @ts-ignore
     const order = useMemo(() => orders.find(order => order.number == id), [orders, id]);

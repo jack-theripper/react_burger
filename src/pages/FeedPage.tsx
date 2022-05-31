@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../services/store";
+import {useDispatch, useSelector} from "../services/store";
 import {WS_FEED_URL} from "../constants";
 import FeedOrder from "../components/feed-order/feed-order";
 import cl from "./styles.module.css";
@@ -20,8 +19,8 @@ const FeedPage: React.FC = () => {
 
     const {path} = useRouteMatch<MatchParams>();
 
-    const dispatch = useDispatch<AppDispatch>();
-    const {orders, ...feed} = useSelector((state: RootState) => state.feed);
+    const dispatch = useDispatch();
+    const {orders, ...feed} = useSelector((state) => state.feed);
 
     useEffect(() => {
         dispatch(feedOpenConnectionAction(WS_FEED_URL));

@@ -6,7 +6,7 @@ export const INGREDIENTS_SET = 'ING_SET';
 
 export interface IngredientsSet {
     readonly type: typeof INGREDIENTS_SET;
-    readonly payload: ReadonlyArray<IngredientType>;
+    readonly payload: IngredientType[];
 }
 
 export type TIngredientsActions = IngredientsSet;

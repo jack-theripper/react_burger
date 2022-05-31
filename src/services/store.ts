@@ -17,6 +17,7 @@ import {
     TFeedActions
 } from "./slices/feedSlice";
 import {SocketActions} from "../types/types";
+import {TypedUseSelectorHook, useDispatch as useDispatch1, useSelector as useSelector1} from "react-redux";
 
 const wsActions: SocketActions = {
     socketOpenConnection: feedOpenConnectionAction,
@@ -37,5 +38,8 @@ export type TApplicationActions = TIngredientsActions | TOrderActions | TUserAct
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, any, TApplicationActions>>
+
+export const useDispatch = () => useDispatch1<AppDispatch | AppThunk>()
+export const useSelector: TypedUseSelectorHook<RootState> = useSelector1;
 
 export default store;

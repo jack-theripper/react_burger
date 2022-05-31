@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import {shallowEqual} from "react-redux";
 import {userProfileUpdateAction} from "../../services/actions/userActions";
 import {Profile} from "../../types/types";
-import {AppDispatch, RootState} from "../../services/store";
+import {useDispatch, useSelector} from "../../services/store";
 
 const ProfileForm: React.FC = () => {
 
-	const dispatch = useDispatch<AppDispatch>();
-	const profile = useSelector<RootState, Profile>(({user}) => ({...user.user, password: ''}), shallowEqual);
+	const dispatch = useDispatch();
+	const profile = useSelector(({user}) => ({...user.user, password: ''}), shallowEqual);
 
 	const [state, setState] = useState<Profile>(profile);
 	const [hasChanged, setHasChanged] = useState<boolean>(false);
@@ -27,8 +27,7 @@ const ProfileForm: React.FC = () => {
 	}
 
 	const cancelProfileHandler = () => setState(profile);
-
-	const errorMessage = useSelector<RootState, string | null>(state => state.user.errorMessage);
+	const errorMessage = useSelector(state => state.user.errorMessage);
 
 	return (
 		<form onSubmit={updateProfileHandler}>

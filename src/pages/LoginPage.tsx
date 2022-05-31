@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
-import cl from './styles.module.css';
-import {useDispatch, useSelector} from "react-redux";
 import {userSignInAction} from "../services/actions/userActions";
 import withAuth from "../services/withAuth";
-import {AppDispatch, RootState} from "../services/store";
+import {useDispatch, useSelector} from "../services/store";
+import cl from './styles.module.css';
 
 const LoginPage: React.FC = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -20,7 +19,7 @@ const LoginPage: React.FC = () => {
         dispatch(userSignInAction(email, password));
     }
 
-    const errorMessage = useSelector<RootState, string | null>(state => state.user.errorMessage);
+    const errorMessage = useSelector(state => state.user.errorMessage);
 
     return (
         <form className={cl.container} onSubmit={loginHandler}>

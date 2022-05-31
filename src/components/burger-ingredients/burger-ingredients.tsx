@@ -3,13 +3,12 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from './burger-ingredients.module.css';
 import {TITLES} from "../../constants";
 import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients-list";
-import {useSelector} from "react-redux";
 import {IngredientType, IngredientTypes} from "../../types/types";
-import {RootState} from "../../services/store";
+import {useSelector} from "../../services/store";
 
 const BurgerIngredients: React.FC = () => {
 
-    const list = useSelector<RootState, IngredientType[]>(state => state.ingredients);
+    const list = useSelector(state => state.ingredients);
     const groups = useMemo(() => list.reduce((prev, curr) => {
         prev[curr.type] = prev[curr.type] || []
         prev[curr.type].push(curr);

@@ -1,14 +1,13 @@
 import React, {useEffect, useMemo} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../services/store";
+import {useDispatch, useSelector} from "../services/store";
 import {WS_ORDERS_URL} from "../constants";
 import AuthService from "../services/AuthService";
 import FeedOrder from "../components/feed-order/feed-order";
 import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import FeedOrderDetails from "../components/feed-order/feed-order-details";
 import {feedCloseConnectionAction, feedOpenConnectionAction} from "../services/slices/feedSlice";
-import cl from './styles.module.css';
 import ProfileMenu from "../components/profile-menu/profile-menu";
+import cl from './styles.module.css';
 
 const OrdersPage: React.FC = () => {
 
@@ -17,8 +16,8 @@ const OrdersPage: React.FC = () => {
 
     const {path} = useRouteMatch<{ path: string }>();
 
-    const dispatch = useDispatch<AppDispatch>();
-    const orders = useSelector((state: RootState) => state.feed.orders);
+    const dispatch = useDispatch();
+    const orders = useSelector(state => state.feed.orders);
     const sortedOrders = useMemo(() => [...orders].sort((a, b) => b.number - a.number), [orders]);
 
     useEffect(() => {

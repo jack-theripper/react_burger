@@ -1,9 +1,8 @@
 import React, {useMemo} from 'react';
 import cl from "./feed-order.module.css";
 import Price from "../price/price";
-import {FeedOrderType, IngredientType} from "../../types/types";
-import {useSelector} from "react-redux";
-import {RootState} from "../../services/store";
+import {FeedOrderType} from "../../types/types";
+import {useSelector} from "../../services/store";
 import FeedOrderItem from "./feed-order-item";
 
 interface FeedOrderProps {
@@ -13,7 +12,7 @@ interface FeedOrderProps {
 
 const FeedOrder: React.FC<FeedOrderProps> = ({order, onClick}) => {
 
-    const allIngredients = useSelector<RootState, IngredientType[]>(state => state.ingredients);
+    const allIngredients = useSelector(state => state.ingredients);
     const {items, price} = useMemo(() => {
 
         let ingredients = [];
