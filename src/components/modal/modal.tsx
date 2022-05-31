@@ -10,8 +10,8 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({children, title, onClose}) => {
-    const onCloseByEsc = useCallback(event => {
-        if (event.keyCode === 27) {
+    const onCloseByEsc = useCallback((event: KeyboardEvent) => {
+        if (event.key === "Escape") {
             onClose()
         }
     }, []);
