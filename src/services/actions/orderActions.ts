@@ -14,8 +14,6 @@ export const ORDER_CREATE_REQUEST = 'ORDER_CREATE_REQUEST';
 export const ORDER_CREATE_FAILURE = 'ORDER_CREATE_FAILURE';
 export const ORDER_CREATE_SUCCESS = 'ORDER_CREATE_SUCCESS';
 
-export const ORDER_RECEIVE_USER_HISTORY = 'ORDER_RECEIVE_USER_HISTORY';
-
 export interface OrderAddIngredient {
     readonly type: typeof ORDER_INGREDIENTS_ADD;
     readonly payload: IngredientType;
@@ -54,20 +52,7 @@ export interface OrderIngredientsRemoveAll {
     readonly type: typeof ORDER_INGREDIENTS_CLEAR;
 }
 
-export type OrderReceiveUserHistoryPayload = {
-    orders: FeedOrderType[];
-    total: number;
-    totalToday: number;
-    success: boolean;
-    message: string | null;
-} ;
-
-export interface OrderReceiveUserHistory {
-    readonly type: typeof ORDER_RECEIVE_USER_HISTORY;
-    readonly payload: OrderReceiveUserHistoryPayload;
-}
-
-export type TOrderActions = OrderAddIngredient | OrderDetailsChange | OrderRemoveIngredient | OrderReceiveUserHistory
+export type TOrderActions = OrderAddIngredient | OrderDetailsChange | OrderRemoveIngredient
     | OrderIngredientSwap | OrderRequest | OrderRequestFailed | OrderRequestSuccess | OrderIngredientsRemoveAll;
 
 export function orderAddIngredientAction(ingredient: IngredientType): OrderAddIngredient {
@@ -141,12 +126,5 @@ export function orderRequestSuccessAction(): OrderRequestSuccess {
 export function orderIngredientsRemoveAllAction(): OrderIngredientsRemoveAll {
     return {
         type: ORDER_INGREDIENTS_CLEAR
-    }
-}
-
-export function orderReceiveUserHistoryAction(payload: OrderReceiveUserHistoryPayload): OrderReceiveUserHistory {
-    return {
-        type: ORDER_RECEIVE_USER_HISTORY,
-        payload
     }
 }

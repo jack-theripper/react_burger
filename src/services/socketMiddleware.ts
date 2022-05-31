@@ -1,46 +1,32 @@
 import {Middleware, MiddlewareAPI} from "redux";
-import {AppDispatch, RootState, TApplicationActions} from "./store";
-import {
-    SOCKET_CLOSE_CONNECTION,
-    SOCKET_OPEN_CONNECTION,
-    socketConnectionEstablishedAction,
-    socketConnectionLostAction,
-    socketErrorAction,
-    socketReceiveMessageAction,
-    SocketReceiveMessageHandler
-} from "./actions/socketActions";
+import {AppDispatch, RootState} from "./store";
+import {SocketActions} from "../types/types";
 
-export const socketMiddleware: Middleware = (store: MiddlewareAPI<AppDispatch, RootState>) => {
+export const socketMiddleware = (actions: SocketActions): Middleware => {
+    return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+        let socket: WebSocket | null = null;
 
-    let socket: WebSocket | null = null;
-    let handler: SocketReceiveMessageHandler;
+        return (next) => (action) => {
+            const {dispatch} = store;
 
-    return (next) => (action: TApplicationActions) => {
+            if (actions.socketOpenConnection.match(action)) {
+                socket !== null && socket.close(1000);
+                socket = new WebSocket(action.payload);
 
-        const {dispatch} = store;
+                socket.addEventListener('open', () => dispatch(actions.socketConnectionEstablished()));
+                socket.addEventListener('close', (event: CloseEvent) => dispatch(actions.socketConnectionLost(event)));
+                socket.addEventListener('error', (event: Event) => dispatch(actions.socketError(event)));
 
-        if (action.type === SOCKET_OPEN_CONNECTION) {
+                socket.addEventListener('message', (event: MessageEvent) => {
+                    dispatch(actions.socketReceiveMessage(event.data));
+                });
+            }
 
-            socket !== null && socket.close(1000);
-            socket = new WebSocket(action.url);
+            if (socket && actions.socketCloseConnection.match(action)) {
+                socket.close(1000);
+            }
 
-            socket.addEventListener('open', () => dispatch(socketConnectionEstablishedAction()));
-            socket.addEventListener('close', (event: CloseEvent) => dispatch(socketConnectionLostAction(event)));
-            socket.addEventListener('error', (event: Event) => dispatch(socketErrorAction(event)));
-
-            socket.addEventListener('message', (event: MessageEvent) => {
-                dispatch(socketReceiveMessageAction(event.data));
-                handler && dispatch(handler(JSON.parse(event.data)));
-            });
-
-            handler = action.handler;
+            return next(action);
         }
-
-        if (socket && action.type === SOCKET_CLOSE_CONNECTION) {
-            socket.close(1000);
-        }
-
-        return next(action);
     }
-
 }

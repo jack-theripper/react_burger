@@ -14,9 +14,7 @@ const FeedOrderDetails: React.FC = () => {
     const location = useLocation<{ feed: any }>();
     const isModal = location.state && location.state?.feed != null;
 
-    const isLogged = useSelector<RootState, boolean>(state => state.user.isLogged);
-    const orders = useSelector((state: RootState) => isLogged ? state.order.history.orders : state.feed.orders);
-
+    const orders = useSelector((state: RootState) => state.feed.orders);
     const ingredients = useSelector<RootState, IngredientType[]>(state => state.ingredients);
 
     // @ts-ignore

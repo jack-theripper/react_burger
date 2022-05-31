@@ -67,11 +67,18 @@ const App: React.FC = () => {
             </Modal>
         </Route>}
 
-        {feed && <Route path='/feed/:id'>
-            <Modal onClose={() => history.goBack()}>
-                <FeedOrderDetails />
-            </Modal>
-        </Route>}
+        {feed && <Switch>
+            <Route path='/feed/:id'>
+                <Modal onClose={() => history.goBack()}>
+                    <FeedOrderDetails />
+                </Modal>
+            </Route>
+            <Route path='/profile/orders/:id'>
+                <Modal onClose={() => history.goBack()}>
+                    <FeedOrderDetails />
+                </Modal>
+            </Route>
+        </Switch>}
 
     </>)
 };

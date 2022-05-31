@@ -1,14 +1,13 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../services/store";
-import {socketCloseConnectionAction, socketOpenConnectionAction} from "../services/actions/socketActions";
 import {WS_FEED_URL} from "../constants";
-import {feedReceiveOrdersAction} from "../services/actions/feedActions";
 import FeedOrder from "../components/feed-order/feed-order";
 import cl from "./styles.module.css";
 import FeedOrderSummary from "../components/feed-order/feed-order-summary";
 import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import FeedOrderDetails from "../components/feed-order/feed-order-details";
+import {feedCloseConnectionAction, feedOpenConnectionAction} from "../services/slices/feedSlice";
 
 interface MatchParams {
     path: string
@@ -25,10 +24,10 @@ const FeedPage: React.FC = () => {
     const {orders, ...feed} = useSelector((state: RootState) => state.feed);
 
     useEffect(() => {
-        dispatch(socketOpenConnectionAction(WS_FEED_URL, feedReceiveOrdersAction));
+        dispatch(feedOpenConnectionAction(WS_FEED_URL));
 
         return () => {
-            dispatch(socketCloseConnectionAction());
+            dispatch(feedCloseConnectionAction());
         }
     }, [dispatch]);
 

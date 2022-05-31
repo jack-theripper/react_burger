@@ -1,4 +1,5 @@
 import {TITLES} from "../constants";
+import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from "@reduxjs/toolkit";
 
 export type IngredientTypes = keyof typeof TITLES;
 
@@ -44,4 +45,13 @@ export type FeedOrderType = {
     number: number;
     status: 'created' | 'pending' | 'done';
     updatedAt: string;
+}
+
+export type SocketActions = {
+    socketOpenConnection: ActionCreatorWithPayload<string>,
+    socketCloseConnection: ActionCreatorWithoutPayload
+    socketConnectionEstablished: ActionCreatorWithoutPayload,
+    socketConnectionLost: ActionCreatorWithPayload<CloseEvent>,
+    socketError: ActionCreatorWithPayload<Event>,
+    socketReceiveMessage: ActionCreatorWithPayload<string>,
 }

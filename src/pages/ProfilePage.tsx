@@ -9,6 +9,12 @@ const ProfilePage: React.FC = () => {
     const {path} = useRouteMatch<{ path: string }>();
 
     return (<>
+
+        <Switch>
+            <Route exact path={path} render={() => <p>forma</p>}/>
+
+        </Switch>
+
         <div className={'grid mt-20'}>
             <div className={'width-1-4'}>
                 <ul className={cl.navMenu}>

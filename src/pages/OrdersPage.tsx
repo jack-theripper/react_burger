@@ -1,14 +1,13 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../services/store";
-import {socketCloseConnectionAction, socketOpenConnectionAction} from "../services/actions/socketActions";
 import {WS_ORDERS_URL} from "../constants";
-import {orderReceiveUserHistoryAction} from "../services/actions/orderActions";
 import AuthService from "../services/AuthService";
 import FeedOrder from "../components/feed-order/feed-order";
 import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import FeedOrderDetails from "../components/feed-order/feed-order-details";
 import cl from './styles.module.css';
+import {feedCloseConnectionAction, feedOpenConnectionAction} from "../services/slices/feedSlice";
 
 const OrdersPage: React.FC = () => {
 
@@ -20,13 +19,13 @@ const OrdersPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const errorMessage = useSelector((state: RootState) => state.order.errorMessage);
 
-    const orders = useSelector((state: RootState) => state.order.history.orders);
+    const orders = useSelector((state: RootState) => state.feed.orders);
 
     useEffect(() => {
-        dispatch(socketOpenConnectionAction(WS_ORDERS_URL + AuthService.getToken('token'), orderReceiveUserHistoryAction));
+        dispatch(feedOpenConnectionAction(WS_ORDERS_URL + AuthService.getToken('token')));
 
         return () => {
-            dispatch(socketCloseConnectionAction());
+            dispatch(feedCloseConnectionAction());
         }
     }, [dispatch]);
 
