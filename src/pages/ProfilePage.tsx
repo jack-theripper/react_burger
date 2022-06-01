@@ -33,12 +33,7 @@ const ProfilePage: React.FC = () => {
                     изменить свои персональные данные
                 </p>
             </div>
-            <div style={{
-                flexGrow: 1,
-                maxHeight: 'calc(100vh - 200px)',
-                overflow: 'hidden scroll',
-                scrollbarWidth: 'thin'
-            }} className={'custom-scroll'}>
+            <div className={'flex-grow'}>
                 <Switch>
                     <Route exact path={path} render={() => <ProfileForm/>}/>
                     <Route path={`${path}/orders`} component={OrdersPage}/>
