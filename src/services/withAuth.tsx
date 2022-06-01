@@ -14,7 +14,7 @@ const withAuth = (Component: React.FC, shouldLoggedIn: boolean = true) => {
 		const isLogged = useSelector(state => state.user.isLogged);
 
 		if (shouldLoggedIn) {
-			return isLogged ? <Component/> : <Redirect to={{pathname: '/login', state: {from: location}}}/>;
+			return isLogged ? <Component/> : <Redirect to={{pathname: '/login', state: {from: location.state?.from || location}}}/>;
 		}
 
 		const from = (location.state?.from && location.state.from?.pathname != '/logout') ? location.state?.from : '/';

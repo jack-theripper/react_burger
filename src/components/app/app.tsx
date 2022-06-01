@@ -19,6 +19,7 @@ import NotFoundPage from "../../pages/NotFoundPage";
 import FeedPage from "../../pages/FeedPage";
 import {AppDispatch, AppThunk} from "../../services/store";
 import FeedOrderDetails from "../feed-order/feed-order-details";
+import OrderViewPage from "../../pages/OrderViewPage";
 
 interface LocationState {
     background?: any;
@@ -33,6 +34,10 @@ const App: React.FC = () => {
     const location = useLocation<LocationState>();
     const background = location.state && location.state.background;
     const feed = location.state && location.state.feed;
+
+    if (feed) { // пфф ...
+        feed.state = {...feed.state, from: location};
+    }
 
     useEffect(() => {
         dispatch(fetchIngredientsAction())
@@ -53,6 +58,7 @@ const App: React.FC = () => {
                 <Route path="/register" component={RegisterPage}/>
                 <Route path="/forgot-password" component={ForgotPasswordPage}/>
                 <Route path="/reset-password" component={ResetPasswordPage}/>
+                <Route path="/profile/orders/:id" component={OrderViewPage} exact/>
                 <Route path="/profile" component={ProfilePage}/>
                 <Route path="/logout" component={LogoutPage}/>
                 <Route path="/ingredients/:id" component={IngredientViewPage}/>
@@ -67,18 +73,11 @@ const App: React.FC = () => {
             </Modal>
         </Route>}
 
-        {feed && <Switch>
-            <Route path='/feed/:id'>
-                <Modal onClose={() => history.goBack()}>
-                    <FeedOrderDetails />
-                </Modal>
-            </Route>
-            <Route path='/profile/orders/:id'>
-                <Modal onClose={() => history.goBack()}>
-                    <FeedOrderDetails />
-                </Modal>
-            </Route>
-        </Switch>}
+        {feed && <Route path={`${feed.pathname}/:id`}>
+            <Modal onClose={() => history.goBack()}>
+                <FeedOrderDetails/>
+            </Modal>
+        </Route>}
 
     </>)
 };
