@@ -65,7 +65,7 @@ export default class AuthService {
 	}
 
 	static updateTokens(tokens: {accessToken?: string, refreshToken?: string}) {
-		localStorage.setItem('token', tokens.accessToken || '');
+		localStorage.setItem('token', (tokens.accessToken || '').substring(7));
 		localStorage.setItem('refresh_token', tokens.refreshToken || '');
 	}
 
@@ -76,7 +76,7 @@ export default class AuthService {
 
 	static async fetch(url: string, options: FetchOptions = {}): Promise<any> {
 
-		const request = () => fetch(url, {...options, headers: {...options.headers, Authorization: this.getToken('token')}});
+		const request = () => fetch(url, {...options, headers: {...options.headers, Authorization: 'Bearer ' + this.getToken('token')}});
 		const throwException = (message: string) => {
 			throw new Error(message)
 		}

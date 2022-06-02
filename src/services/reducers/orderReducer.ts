@@ -4,28 +4,28 @@ import {
 	ORDER_CREATE_SUCCESS,
 	ORDER_DETAILS_CHANGE,
 	ORDER_INGREDIENT_REMOVE,
-	ORDER_INGREDIENTS_ADD, ORDER_INGREDIENTS_CLEAR,
-	ORDER_INGREDIENTS_SWAP
+	ORDER_INGREDIENTS_ADD,
+	ORDER_INGREDIENTS_CLEAR,
+	ORDER_INGREDIENTS_SWAP,
+	TOrderActions
 } from "../actions/orderActions";
-import {IngredientType} from "../../types/types";
+import {FeedOrderType, IngredientType, OrderDetailsType} from "../../types/types";
 
-interface State {
+interface OrderState {
 	ingredients: IngredientType[];
-	details: {
-		orderNumber: number | null;
-	};
+	details: OrderDetailsType;
 	errorMessage: string | null;
 }
 
-const defaultState: State = {
+const defaultState: OrderState = {
 	ingredients: [],
 	details: {
 		orderNumber: null
 	},
-	errorMessage: null
+	errorMessage: ''
 }
 
-export default function orderReducer(state: State = defaultState, action: any) {
+export default function orderReducer(state: OrderState = defaultState, action: TOrderActions) {
 	switch (action.type) {
 
 		case ORDER_INGREDIENTS_ADD:
@@ -83,7 +83,7 @@ export default function orderReducer(state: State = defaultState, action: any) {
 				...state,
 				ingredients: []
 			}
-			
+
 		default:
 			return state;
 	}

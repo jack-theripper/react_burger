@@ -1,18 +1,26 @@
-import React from 'react';
-import {useParams} from "react-router-dom";
-
-interface OrderViewPageParams {
-    id: string
-}
+import React, {useEffect} from 'react';
+import FeedOrderDetails from "../components/feed-order/feed-order-details";
+import {feedCloseConnectionAction, feedOpenConnectionAction} from "../services/slices/feedSlice";
+import {WS_ORDERS_URL} from "../constants";
+import AuthService from "../services/AuthService";
+import {useDispatch} from "../services/store";
+import withAuth from "../services/withAuth";
 
 const OrderViewPage: React.FC = () => {
-    const params = useParams<OrderViewPageParams>();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(feedOpenConnectionAction(WS_ORDERS_URL + AuthService.getToken('token')));
+
+        return () => {
+            dispatch(feedCloseConnectionAction());
+        }
+    }, [dispatch]);
 
     return (
-        <div>
-            OrderViewPage: # {params.id}
-        </div>
+        <FeedOrderDetails/>
     );
 };
 
-export default OrderViewPage;
+export default withAuth(OrderViewPage);

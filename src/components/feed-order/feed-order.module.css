@@ -1,0 +1,126 @@
+.box {
+    padding: 24px;
+    background: #1C1C21;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+}
+
+.header :first-child {
+    flex-grow: 1;
+}
+
+.header :last-child {
+    color: #8585AD;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+}
+
+.items {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left;
+    flex-grow: 1;
+}
+
+.item {
+    position: relative;
+
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+
+    border: solid 2px transparent;
+    border-radius: 100%;
+
+    background: linear-gradient(#131316, #131316), linear-gradient(to right, #801AB3, #4C4CFF);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+.item_overlay {
+    background: #1C1C21;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 30%;
+}
+
+.item:not(:first-child) {
+    margin-right: -24px;
+}
+
+.item img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+}
+
+.column {
+    max-height: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.done_column {
+    color: #00CCCC;
+    column-count: 3;
+}
+
+.status_done {
+    color: #00CCCC;
+}
+
+.container {
+    height: 100%;
+    max-width: 620px;
+    margin-top: min(120px, 25%);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.details_container {
+    overflow: auto;
+    max-height: 20em;
+    gap: 15px 0px;
+    padding-right: 24px;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+}
+
+.details_row {
+    display: flex;
+    align-items: center;
+    gap: 16px
+}
+
+.details_row_title {
+    flex-grow: 1
+}
+
+.date_container {
+    display: flex;
+}
+
+.date_container :first-child {
+    flex-grow: 1;
+    color: #8585AD;
+}
+
+

@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import cl from "./styles.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {userResetPasswordConfirmationAction} from "../services/actions/userActions";
 import withAuth from "../services/withAuth";
+import {useDispatch} from "../services/store";
 
 interface LocationState {
     from?: string

@@ -4,7 +4,7 @@ import Modal from "../modal/modal";
 import cl from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
 import Price from "../price/price";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/store";
 import {
 	orderAddIngredientAction,
 	orderCreateAction,
@@ -19,7 +19,7 @@ const BurgerConstructor: React.FC = () => {
 
 	const dispatch = useDispatch();
 
-	const list = useSelector<any, IngredientType[]>(state => state.order.ingredients);
+	const list = useSelector(state => state.order.ingredients);
 	const bun = list.find(ingredient => ingredient.type === 'bun');
 	const ingredients = list.filter(ingredient => ingredient.type !== 'bun');
 	const price = useMemo(() =>
@@ -28,7 +28,7 @@ const BurgerConstructor: React.FC = () => {
 	);
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const hasOrderError = useSelector<any, string | null>(state => state.order.errorMessage);
+	const hasOrderError = useSelector(state => state.order.errorMessage);
 
 	useEffect(() => {
 		isModalOpen && dispatch(orderCreateAction());
@@ -38,7 +38,7 @@ const BurgerConstructor: React.FC = () => {
 		return () => dispatch(orderRemoveIngredientAction(ingredient))
 	}
 
-	const isLogged = useSelector<any, boolean>(state => state.user.isLogged);
+	const isLogged = useSelector(state => state.user.isLogged);
 
 	const handleCloseModal = () => {
 		if (isLogged) {

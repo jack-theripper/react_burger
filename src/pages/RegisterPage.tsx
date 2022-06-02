@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
-import cl from "./styles.module.css";
 import {userSignUpAction} from "../services/actions/userActions";
-import {useDispatch, useSelector} from "react-redux";
 import withAuth from "../services/withAuth";
+import {useDispatch, useSelector} from "../services/store";
+import cl from "./styles.module.css";
 
 const RegisterPage: React.FC = () => {
     const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const RegisterPage: React.FC = () => {
         dispatch(userSignUpAction(email, password, name));
     }
 
-    const errorMessage = useSelector<any, string | null>(state => state.user.errorMessage);
+    const errorMessage = useSelector(state => state.user.errorMessage);
 
     return (
         <form className={cl.container} onSubmit={registrationHandler}>

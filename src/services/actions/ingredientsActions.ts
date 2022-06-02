@@ -1,19 +1,27 @@
 import IngredientsService from "../IngredientsService";
 import {IngredientType} from "../../types/types";
+import {AppDispatch, AppThunk} from "../store";
 
 export const INGREDIENTS_SET = 'ING_SET';
 
-export function ingredientsSetAction(payload: IngredientType[]) {
-	return {
-		type: INGREDIENTS_SET,
-		payload
-	}
+export interface IngredientsSet {
+    readonly type: typeof INGREDIENTS_SET;
+    readonly payload: IngredientType[];
 }
 
-export function fetchIngredientsAction() {
-	return (dispatch: any) => {
-		IngredientsService.getAll()
-			.then(response => dispatch(ingredientsSetAction(response)))
-			.catch(error => alert(error));
-	}
+export type TIngredientsActions = IngredientsSet;
+
+export function ingredientsSetAction(payload: IngredientType[]): IngredientsSet {
+    return {
+        type: INGREDIENTS_SET,
+        payload
+    }
+}
+
+export const fetchIngredientsAction: AppThunk = () => {
+    return (dispatch: AppDispatch) => {
+        IngredientsService.getAll()
+            .then(response => dispatch(ingredientsSetAction(response)))
+            .catch(error => alert(error));
+    }
 }

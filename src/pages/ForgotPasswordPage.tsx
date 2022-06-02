@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
 import cl from "./styles.module.css";
-import {useDispatch} from "react-redux";
 import {userResetPasswordRequestAction} from "../services/actions/userActions";
 import withAuth from "../services/withAuth";
+import {useDispatch} from "../services/store";
 
 const ForgotPasswordPage: React.FC = () => {
     const history = useHistory();

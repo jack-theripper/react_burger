@@ -29,3 +29,22 @@
 .navMenu > li > a:hover, .active {
     color: #F2F2F3 !important;
 }
+
+.orders_container {
+    flex-grow: 1;
+    max-height: calc(100vh - 200px);
+    overflow: hidden scroll;
+    scrollbar-width: thin;
+}
+
+.orders_cards_container {
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px 0 0;
+}
+
+.digits_highlight {
+    color: #f2f2f3;
+    text-shadow: 0 0 16px rgba(51,51,255,.25),0 0 8px rgba(51,51,255,.25),0 4px 32px rgba(51,51,255,.5);
+}

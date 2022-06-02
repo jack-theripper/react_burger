@@ -1,9 +1,9 @@
-import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
 import {orderIngredientSwapAction} from "../../services/actions/orderActions";
 import React, {useRef} from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IngredientType} from "../../types/types";
+import {AppDispatch, useDispatch} from "../../services/store";
 
 interface BurgerConstructorItemProps {
 	ingredient: IngredientType;

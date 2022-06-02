@@ -41,6 +41,10 @@ ul, li {
     column-gap: 10px;
 }
 
+.flex-grow {
+    flex-grow: 1;
+}
+
 /*
  * Контейнер
  */
