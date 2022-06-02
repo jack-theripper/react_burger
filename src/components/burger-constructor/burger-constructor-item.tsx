@@ -1,10 +1,9 @@
-import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
 import {orderIngredientSwapAction} from "../../services/actions/orderActions";
 import React, {useRef} from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IngredientType} from "../../types/types";
-import {AppDispatch} from "../../services/store";
+import {AppDispatch, useDispatch} from "../../services/store";
 
 interface BurgerConstructorItemProps {
 	ingredient: IngredientType;
@@ -22,7 +21,7 @@ interface DropCollectedProps {
 const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({ingredient, handleClose = () => null}) => {
 
 	const ref = useRef<HTMLDivElement>(null);
-	const dispatch = useDispatch<AppDispatch>();
+	const dispatch = useDispatch();
 
 	const [{isDragging}, dragRef] = useDrag<IngredientType, unknown, DragCollectedProps>({
 		type: 'sortable',

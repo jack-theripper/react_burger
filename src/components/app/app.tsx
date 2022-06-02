@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import AppHeader from "../app-header/app-header";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/store";
 import {fetchIngredientsAction} from "../../services/actions/ingredientsActions";
 import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
 import IndexPage from "../../pages/IndexPage";
@@ -17,7 +17,6 @@ import IngredientViewPage from "../../pages/IngredientViewPage";
 import AuthService from "../../services/AuthService";
 import NotFoundPage from "../../pages/NotFoundPage";
 import FeedPage from "../../pages/FeedPage";
-import {AppDispatch, AppThunk} from "../../services/store";
 import FeedOrderDetails from "../feed-order/feed-order-details";
 import OrderViewPage from "../../pages/OrderViewPage";
 
@@ -28,7 +27,7 @@ interface LocationState {
 
 const App: React.FC = () => {
 
-    const dispatch = useDispatch<AppDispatch | AppThunk>();
+    const dispatch = useDispatch();
 
     const history = useHistory();
     const location = useLocation<LocationState>();

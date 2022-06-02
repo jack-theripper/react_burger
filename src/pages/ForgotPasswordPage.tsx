@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
 import cl from "./styles.module.css";
-import {useDispatch} from "react-redux";
 import {userResetPasswordRequestAction} from "../services/actions/userActions";
 import withAuth from "../services/withAuth";
-import {AppDispatch} from "../services/store";
+import {useDispatch} from "../services/store";
 
 const ForgotPasswordPage: React.FC = () => {
     const history = useHistory();
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState<string>('');
 
     const forgotPasswordHandler = (e: React.SyntheticEvent<HTMLFormElement>) => {
