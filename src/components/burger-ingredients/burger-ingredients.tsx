@@ -62,6 +62,9 @@ const BurgerIngredients: React.FC = () => {
         }
     }, [scrollRatio]);
 
+    // fix: Can't perform a React state update on an unmounted component
+    useEffect(() => () => observer.disconnect())
+
     return (<div>
         <div className={cl.tabs}>
             {(Object.keys(groups) as Array<IngredientTypes>).map(group => (
