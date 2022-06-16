@@ -9,7 +9,7 @@ import {
 	ORDER_INGREDIENTS_SWAP,
 	TOrderActions
 } from "../actions/orderActions";
-import {FeedOrderType, IngredientType, OrderDetailsType} from "../../types/types";
+import {IngredientType, OrderDetailsType} from "../../types/types";
 
 interface OrderState {
 	ingredients: IngredientType[];
@@ -17,7 +17,7 @@ interface OrderState {
 	errorMessage: string | null;
 }
 
-const defaultState: OrderState = {
+export const defaultState: OrderState = {
 	ingredients: [],
 	details: {
 		orderNumber: null
