@@ -8,7 +8,7 @@ interface UserState {
 	errorMessage: string | null;
 }
 
-const defaultState = {
+export const defaultState = {
 	user: {
 		email: '',
 		name: ''
