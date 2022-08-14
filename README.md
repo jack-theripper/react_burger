@@ -5,7 +5,7 @@
 Можно работать с заказами в режиме реального времени (благодаря WebSocket) - просмотр истории, отслеживание статуса. Есть регистрация, авторизация по стандарту JWT, сброс пароля.
 
 Стек технологий: TypeScript, React.js, React Router, React Redux, Redux-
-saga, Redux-thunk, CSS-модули, JWT, WebSocket.
+saga, Redux-thunk, CSS-модули, JWT, WebSocket, GitHub Workflows.
 
 ## Установка и запуск проекта
 
